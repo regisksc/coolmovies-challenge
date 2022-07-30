@@ -5,13 +5,9 @@ on:
     tags:
       - v*
 
-defaults:
-  run:
-    working-directory: coolmovies_mobile
-
 jobs:
-  runs-on: ubuntu-latest
   analyze:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
