@@ -190,21 +190,21 @@ Good luck! :)""",
                 ),
                 const SizedBox(height: 16),
                 ValueListenableBuilder(
-                    valueListenable: _data,
-                    builder: (BuildContext context, Map<String, dynamic>? data,
-                        Widget? _) {
-                      return data != null
-                          ? Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                  color: Colors.grey[300],
-                                  border:
-                                      Border.all(color: Colors.grey.shade700),
-                                  borderRadius: BorderRadius.circular(4)),
-                              child: Text(data.toString()),
-                            )
-                          : Container();
-                    }),
+                  valueListenable: _data,
+                  builder: (BuildContext context, Map<String, dynamic>? data,
+                      Widget? _) {
+                    return data != null
+                        ? Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                                border: Border.all(color: Colors.grey.shade700),
+                                borderRadius: BorderRadius.circular(4)),
+                            child: Text(data.toString()),
+                          )
+                        : Container();
+                  },
+                ),
               ],
             ),
           ),
