@@ -1,4 +1,4 @@
-name: coolmovies_mobile
+name: coolmovies
 description: A new Flutter project.
 
 publish_to: "none"
@@ -6,11 +6,12 @@ publish_to: "none"
 version: 1.0.0
 
 environment:
-  sdk: ">=2.17.6 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  graphql_flutter: ^5.0.0
 
   cupertino_icons: ^1.0.2
 

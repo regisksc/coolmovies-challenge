@@ -110,7 +110,7 @@ analyzer:
     prefer_mixin: error
     prefer_null_aware_operators: error
     prefer_relative_imports: error
-    prefer_single_quotes: error
+    prefer_single_quotes: ignore
     prefer_spread_collections: error
     prefer_typing_uninitialized_variables: error
     prefer_void_to_null: error
@@ -970,7 +970,7 @@ linter:
     # Use raw string only when needed
     # Dart SDK: >= 2.8.0-dev.11.0 • (Linter v0.1.111)
     # https://dart-lang.github.io/linter/lints/unnecessary_raw_strings.html
-    - unnecessary_raw_strings
+    # - unnecessary_raw_strings
 
     # Avoid magic overloads of + operators
     # https://dart-lang.github.io/linter/lints/unnecessary_statements.html
