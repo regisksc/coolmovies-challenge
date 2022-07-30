@@ -1,0 +1,39 @@
+name: Flutter CI
+
+on: [push]
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: coolmovies_mobile
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+      - run: flutter pub get
+      - run: flutter format --set-exit-if-changed .
+      - run: flutter analyze .
+
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: coolmovies_mobile
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+      - name: Generate test results
+        run: |
+          flutter test --coverage
+          flutter test --machine > test-results.json
+          ls
+      - uses: dorny/test-reporter@v1.4.2
+        with:
+          name: test-results
+          path: coolmovies_mobile/test-results.json
+          reporter: flutter-json
+      - uses: VeryGoodOpenSource/very_good_coverage@v1.1.1
+        with:
+          path: coolmovies_mobile/coverage/lcov.info
+          min_coverage: 0
