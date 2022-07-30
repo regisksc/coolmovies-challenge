@@ -9,9 +9,9 @@ runs:
       shell: bash
       run: |
         cd ./coolmovies_mobile
-        ./scripts/runTests.sh
         flutter test --coverage
         flutter test --machine > test-results.json
+        ./scripts/runTests.sh
 
     - name: upload metrics html
       uses: actions/upload-artifact@v3
