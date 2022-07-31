@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import 'core/graphql/graphql_queries.dart';
+import 'core/core.dart';
 
 void main() async {
   // We're using HiveStore for persistence,
@@ -74,7 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
     final client = GraphQLProvider.of(context).value;
 
     final QueryResult result = await client.query(QueryOptions(
-      document: gql(GQLQueries.allMovies),
+      document:
+          gql(GQLQueries.getReview(id: "e8edc53a-29cf-4470-8351-ed22cc144a3f")),
     ));
 
     if (result.hasException) {
