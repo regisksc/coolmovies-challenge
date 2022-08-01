@@ -30,7 +30,7 @@ class ConcreteMovieRepository implements MovieRepository {
       return Left(GQLRequestFailure(message));
     }
 
-    final mapList = result.data!['data']['allMovies']["nodes"] as List;
+    final mapList = result.data!['allMovies']["nodes"] as List;
     final modelList = mapList.map(
       (movieMap) {
         final map = movieMap as Map<String, dynamic>;
