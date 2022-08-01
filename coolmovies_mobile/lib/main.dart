@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import 'core/core.dart';
+import 'repositories/movie/concrete_movie_repository.dart';
 
 void main() async {
   await initHiveForFlutter();
@@ -55,19 +56,14 @@ class _MyHomePageState extends State<MyHomePage> {
   Future _fetchData() async {
     debugPrint('Fetching data...');
     final client = GraphQLProvider.of(context).value;
-
-    final QueryResult result = await client.query(QueryOptions(
-      document:
-          gql(GQLQueries.getReview(id: "e8edc53a-29cf-4470-8351-ed22cc144a3f")),
-    ));
-
-    if (result.hasException) {
-      debugPrint(result.exception.toString());
-    }
-
-    if (result.data != null) {
-      _data.value = result.data!['allMovies'] as Map<String, dynamic>;
-    }
+    final repository = ConcreteMovieRepository(client);
+    final result = await repository.getAllMovies();
+    result.fold(
+      (left) => null,
+      (movies) => _data.value = {
+        "movies": movies.map((movie) => movie.toJson).toList().toString()
+      },
+    );
   }
 
   @override
