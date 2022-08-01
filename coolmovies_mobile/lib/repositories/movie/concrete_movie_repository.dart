@@ -18,16 +18,14 @@ class ConcreteMovieRepository implements MovieRepository {
       QueryOptions(document: gqlDocNode),
     );
 
-    final hasError = result.data!.containsKey('errors') ||
-        result.hasException ||
-        result.data == null;
-    if (hasError) {
+    final hasErrors = result.data?.containsKey('errors') ?? true;
+    final hasException = result.hasException || result.data == null;
+    if (hasErrors || hasException) {
       debugPrint("Exception occured : \n${result.exception.toString()}");
-      final error = result.data!['errors'][0];
-      final message = result.data == null
-          ? resultDataNullStringFor(query: 'getAllMovies')
-          : error['message'].toString();
-      return Left(GQLRequestFailure(message));
+      final error = result.data?['errors'][0];
+      final message = error?['message'].toString();
+      return Left(GQLRequestFailure(
+          message ?? resultDataNullStringFor(query: 'getAllMovies')));
     }
 
     final mapList = result.data!['allMovies']["nodes"] as List;
