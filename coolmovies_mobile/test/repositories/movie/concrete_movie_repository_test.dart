@@ -88,7 +88,7 @@ void main() {
       when(storage.read(any)).thenAnswer(
         (_) async {
           final apiResult = mockSuccessForFixture('get_all_movies.json');
-          return {"movies": apiResult['allMovies']['nodes']};
+          return {"allMovies": apiResult['allMovies']['nodes']};
         },
       );
       // Act

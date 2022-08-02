@@ -34,7 +34,7 @@ class _ListMoviesPageState extends State<ListMoviesPage> {
     result.fold(
       (left) => null,
       (movies) => _data.value = {
-        "movies": movies.map((movie) => movie.toJson).toList().toString()
+        "allMovies": movies.map((movie) => movie.toJson).toList().toString()
       },
     );
   }

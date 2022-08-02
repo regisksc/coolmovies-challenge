@@ -20,7 +20,7 @@ class ConcreteMovieRepository implements MovieRepository {
     debugPrint('Query getAllMovies ...');
 
     final gqlDocNode = gql(GQLQueries.getAllMovies);
-    const storageKey = "GQLQueries.getAllMovies";
+    const storageKey = "allMovies";
     final QueryResult result = await client.query(
       QueryOptions(document: gqlDocNode),
     );
@@ -42,7 +42,7 @@ class ConcreteMovieRepository implements MovieRepository {
     final cachedModels = <MovieModel>[];
 
     if (storedValues.isNotEmpty) {
-      final modelsMapList = storedValues["movies"] as List;
+      final modelsMapList = storedValues["allMovies"] as List;
       cachedModels
         ..addAll(modelsMapList
             .map((e) => MovieModel.fromJson(e as Map<String, dynamic>))
@@ -60,7 +60,7 @@ class ConcreteMovieRepository implements MovieRepository {
     QueryResult<Object?> result,
     String storageKey,
   ) async {
-    final mapList = result.data!['allMovies']["nodes"] as List;
+    final mapList = result.data![storageKey]["nodes"] as List;
     // save storage
     await storage.write(storageKey, jsonEncode({"movies": mapList}));
     // map result
