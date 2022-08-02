@@ -1,21 +1,18 @@
-import 'dart:convert';
-
 import 'package:coolmovies/core/core.dart';
 import 'package:coolmovies/repositories/repositories.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../test_helpers/mock_success_for_fixture.dart';
-@GenerateMocks([GraphQLClient, FlutterSecureStorage])
+@GenerateMocks([GraphQLClient, AdaptedFlutterSecureStorage])
 import 'concrete_movie_repository_test.mocks.dart';
 
 void main() {
   late MovieRepository sut;
   late MockGraphQLClient client;
-  late MockFlutterSecureStorage storage;
+  late MockAdaptedFlutterSecureStorage storage;
 
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +21,7 @@ void main() {
   setUp(
     () {
       client = MockGraphQLClient();
-      storage = MockFlutterSecureStorage();
+      storage = MockAdaptedFlutterSecureStorage();
       sut = ConcreteMovieRepository(client, storage);
     },
   );
@@ -37,8 +34,7 @@ void main() {
         client,
         resultData: mockSuccessForFixture('get_all_movies.json'),
       );
-      when(storage.write(key: anyNamed('key'), value: anyNamed('value')))
-          .thenAnswer(
+      when(storage.write(any, any)).thenAnswer(
         (_) async => Future.value(),
       );
       // Act
@@ -58,14 +54,13 @@ void main() {
         client,
         resultData: mockSuccessForFixture('get_all_movies.json'),
       );
-      when(storage.write(key: anyNamed('key'), value: anyNamed('value')))
-          .thenAnswer(
+      when(storage.write(any, any)).thenAnswer(
         (_) async => Future.value(),
       );
       // Act
       await sut.getAllMovies();
       // Assert
-      verify(storage.write(key: anyNamed('key'), value: anyNamed('value')));
+      verify(storage.write(any, any));
     },
   );
 
@@ -74,8 +69,8 @@ void main() {
     () async {
       // Arrange
       arrangeCommonExecutions(client, resultData: mockGraphQLRequestFailure());
-      when(storage.read(key: anyNamed('key'))).thenAnswer(
-        (_) => Future.value(),
+      when(storage.read(any)).thenAnswer(
+        (_) async => {},
       );
       // Act
       final result = await sut.getAllMovies();
@@ -90,10 +85,10 @@ void main() {
     () async {
       // Arrange
       arrangeCommonExecutions(client, resultData: mockGraphQLRequestFailure());
-      when(storage.read(key: anyNamed('key'))).thenAnswer(
+      when(storage.read(any)).thenAnswer(
         (_) async {
           final apiResult = mockSuccessForFixture('get_all_movies.json');
-          return jsonEncode({"movies": apiResult['allMovies']['nodes']});
+          return {"movies": apiResult['allMovies']['nodes']};
         },
       );
       // Act
@@ -101,7 +96,7 @@ void main() {
       final extract = result.fold((failure) => failure, (success) => success);
       extract as GQLRequestFailure;
       // Assert
-      verify(storage.read(key: anyNamed('key')));
+      verify(storage.read(any));
       expect(extract.valuesFromStorage, isNotEmpty);
     },
   );
@@ -111,15 +106,15 @@ void main() {
     () async {
       // Arrange
       arrangeCommonExecutions(client, resultData: mockGraphQLRequestFailure());
-      when(storage.read(key: anyNamed('key'))).thenAnswer(
-        (_) async => Future.value(),
+      when(storage.read(any)).thenAnswer(
+        (_) async => {},
       );
       // Act
       final result = await sut.getAllMovies();
       final extract = result.fold((failure) => failure, (success) => success);
       extract as GQLRequestFailure;
       // Assert
-      verify(storage.read(key: anyNamed('key')));
+      verify(storage.read(any));
       expect(extract.valuesFromStorage, isEmpty);
     },
   );

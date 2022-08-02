@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
+import '../../core/adapters/adapted_flutter_secure_storage.dart';
 import '../../repositories/repositories.dart';
 
 class ListMoviesPage extends StatefulWidget {
@@ -27,7 +28,7 @@ class _ListMoviesPageState extends State<ListMoviesPage> {
     final client = GraphQLProvider.of(context).value;
     final repository = ConcreteMovieRepository(
       client,
-      const FlutterSecureStorage(),
+      AdaptedFlutterSecureStorage(const FlutterSecureStorage()),
     );
     final result = await repository.getAllMovies();
     result.fold(
