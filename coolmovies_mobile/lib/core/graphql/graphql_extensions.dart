@@ -49,3 +49,25 @@ extension GQLRequestResultExtensions on QueryResult<Object?> {
     );
   }
 }
+
+extension GraphQLClientExtensions on GraphQLClient {
+  Future<Either<Failure, List<T>>> performFetchListQuery<T>(
+    StorageAdapter storage, {
+    required String storageKey,
+    required String gqlQuery,
+    required Object Function(Map<String, dynamic>) serializer,
+  }) async {
+    debugPrint('Query $storageKey ...');
+
+    final gqlDocNode = gql(gqlQuery);
+    final QueryResult result = await this.query(
+      QueryOptions(document: gqlDocNode),
+    );
+
+    final hasErrors = result.data?.containsKey('errors') ?? true;
+    final hasException = result.hasException || result.data == null;
+    return hasErrors || hasException
+        ? result.handleFailureOnList<T>(storage, storageKey, serializer)
+        : result.handleSuccessOnList<T>(storage, storageKey, serializer);
+  }
+}
