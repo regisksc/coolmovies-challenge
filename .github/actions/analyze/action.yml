@@ -10,6 +10,7 @@ runs:
         cd ./coolmovies_mobile
         flutter pub get
         flutter format --set-exit-if-changed .
+        chmod u+x ./scripts/analyzeWithoutBreakingOnTodos.sh
         ./scripts/analyzeWithoutBreakingOnTodos.sh
         ./scripts/runCodeMetrics.sh
 
