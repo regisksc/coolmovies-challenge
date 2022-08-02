@@ -16,11 +16,9 @@ void main() {
   late MovieRepository sut;
   late MockGraphQLClient client;
   late MockFlutterSecureStorage storage;
-  late String storageKey;
 
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
-    storageKey = "GQLQueries.getAllMovieReviews";
   });
 
   setUp(
