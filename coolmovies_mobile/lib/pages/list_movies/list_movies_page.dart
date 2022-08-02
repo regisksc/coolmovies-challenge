@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../../repositories/repositories.dart';
@@ -24,7 +25,10 @@ class _ListMoviesPageState extends State<ListMoviesPage> {
   Future _fetchData() async {
     debugPrint('Fetching data...');
     final client = GraphQLProvider.of(context).value;
-    final repository = ConcreteMovieRepository(client);
+    final repository = ConcreteMovieRepository(
+      client,
+      const FlutterSecureStorage(),
+    );
     final result = await repository.getAllMovies();
     result.fold(
       (left) => null,
