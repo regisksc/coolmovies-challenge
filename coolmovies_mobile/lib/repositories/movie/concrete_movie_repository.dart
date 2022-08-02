@@ -27,8 +27,10 @@ class ConcreteMovieRepository implements MovieRepository {
 
     final hasErrors = result.data?.containsKey('errors') ?? true;
     final hasException = result.hasException || result.data == null;
-    if (hasErrors || hasException) return handleFailure(result, storageKey);
-    return handleSuccess(result, storageKey);
+    return hasErrors || hasException
+        ? result.handleFailureOnList(storage, storageKey, MovieModel.fromJson)
+        : result.handleSuccessOnList<MovieModel>(
+            storage, storageKey, MovieModel.fromJson);
   }
 
   Future<Left<Failure, List<MovieModel>>> handleFailure(
@@ -54,23 +56,5 @@ class ConcreteMovieRepository implements MovieRepository {
         valuesFromStorage: cachedModels,
       ),
     );
-  }
-
-  Future<Right<Failure, List<MovieModel>>> handleSuccess(
-    QueryResult<Object?> result,
-    String storageKey,
-  ) async {
-    final mapList = result.data![storageKey]["nodes"] as List;
-    // save storage
-    await storage.write(storageKey, jsonEncode({"movies": mapList}));
-    // map result
-    final modelList = mapList.map(
-      (movieMap) {
-        final map = movieMap as Map<String, dynamic>;
-        final model = MovieModel.fromJson(map);
-        return model;
-      },
-    ).toList();
-    return Right(modelList);
   }
 }
