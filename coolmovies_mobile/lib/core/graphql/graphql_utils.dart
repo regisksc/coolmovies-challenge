@@ -12,6 +12,8 @@ HttpLink get httpLink => HttpLink(
           : 'http://localhost:5001/graphql',
     );
 
-Link get link => authLink.concat(authLink);
+Link get link => authLink.concat(httpLink);
 
-GraphQLCache get gqlCache => GraphQLCache(store: HiveStore());
+GraphQLCache get gqlCache => GraphQLCache(
+      store: HiveStore(),
+    );
