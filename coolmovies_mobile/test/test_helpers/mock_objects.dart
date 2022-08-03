@@ -30,7 +30,7 @@ MovieReviewCommentModel get mockMovieReviewCommentModel =>
 MovieReviewModel get mockMovieReviewModel => MovieReviewModel(
       title: faker.lorem.words(3).join(" "),
       body: faker.lorem.sentence(),
-      rating: double.parse(faker.randomGenerator.integer(5, min: 1).toString()),
+      rating: faker.randomGenerator.integer(5, min: 1),
       createdBy: mockUserModel,
     );
 
