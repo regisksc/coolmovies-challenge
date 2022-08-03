@@ -33,6 +33,21 @@ void main() {
   );
 
   test(
+    "Should return an empty map when key is not present",
+    () async {
+      // Arrange
+      when(storage.read(key: anyNamed('key'))).thenAnswer(
+        (_) async => null,
+      );
+      // Act
+      final retrievedValue = await sut.read("any");
+      // Assert
+      final emptyMap = {};
+      expect(retrievedValue, equals(emptyMap));
+    },
+  );
+
+  test(
     "Should successfully write values",
     () async {
       // Arrange
