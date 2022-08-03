@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import '../../core/adapters/adapted_flutter_secure_storage.dart';
+import '../../core/core.dart';
 import '../../repositories/repositories.dart';
 
 class ListMoviesPage extends StatefulWidget {
@@ -14,7 +14,7 @@ class ListMoviesPage extends StatefulWidget {
 }
 
 class _ListMoviesPageState extends State<ListMoviesPage> {
-  final ValueNotifier<Map<String, dynamic>?> _data = ValueNotifier(null);
+  final ValueNotifier<JSON?> _data = ValueNotifier(null);
   int _counter = 0;
 
   void _incrementCounter() {
@@ -81,8 +81,7 @@ Good luck! :)""",
                 const SizedBox(height: 16),
                 ValueListenableBuilder(
                   valueListenable: _data,
-                  builder: (BuildContext context, Map<String, dynamic>? data,
-                      Widget? _) {
+                  builder: (BuildContext context, JSON? data, Widget? _) {
                     return data != null
                         ? Container(
                             padding: const EdgeInsets.all(8),

@@ -1,4 +1,6 @@
+import '../core.dart';
+
 abstract class StorageAdapter {
-  Future<Map<String, dynamic>> read(String key);
+  Future<JSON> read(String key);
   Future write(String key, dynamic value);
 }

@@ -32,7 +32,7 @@ void main() {
       // Arrange
       arrangeCommonExecutions(
         client,
-        resultData: mockSuccessForFixture('get_all_movies.json'),
+        resultData: mockSuccessForFixture('all_movies.json'),
       );
       when(storage.write(any, any)).thenAnswer(
         (_) async => Future.value(),
@@ -43,6 +43,7 @@ void main() {
       // Assert
       verify(client.query(any));
       expect(extract, isA<List<MovieModel>>());
+      expect(extract, isNotEmpty);
     },
   );
 
@@ -52,7 +53,7 @@ void main() {
       // Arrange
       arrangeCommonExecutions(
         client,
-        resultData: mockSuccessForFixture('get_all_movies.json'),
+        resultData: mockSuccessForFixture('all_movies.json'),
       );
       when(storage.write(any, any)).thenAnswer(
         (_) async => Future.value(),
@@ -86,10 +87,7 @@ void main() {
       // Arrange
       arrangeCommonExecutions(client, resultData: mockGraphQLRequestFailure());
       when(storage.read(any)).thenAnswer(
-        (_) async {
-          final apiResult = mockSuccessForFixture('get_all_movies.json');
-          return {"allMovies": apiResult['allMovies']['nodes']};
-        },
+        (_) async => mockSuccessForFixture('all_movies.json'),
       );
       // Act
       final result = await sut.getAllMovies();
@@ -121,7 +119,7 @@ void main() {
 }
 
 void arrangeCommonExecutions(MockGraphQLClient client,
-    {required Map<String, dynamic> resultData}) {
+    {required JSON resultData}) {
   final gqlDocNode = gql(GQLQueries.getAllMovieReviews);
   final queryOptions = QueryOptions(document: gqlDocNode);
   when(client.query(any)).thenAnswer(

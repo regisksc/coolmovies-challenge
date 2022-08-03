@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_string_escapes, leading_newlines_in_multiline_strings
 
+import '../core.dart';
+
 class GQLQueries {
   GQLQueries._();
 
@@ -9,18 +11,51 @@ class GQLQueries {
               nodes {
                 id
                 imgUrl
-                movieDirectorId
-                userCreatorId
                 title
                 releaseDate
-                nodeId
+								movieDirectorByMovieDirectorId {
+									id
+									name
+                  commentsByUserId {
+                    nodes
+                  }
+								}
+								movieReviewsByMovieId{
+									totalCount
+									nodes {
+										body
+										title
+										rating
+										userByUserReviewerId {
+											id
+											name
+											commentsByUserId {
+												totalCount
+												nodes {
+													id
+													userId
+													body
+													title
+												}
+											}
+										}
+									}
+								}
                 userByUserCreatorId {
                   id
                   name
-                  nodeId
+									commentsByUserId {
+										nodes {
+											movieReviewId
+											id
+											title
+											body
+											
+										}
+									}
                 }
               }
-            }
+						}
           }
         """;
 
@@ -115,8 +150,17 @@ class GQLQueries {
     return """
       allUsers(first: 3, offset: $offset) {
           nodes {
-            id
-            name
+          id
+          name
+          commentsByUserId {
+            totalCount,
+            nodes {
+                movieReviewId
+                id
+                title
+                body
+              }
+            }
           }
           pageInfo {
             hasNextPage
@@ -139,7 +183,7 @@ class GQLQueries {
 
   // ##
 
-  static String createComment({required Map<String, dynamic> commentMap}) {
+  static String createComment({required JSON commentMap}) {
     return """"
       createComment(input: {comment: $commentMap}) {
           comment {
@@ -165,7 +209,7 @@ class GQLQueries {
   // ##
 
   static String createMovieReview({
-    required Map<String, dynamic> movieReviewMap,
+    required JSON movieReviewMap,
   }) {
     return """"
       createMovieReview(input: {
@@ -190,7 +234,7 @@ class GQLQueries {
   // ##
 
   static String createUser({
-    required Map<String, dynamic> userMap,
+    required JSON userMap,
   }) {
     return """"
       createUser(input: {user: $userMap}) {

@@ -16,8 +16,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   either_dart: ^0.2.0
   equatable: ^2.0.3
-  json_serializable: ^6.3.1
-  json_annotation: ^4.6.0
   flutter_secure_storage: ^5.0.2
   responsive_framework: ^0.2.0
 

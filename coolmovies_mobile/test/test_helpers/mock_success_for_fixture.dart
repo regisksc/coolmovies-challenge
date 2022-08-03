@@ -1,12 +1,14 @@
 import 'dart:convert';
 
+import 'package:coolmovies/core/core.dart';
+
 import '../fixtures/fixture_reader.dart';
 
-Map<String, dynamic> mockSuccessForFixture(String fixturePath) {
-  return jsonDecode(fixture(fixturePath)) as Map<String, dynamic>;
+JSON mockSuccessForFixture(String fixturePath) {
+  return (jsonDecode(fixture(fixturePath)))['data'] as JSON;
 }
 
-Map<String, dynamic> mockGraphQLRequestFailure() {
+JSON mockGraphQLRequestFailure() {
   return {
     "errors": [
       {"message": "generic error message"}

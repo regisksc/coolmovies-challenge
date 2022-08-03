@@ -7,7 +7,7 @@ void main() {
     "test toJson",
     () async {
       // Arrange
-      final model = mockMovieModel;
+      final model = mockMovieReviewModel;
       // Act
       final json = model.toJson;
       // Assert
@@ -15,13 +15,10 @@ void main() {
         json,
         equals(
           {
-            "id": model.id,
-            "imgUrl": model.imgUrl,
+            "body": model.body,
             "title": model.title,
-            "releaseDate": model.releaseDate,
-            "movieDirectorByMovieDirectorId": {"name": model.directorName},
-            "movieReviewsByMovieId": {"nodes": model.reviews},
-            "userByUserCreatorId": model.createdBy,
+            "rating": model.rating,
+            "userByUserReviewerId": model.createdBy,
           },
         ),
       );
