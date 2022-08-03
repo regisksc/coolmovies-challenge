@@ -16,9 +16,6 @@ class GQLQueries {
 								movieDirectorByMovieDirectorId {
 									id
 									name
-                  commentsByUserId {
-                    nodes
-                  }
 								}
 								movieReviewsByMovieId{
 									totalCount
@@ -56,7 +53,7 @@ class GQLQueries {
                 }
               }
 						}
-          }
+}
         """;
 
   // ##
