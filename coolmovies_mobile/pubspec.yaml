@@ -18,6 +18,7 @@ dependencies:
   equatable: ^2.0.3
   flutter_secure_storage: ^5.0.2
   responsive_framework: ^0.2.0
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

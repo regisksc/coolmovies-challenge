@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 import '../core.dart';
 
 class MovieModel {
@@ -95,6 +97,17 @@ class MovieModel {
   final UserModel createdBy;
 
   int get reviewCount => reviews.length;
+  String get formattedReleaseDate {
+    if (releaseDate == null) return "";
+    final dateSplit = releaseDate!.split("-").map((e) => int.parse(e)).toList();
+    return DateFormat.yMMMd().format(
+      DateTime(
+        dateSplit[0],
+        dateSplit[1],
+        dateSplit[2],
+      ),
+    );
+  }
 
   JSON get toJson {
     return {

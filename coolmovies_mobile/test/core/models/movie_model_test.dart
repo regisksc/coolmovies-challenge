@@ -27,4 +27,18 @@ void main() {
       );
     },
   );
+  test(
+    "test formattedReleaseDate",
+    () async {
+      // Arrange
+      final model = mockMovieModel;
+      final year = model.releaseDate!.split("-")[0];
+      final day = model.releaseDate!.split("-")[2];
+      // Act
+      final date = model.formattedReleaseDate;
+      // Assert
+      expect(date, contains(year));
+      expect(date, contains(day));
+    },
+  );
 }

@@ -35,4 +35,4 @@ MovieReviewModel get mockMovieReviewModel => MovieReviewModel(
     );
 
 String get mockDate =>
-    "${faker.date.year()}-${faker.date.month()}-${faker.date.random.integer(31, min: 1)}";
+    "${faker.randomGenerator.integer(2022, min: 1900)}-${faker.randomGenerator.integer(12, min: 1)}-${faker.randomGenerator.integer(31, min: 1)}";
