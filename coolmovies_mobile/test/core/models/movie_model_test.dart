@@ -50,10 +50,12 @@ void main() {
       final reviewRatings = model.reviews.map((e) => e.rating).toList();
       final manualAverageRating =
           reviewRatings.reduce((a, b) => a + b) / reviewRatings.length;
+      final roundedAverage =
+          double.parse(manualAverageRating.toStringAsFixed(1));
       // Act
       final averageRating = model.rating;
       // Assert
-      expect(averageRating, equals(manualAverageRating));
+      expect(averageRating, equals(roundedAverage));
     },
   );
   test(
