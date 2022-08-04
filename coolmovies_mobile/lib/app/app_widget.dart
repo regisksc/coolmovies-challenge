@@ -24,7 +24,11 @@ class MyApp extends StatelessWidget {
           bodyLarge: tt.bodyLarge!.copyWith(fontFamily: nunitoFF),
           bodyMedium: tt.bodyLarge!.copyWith(fontFamily: nunitoFF),
           bodySmall: tt.bodyLarge!.copyWith(fontFamily: nunitoFF),
-          headlineSmall: tt.headlineSmall!.copyWith(fontFamily: rubikFF),
+          headlineSmall: tt.headlineSmall!.copyWith(
+            fontFamily: rubikFF,
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+          ),
           headlineMedium: tt.headlineMedium!.copyWith(fontFamily: rubikFF),
           headlineLarge: tt.headlineLarge!.copyWith(fontFamily: rubikFF),
         );
