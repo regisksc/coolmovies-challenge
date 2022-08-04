@@ -7,8 +7,7 @@ import '../../repositories/repositories.dart';
 import 'list_movies.dart';
 
 class ListMoviesPage extends StatefulWidget {
-  const ListMoviesPage({Key? key, required this.title}) : super(key: key);
-  final String title;
+  const ListMoviesPage({Key? key}) : super(key: key);
 
   @override
   State<ListMoviesPage> createState() => _ListMoviesPageState();
