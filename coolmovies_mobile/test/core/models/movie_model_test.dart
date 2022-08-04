@@ -41,4 +41,19 @@ void main() {
       expect(date, contains(day));
     },
   );
+
+  test(
+    "test movie rating",
+    () async {
+      // Arrange
+      final model = mockMovieModel;
+      final reviewRatings = model.reviews.map((e) => e.rating).toList();
+      final manualAverageRating =
+          reviewRatings.reduce((a, b) => a + b) / reviewRatings.length;
+      // Act
+      final averageRating = model.rating;
+      // Assert
+      expect(averageRating, equals(manualAverageRating));
+    },
+  );
 }
