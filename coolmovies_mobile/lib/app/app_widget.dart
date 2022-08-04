@@ -4,6 +4,7 @@ import 'package:responsive_framework/responsive_framework.dart';
 
 import '../core/core.dart';
 import '../pages/pages.dart';
+import 'app_routes.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -44,7 +45,8 @@ class MyApp extends StatelessWidget {
         );
       },
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const ListMoviesPage(),
+      routes: AppRoutes.routes,
+      initialRoute: AppRoutes.home,
     );
   }
 }
