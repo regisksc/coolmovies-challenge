@@ -28,7 +28,7 @@ class MovieListTileForeground extends StatelessWidget {
             Expanded(
               flex: 7,
               child: Container(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -36,7 +36,7 @@ class MovieListTileForeground extends StatelessWidget {
                       movie.title,
                       style: textTheme.bodyMedium!.copyWith(
                         color: Colors.black,
-                        fontSize: height * .017,
+                        fontSize: height * .018,
                         overflow: TextOverflow.ellipsis,
                         fontWeight: FontWeight.bold,
                       ),
@@ -61,11 +61,12 @@ class MovieListTileForeground extends StatelessWidget {
               flex: 3,
               child: Container(
                 alignment: Alignment.bottomRight,
+                padding: const EdgeInsets.only(bottom: 5),
                 child: () {
                   return Text(
                     "⭐ ${movie.rating}",
                     style: textTheme.bodyLarge!
-                        .copyWith(fontSize: height * .015 * 1.5),
+                        .copyWith(fontSize: height * .015 * 1.8),
                   );
                 }(),
               ),
