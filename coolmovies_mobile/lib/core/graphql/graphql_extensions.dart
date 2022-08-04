@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../core.dart';
-import '../utils/loggers.dart';
 
 extension GQLRequestResultExtensions on QueryResult<Object?> {
   Future<Right<Failure, List<T>>> handleSuccessOnList<T>(
@@ -15,7 +14,6 @@ extension GQLRequestResultExtensions on QueryResult<Object?> {
     Object Function(JSON) serializer,
   ) async {
     final json = this.data!;
-    jsonLogger(json);
     final mapList = json[storageKey]["nodes"] as List;
     // save storage
     await storage.write(storageKey, jsonEncode({storageKey: mapList}));
