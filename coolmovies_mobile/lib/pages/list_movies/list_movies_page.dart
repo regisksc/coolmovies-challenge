@@ -47,9 +47,7 @@ class _ListMoviesPageState extends State<ListMoviesPage> {
             ValueListenableBuilder(
               valueListenable: _movies,
               builder: (context, _, child) {
-                return MoviesList(
-                  movies: _movies.value,
-                );
+                return MoviesList(movies: _movies.value);
               },
             ),
           ],

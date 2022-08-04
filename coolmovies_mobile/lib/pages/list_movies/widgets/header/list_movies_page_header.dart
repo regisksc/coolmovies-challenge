@@ -57,9 +57,9 @@ class ListMoviesPageHeader extends StatelessWidget {
             ),
             Row(
               children: [
-                const Spacer(flex: 4),
+                const Spacer(flex: 35),
                 Expanded(
-                  flex: 6,
+                  flex: 65,
                   child: Text(
                     'how about watching something today?',
                     textAlign: TextAlign.right,
