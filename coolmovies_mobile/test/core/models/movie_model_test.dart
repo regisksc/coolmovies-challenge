@@ -7,7 +7,7 @@ void main() {
     "test toJson",
     () async {
       // Arrange
-      final model = mockMovieModel;
+      final model = mockMovieModel();
       // Act
       final json = model.toJson;
       // Assert
@@ -31,7 +31,7 @@ void main() {
     "test formattedReleaseDate",
     () async {
       // Arrange
-      final model = mockMovieModel;
+      final model = mockMovieModel();
       final year = model.releaseDate!.split("-")[0];
       final day = model.releaseDate!.split("-")[2];
       // Act
@@ -46,7 +46,7 @@ void main() {
     "test movie rating",
     () async {
       // Arrange
-      final model = mockMovieModel;
+      final model = mockMovieModel();
       final reviewRatings = model.reviews.map((e) => e.rating).toList();
       final manualAverageRating =
           reviewRatings.reduce((a, b) => a + b) / reviewRatings.length;
@@ -54,6 +54,30 @@ void main() {
       final averageRating = model.rating;
       // Assert
       expect(averageRating, equals(manualAverageRating));
+    },
+  );
+  test(
+    "test movie release year",
+    () async {
+      // Arrange
+      final model = mockMovieModel();
+      final manualReleaseYear = model.releaseDate?.split('-').first ?? "";
+      // Act
+      final year = model.releaseYear;
+      // Assert
+      expect(year, equals(manualReleaseYear));
+    },
+  );
+
+  test(
+    "test movie release year when release date is empty",
+    () async {
+      // Arrange
+      final model = mockMovieModel(makeReleaseDateNull: true);
+      // Act
+      final year = model.releaseYear;
+      // Assert
+      expect(year, equals(""));
     },
   );
 }

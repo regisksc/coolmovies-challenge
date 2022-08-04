@@ -58,6 +58,8 @@ class MovieModel {
     );
   }
 
+  String get releaseYear => releaseDate?.split("-").first ?? "";
+
   JSON get toJson {
     return {
       "id": id,

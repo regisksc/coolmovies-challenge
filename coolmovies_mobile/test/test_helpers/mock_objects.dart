@@ -8,12 +8,12 @@ UserModel get mockUserModel => UserModel(
           3, (_) => mockMovieReviewCommentModel),
     );
 
-MovieModel get mockMovieModel => MovieModel(
+MovieModel mockMovieModel({bool makeReleaseDateNull = false}) => MovieModel(
       title: faker.lorem.words(3).join(" "),
       id: faker.guid.guid(),
       imgUrl:
           "https://upload.wikimedia.org/wikipedia/en/d/d4/Rogue_One%2C_A_Star_Wars_Story_poster.png",
-      releaseDate: mockDate,
+      releaseDate: makeReleaseDateNull ? null : mockDate,
       createdBy: mockUserModel,
       directorName: faker.person.name(),
       reviews: List<MovieReviewModel>.generate(3, (_) => mockMovieReviewModel),
