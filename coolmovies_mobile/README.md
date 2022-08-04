@@ -14,7 +14,7 @@ We've setup GraphQL for you. We recommend that you work on an emulator only, the
 
 For your solution to be accepted it is required that your application is able to:
 
-1. List all the available movies, showing at least the title
+1. List all the available movies, showing at least the title ✅
 2. Tapping on a movie must open a view page presenting all the available information to the user
 3. Each movie page must display all its reviews
 4. Each review should consist of (at least): title, body and stars (1-5)
