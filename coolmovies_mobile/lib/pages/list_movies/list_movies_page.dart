@@ -4,6 +4,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../../core/core.dart';
 import '../../repositories/repositories.dart';
+import 'widgets/movie_list_tile/movie_list_tile_widget.dart';
 
 class ListMoviesPage extends StatefulWidget {
   const ListMoviesPage({Key? key, required this.title}) : super(key: key);
@@ -14,14 +15,7 @@ class ListMoviesPage extends StatefulWidget {
 }
 
 class _ListMoviesPageState extends State<ListMoviesPage> {
-  final ValueNotifier<JSON?> _data = ValueNotifier(null);
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  final ValueNotifier<List<MovieModel>> _movies = ValueNotifier([]);
 
   Future _fetchData() async {
     debugPrint('Fetching data...');
@@ -33,71 +27,59 @@ class _ListMoviesPageState extends State<ListMoviesPage> {
     final result = await repository.getAllMovies();
     result.fold(
       (left) => null,
-      (movies) => _data.value = {
-        "allMovies": movies.map((movie) => movie.toJson).toList().toString()
-      },
+      (movies) => _movies.value = [...movies, ...movies],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Padding(
-                  padding: EdgeInsets.only(top: 36.0),
-                  child: Text(
-                    """
-Thank you for taking the time to take our test. We really appreciate it.
-All the information on what is required can be found in the README at the root of this repo.
-Please dont spend ages on this and just get through as much of it as you can.
-Good luck! :)""",
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                TextButton.icon(
-                  onPressed: _incrementCounter,
-                  icon: const Icon(Icons.add),
-                  label: Text('Increment: $_counter'),
-                  style: TextButton.styleFrom(
-                    primary: Colors.white,
-                    backgroundColor: Colors.blue,
-                  ),
-                ),
-                OutlinedButton.icon(
-                  onPressed: _fetchData,
-                  icon: const Icon(Icons.download),
-                  label: const Text('Fetch data'),
-                ),
-                const SizedBox(height: 16),
-                ValueListenableBuilder(
-                  valueListenable: _data,
-                  builder: (BuildContext context, JSON? data, Widget? _) {
-                    return data != null
-                        ? Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                                color: Colors.grey[300],
-                                border: Border.all(color: Colors.grey.shade700),
-                                borderRadius: BorderRadius.circular(4)),
-                            child: Text(data.toString()),
-                          )
-                        : Container();
-                  },
-                ),
-              ],
-            ),
-          ),
+    _fetchData();
+
+    return SafeArea(
+      bottom: false,
+      child: Scaffold(
+        body: ValueListenableBuilder(
+          valueListenable: _movies,
+          builder: (context, _, child) {
+            return MoviesList(
+              movies: _movies.value,
+            );
+          },
         ),
+      ),
+    );
+  }
+}
+
+class MoviesList extends StatelessWidget {
+  const MoviesList({
+    Key? key,
+    required this.movies,
+  }) : super(key: key);
+
+  final List<MovieModel> movies;
+
+  @override
+  Widget build(BuildContext context) {
+    final spacing = context.width * .1;
+    return SizedBox(
+      width: context.width,
+      height: context.height * .6,
+      child: ListView.separated(
+        itemCount: movies.length,
+        scrollDirection: Axis.horizontal,
+        separatorBuilder: (context, __) => SizedBox(width: spacing),
+        itemBuilder: (BuildContext context, int index) {
+          final movie = movies[index];
+          return Container(
+            padding: EdgeInsets.symmetric(vertical: context.height * .02),
+            margin: EdgeInsets.only(
+                bottom: context.height * .03,
+                left: index == 0 ? spacing : 0,
+                right: index >= movies.length - 1 ? spacing : 0),
+            child: MovieListTile(movie),
+          );
+        },
       ),
     );
   }
