@@ -40,10 +40,11 @@ class MovieModel {
   int get reviewCount => reviews.length;
 
   double get rating {
+    if (reviews.isEmpty) return 5;
     final reviewRatings = reviews.map((e) => e.rating).toList();
     final averageRating =
         reviewRatings.reduce((a, b) => a + b) / reviewRatings.length;
-    return averageRating;
+    return double.parse(averageRating.toStringAsFixed(1));
   }
 
   String get formattedReleaseDate {
