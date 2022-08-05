@@ -61,7 +61,7 @@ class ListMoviesPageHeader extends StatelessWidget {
                 Expanded(
                   flex: 65,
                   child: Text(
-                    'how about watching something today?',
+                    'looking for a movie?',
                     textAlign: TextAlign.right,
                     style: context.textTheme.headlineSmall!.copyWith(
                       color: Colors.grey.shade400,

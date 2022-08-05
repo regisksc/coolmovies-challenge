@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           labelSmall: tt.labelSmall!.copyWith(fontFamily: nunitoFF),
           headlineSmall: tt.headlineSmall!.copyWith(
             fontFamily: rubikFF,
-            fontSize: 12,
+            fontSize: MediaQuery.of(context).size.shortestSide * .03,
             fontWeight: FontWeight.w600,
           ),
           headlineMedium: tt.headlineMedium!.copyWith(fontFamily: rubikFF),
