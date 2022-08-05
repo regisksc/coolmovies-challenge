@@ -43,12 +43,7 @@ class _ListMoviesPageState extends State<ListMoviesPage> {
             SizedBox(height: context.height * .03),
             const ListMoviesPageHeader(),
             SizedBox(height: context.height * .03),
-            ValueListenableBuilder(
-              valueListenable: _movies,
-              builder: (context, _, child) {
-                return MoviesList(movies: _movies.value);
-              },
-            ),
+            MoviesList(movies: _movies),
           ],
         ),
       ),
