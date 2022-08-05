@@ -11,9 +11,11 @@ class MovieDetailPage extends StatelessWidget {
     final movie = ModalRoute.of(context)!.settings.arguments! as MovieModel;
     debugPrint(movie.title);
     return Scaffold(
+      backgroundColor: Colors.blueGrey.shade100,
       body: Column(
         children: [
           MovieDetailHeader(movie),
+          MovieDetailInfo(movie: movie),
         ],
       ),
     );

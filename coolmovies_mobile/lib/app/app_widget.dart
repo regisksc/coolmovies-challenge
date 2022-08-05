@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
         final theme = context.theme;
         final nunitoFF = GoogleFonts.nunito().fontFamily;
         final rubikFF = GoogleFonts.rubik().fontFamily;
+        final mulishFF = GoogleFonts.mulish().fontFamily;
         final tt = theme.textTheme;
         final textTheme = tt.copyWith(
           labelLarge: tt.bodyLarge!.copyWith(fontFamily: nunitoFF),
@@ -31,6 +32,9 @@ class MyApp extends StatelessWidget {
           ),
           headlineMedium: tt.headlineMedium!.copyWith(fontFamily: rubikFF),
           headlineLarge: tt.headlineLarge!.copyWith(fontFamily: rubikFF),
+          bodySmall: tt.bodySmall!.copyWith(fontFamily: mulishFF),
+          bodyMedium: tt.bodyMedium!.copyWith(fontFamily: mulishFF),
+          bodyLarge: tt.bodyLarge!.copyWith(fontFamily: mulishFF),
         );
         return Theme(
           data: theme.copyWith(textTheme: textTheme),

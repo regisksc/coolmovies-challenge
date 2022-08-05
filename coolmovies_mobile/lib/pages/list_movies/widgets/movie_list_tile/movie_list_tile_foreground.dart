@@ -32,15 +32,18 @@ class MovieListTileForeground extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      movie.title,
-                      style: textTheme.labelMedium!.copyWith(
-                        color: Colors.black,
-                        fontSize: height * .018,
-                        overflow: TextOverflow.ellipsis,
-                        fontWeight: FontWeight.bold,
+                    Hero(
+                      tag: "${movie.id}-${movie.title}",
+                      child: Text(
+                        movie.title,
+                        style: textTheme.labelMedium!.copyWith(
+                          color: Colors.black,
+                          fontSize: height * .018,
+                          overflow: TextOverflow.ellipsis,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
                     const Spacer(),
                     Text(
