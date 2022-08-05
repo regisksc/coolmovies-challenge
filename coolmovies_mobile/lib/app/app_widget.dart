@@ -22,7 +22,10 @@ class MyApp extends StatelessWidget {
         final mulishFF = GoogleFonts.mulish().fontFamily;
         final tt = theme.textTheme;
         final textTheme = tt.copyWith(
-          labelLarge: tt.bodyLarge!.copyWith(fontFamily: nunitoFF),
+          labelLarge: tt.bodyLarge!.copyWith(
+            fontFamily: nunitoFF,
+            fontSize: tt.bodyLarge!.fontSize! * 1.2,
+          ),
           labelMedium: tt.labelMedium!.copyWith(fontFamily: nunitoFF),
           labelSmall: tt.labelSmall!.copyWith(fontFamily: nunitoFF),
           headlineSmall: tt.headlineSmall!.copyWith(

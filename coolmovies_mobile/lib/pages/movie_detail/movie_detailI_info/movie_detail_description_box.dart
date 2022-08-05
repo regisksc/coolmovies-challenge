@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/core.dart';
+import '../movie_detail.dart';
 
 class DescriptionBox extends StatelessWidget {
   const DescriptionBox(
@@ -17,24 +18,16 @@ class DescriptionBox extends StatelessWidget {
         left: context.width * .02,
         top: context.height * .01,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 5),
-          Text(
-            'Description',
-            style: context.textTheme.headlineMedium,
+      child: SectionWidget(
+        title: 'Description',
+        content: Flexible(
+          child: Text(
+            movie.description ?? "",
+            overflow: TextOverflow.ellipsis,
+            maxLines: 4,
+            style: context.textTheme.bodyMedium,
           ),
-          const SizedBox(height: 20),
-          Flexible(
-            child: Text(
-              movie.description ?? "",
-              overflow: TextOverflow.ellipsis,
-              maxLines: 4,
-              style: context.textTheme.bodyMedium,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

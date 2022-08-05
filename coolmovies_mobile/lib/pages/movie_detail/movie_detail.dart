@@ -3,3 +3,4 @@ export 'movie_detail_back_button.dart';
 export 'movie_detail_header.dart';
 export 'movie_detail_page.dart';
 export 'movie_detail_reviews/movie_detail_reviews.dart';
+export 'section_widget.dart';
