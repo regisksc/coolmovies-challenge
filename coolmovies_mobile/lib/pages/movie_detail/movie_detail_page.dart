@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/core.dart';
+import 'movie_detail.dart';
 
 class MovieDetailPage extends StatelessWidget {
   const MovieDetailPage({Key? key}) : super(key: key);
@@ -10,12 +11,10 @@ class MovieDetailPage extends StatelessWidget {
     final movie = ModalRoute.of(context)!.settings.arguments! as MovieModel;
     debugPrint(movie.title);
     return Scaffold(
-      body: Hero(
-        tag: movie.id,
-        child: GestureDetector(
-          onTap: () => context.pop,
-          child: Image.network(movie.imgUrl!),
-        ),
+      body: Column(
+        children: [
+          MovieDetailHeader(movie),
+        ],
       ),
     );
   }
