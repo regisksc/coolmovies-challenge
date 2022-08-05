@@ -34,7 +34,7 @@ class MovieListTileForeground extends StatelessWidget {
                   children: [
                     Text(
                       movie.title,
-                      style: textTheme.bodyMedium!.copyWith(
+                      style: textTheme.labelMedium!.copyWith(
                         color: Colors.black,
                         fontSize: height * .018,
                         overflow: TextOverflow.ellipsis,
@@ -65,7 +65,7 @@ class MovieListTileForeground extends StatelessWidget {
                 child: () {
                   return Text(
                     "⭐ ${movie.rating}",
-                    style: textTheme.bodyLarge!
+                    style: textTheme.labelLarge!
                         .copyWith(fontSize: height * .015 * 1.8),
                   );
                 }(),

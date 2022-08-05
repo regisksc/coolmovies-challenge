@@ -21,9 +21,9 @@ class MyApp extends StatelessWidget {
         final rubikFF = GoogleFonts.rubik().fontFamily;
         final tt = theme.textTheme;
         final textTheme = tt.copyWith(
-          bodyLarge: tt.bodyLarge!.copyWith(fontFamily: nunitoFF),
-          bodyMedium: tt.bodyLarge!.copyWith(fontFamily: nunitoFF),
-          bodySmall: tt.bodyLarge!.copyWith(fontFamily: nunitoFF),
+          labelLarge: tt.bodyLarge!.copyWith(fontFamily: nunitoFF),
+          labelMedium: tt.labelMedium!.copyWith(fontFamily: nunitoFF),
+          labelSmall: tt.labelSmall!.copyWith(fontFamily: nunitoFF),
           headlineSmall: tt.headlineSmall!.copyWith(
             fontFamily: rubikFF,
             fontSize: 12,
