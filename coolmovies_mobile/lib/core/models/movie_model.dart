@@ -1,3 +1,4 @@
+import 'package:faker/faker.dart';
 import 'package:intl/intl.dart';
 
 import '../core.dart';
@@ -7,6 +8,7 @@ class MovieModel {
     required this.title,
     required this.id,
     required this.createdBy,
+    this.description,
     this.reviews = const [],
     this.directorName,
     this.imgUrl,
@@ -26,11 +28,13 @@ class MovieModel {
       reviews: (json['movieReviewsByMovieId']['nodes'] as List)
           .map((e) => MovieReviewModel.fromJson(e as JSON))
           .toList(),
+      description: json['description'] as String? ?? faker.lorem.sentence(),
     );
   }
 
   final String id;
   final String title;
+  final String? description;
   final String? imgUrl;
   final String? releaseDate;
   final String? directorName;
@@ -69,7 +73,8 @@ class MovieModel {
       "releaseDate": releaseDate,
       "movieDirectorByMovieDirectorId": {"name": directorName},
       "movieReviewsByMovieId": {"nodes": reviews},
-      "userByUserCreatorId": createdBy
+      "userByUserCreatorId": createdBy,
+      "description": description,
     };
   }
 }

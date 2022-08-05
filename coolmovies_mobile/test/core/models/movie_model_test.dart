@@ -22,6 +22,7 @@ void main() {
             "movieDirectorByMovieDirectorId": {"name": model.directorName},
             "movieReviewsByMovieId": {"nodes": model.reviews},
             "userByUserCreatorId": model.createdBy,
+            "description": model.description,
           },
         ),
       );
