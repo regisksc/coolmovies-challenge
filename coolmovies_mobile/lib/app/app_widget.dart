@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
           ),
         );
       },
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(primarySwatch: Colors.blueGrey),
       routes: AppRoutes.routes,
       initialRoute: AppRoutes.initialRoute,
     );

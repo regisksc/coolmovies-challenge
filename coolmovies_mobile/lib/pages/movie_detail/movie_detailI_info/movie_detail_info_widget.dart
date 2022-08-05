@@ -4,9 +4,9 @@ import '../../../core/core.dart';
 import 'movie_detailI_info.dart';
 
 class MovieDetailInfo extends StatelessWidget {
-  const MovieDetailInfo({
+  const MovieDetailInfo(
+    this.movie, {
     Key? key,
-    required this.movie,
   }) : super(key: key);
 
   final MovieModel movie;

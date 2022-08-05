@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../pages/movie_detail/movie_detail_page.dart';
 import '../pages/pages.dart';
 
 class AppRoutes {

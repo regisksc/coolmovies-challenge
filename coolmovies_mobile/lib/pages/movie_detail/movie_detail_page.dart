@@ -12,10 +12,29 @@ class MovieDetailPage extends StatelessWidget {
     debugPrint(movie.title);
     return Scaffold(
       backgroundColor: Colors.blueGrey.shade100,
-      body: Column(
-        children: [
-          MovieDetailHeader(movie),
-          MovieDetailInfo(movie: movie),
+      body: CustomScrollView(
+        shrinkWrap: true,
+        slivers: [
+          SliverAppBar(
+            expandedHeight: context.height * .6,
+            leading: const BackToListButton(),
+            leadingWidth: context.width * .28,
+            flexibleSpace: FlexibleSpaceBar(
+              background: MovieDetailHeader(movie),
+              stretchModes: const [
+                StretchMode.blurBackground,
+                StretchMode.zoomBackground,
+              ],
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                MovieDetailInfo(movie),
+                MovieDetailReviews(movie),
+              ],
+            ),
+          ),
         ],
       ),
     );
