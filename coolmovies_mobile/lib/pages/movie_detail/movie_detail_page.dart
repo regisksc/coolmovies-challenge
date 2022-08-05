@@ -9,6 +9,14 @@ class MovieDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final movie = ModalRoute.of(context)!.settings.arguments! as MovieModel;
     debugPrint(movie.title);
-    return Scaffold(appBar: AppBar());
+    return Scaffold(
+      body: Hero(
+        tag: movie.id,
+        child: GestureDetector(
+          onTap: () => context.pop,
+          child: Image.network(movie.imgUrl!),
+        ),
+      ),
+    );
   }
 }

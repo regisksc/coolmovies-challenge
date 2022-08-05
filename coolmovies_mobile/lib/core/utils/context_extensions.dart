@@ -7,4 +7,8 @@ extension ContextExtensions on BuildContext {
   double get heightAdjusted => height * heightAdjustFactor;
   ThemeData get theme => Theme.of(this);
   TextTheme get textTheme => Theme.of(this).textTheme;
+  void get pop {
+    final navigator = Navigator.of(this);
+    if (navigator.canPop()) navigator.pop();
+  }
 }
