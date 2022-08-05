@@ -13,32 +13,52 @@ class MovieDetailInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hightlightedInformations = [
-      {
-        "title": "release",
-        "value": movie.formattedReleaseDate,
-      },
-      {
-        "title": "director",
-        "value": movie.directorName,
-      },
-      {
-        "title": "rated",
-        "value": "⭐ ${movie.rating}",
-      },
-    ];
     return Container(
-      height: context.height * .3,
+      height: context.height * .36,
       padding: EdgeInsets.symmetric(horizontal: context.width * .02),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           MovieTitle(movie),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: hightlightedInformations
-                .map((e) => HighlightedInfoBlock(
-                    title: e["title"]!, value: e["value"]!))
-                .toList(),
+          HighlightedInfos(movie),
+          Expanded(child: DescriptionBox(movie))
+        ],
+      ),
+    );
+  }
+}
+
+class DescriptionBox extends StatelessWidget {
+  const DescriptionBox(
+    this.movie, {
+    Key? key,
+  }) : super(key: key);
+
+  final MovieModel movie;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        left: context.width * .02,
+        top: context.height * .01,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 5),
+          Text(
+            'Description',
+            style: context.textTheme.headlineMedium,
+          ),
+          const SizedBox(height: 20),
+          Flexible(
+            child: Text(
+              movie.description ?? "",
+              overflow: TextOverflow.ellipsis,
+              maxLines: 4,
+              style: context.textTheme.bodyMedium,
+            ),
           ),
         ],
       ),

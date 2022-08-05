@@ -28,7 +28,8 @@ class MovieModel {
       reviews: (json['movieReviewsByMovieId']['nodes'] as List)
           .map((e) => MovieReviewModel.fromJson(e as JSON))
           .toList(),
-      description: json['description'] as String? ?? faker.lorem.sentence(),
+      description:
+          json['description'] as String? ?? faker.lorem.sentences(4).join(" "),
     );
   }
 

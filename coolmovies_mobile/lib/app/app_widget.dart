@@ -30,7 +30,10 @@ class MyApp extends StatelessWidget {
             fontSize: MediaQuery.of(context).size.shortestSide * .03,
             fontWeight: FontWeight.w600,
           ),
-          headlineMedium: tt.headlineMedium!.copyWith(fontFamily: rubikFF),
+          headlineMedium: tt.headlineMedium!.copyWith(
+            fontFamily: rubikFF,
+            fontSize: MediaQuery.of(context).size.shortestSide * .07,
+          ),
           headlineLarge: tt.headlineLarge!.copyWith(fontFamily: rubikFF),
           bodySmall: tt.bodySmall!.copyWith(fontFamily: mulishFF),
           bodyMedium: tt.bodyMedium!.copyWith(fontFamily: mulishFF),

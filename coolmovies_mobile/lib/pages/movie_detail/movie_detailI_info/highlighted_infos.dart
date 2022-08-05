@@ -2,6 +2,39 @@ import 'package:flutter/material.dart';
 
 import '../../../core/core.dart';
 
+class HighlightedInfos extends StatelessWidget {
+  const HighlightedInfos(
+    this.movie, {
+    Key? key,
+  }) : super(key: key);
+  final MovieModel movie;
+
+  @override
+  Widget build(BuildContext context) {
+    final hightlightedInformations = [
+      {
+        "title": "release",
+        "value": movie.formattedReleaseDate,
+      },
+      {
+        "title": "director",
+        "value": movie.directorName,
+      },
+      {
+        "title": "rated",
+        "value": "⭐ ${movie.rating}",
+      },
+    ];
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: hightlightedInformations
+          .map((e) =>
+              HighlightedInfoBlock(title: e["title"]!, value: e["value"]!))
+          .toList(),
+    );
+  }
+}
+
 class HighlightedInfoBlock extends StatelessWidget {
   const HighlightedInfoBlock({
     Key? key,
