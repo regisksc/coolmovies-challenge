@@ -1,7 +1,9 @@
+import 'package:equatable/equatable.dart';
+
 import '../core.dart';
 
-class MovieReviewModel {
-  MovieReviewModel({
+class MovieReviewModel extends Equatable {
+  const MovieReviewModel({
     required this.title,
     required this.body,
     required this.rating,
@@ -34,4 +36,7 @@ class MovieReviewModel {
       "userByUserReviewerId": createdBy,
     };
   }
+
+  @override
+  List<Object?> get props => [createdBy, title, body, rating];
 }

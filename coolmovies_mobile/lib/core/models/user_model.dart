@@ -1,7 +1,9 @@
+import 'package:equatable/equatable.dart';
+
 import '../core.dart';
 
-class UserModel {
-  UserModel({
+class UserModel extends Equatable {
+  const UserModel({
     required this.id,
     required this.name,
     this.comments = const [],
@@ -29,4 +31,7 @@ class UserModel {
       "commentsByUserId": {"nodes": comments}
     };
   }
+
+  @override
+  List<Object?> get props => [id, name];
 }

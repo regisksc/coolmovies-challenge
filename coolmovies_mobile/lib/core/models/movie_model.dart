@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:faker/faker.dart';
 import 'package:intl/intl.dart';
 
 import '../core.dart';
 
-class MovieModel {
+class MovieModel extends Equatable {
   const MovieModel({
     required this.title,
     required this.id,
@@ -80,4 +81,7 @@ class MovieModel {
       "description": description,
     };
   }
+
+  @override
+  List<Object?> get props => [id, title];
 }
