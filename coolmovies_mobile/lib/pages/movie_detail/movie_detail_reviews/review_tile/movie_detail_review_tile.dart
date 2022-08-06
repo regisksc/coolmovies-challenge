@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/core.dart';
-import 'review_tile.dart';
+import '../../movie_detail.dart';
 
 class ReviewTile extends StatelessWidget {
   const ReviewTile({
@@ -13,10 +13,7 @@ class ReviewTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.blueGrey[50],
-      elevation: 10,
-      shape: RoundedRectangleBorder(borderRadius: defaultRadius),
+    return DefaultMovieInfoCard(
       child: Container(
         padding: const EdgeInsets.all(5),
         height: context.height * .3,
@@ -59,9 +56,7 @@ class _ReviewerRow extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: ReviewEditButton(onTap: () {
-            print("tapped");
-          }),
+          child: ReviewEditButton(onTap: () {}),
         ),
       ],
     );

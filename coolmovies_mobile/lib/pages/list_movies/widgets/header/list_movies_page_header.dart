@@ -18,7 +18,7 @@ class ListMoviesPageHeader extends StatelessWidget {
       fontWeight: FontWeight.bold,
     );
     return Card(
-      elevation: 20,
+      elevation: 10,
       margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(borderRadius: defaultRadius),
       child: Container(

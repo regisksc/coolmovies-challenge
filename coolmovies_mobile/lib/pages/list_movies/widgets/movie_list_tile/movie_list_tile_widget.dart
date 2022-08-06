@@ -30,7 +30,7 @@ class MovieListTile extends StatelessWidget {
           borderRadius: defaultRadius,
         ),
         child: Card(
-          elevation: 20,
+          elevation: 10,
           shadowColor: Colors.grey.shade700,
           shape: RoundedRectangleBorder(borderRadius: defaultRadius),
           child: Stack(

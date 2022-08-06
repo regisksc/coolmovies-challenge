@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/core.dart';
+import '../movie_detail.dart';
 
 class HighlightedInfos extends StatelessWidget {
   const HighlightedInfos(
@@ -53,10 +54,7 @@ class HighlightedInfoBlock extends StatelessWidget {
         letterSpacing: 1,
         color: Colors.blueGrey.shade600,
       ),
-      child: Card(
-        color: Colors.blueGrey[50],
-        elevation: 10,
-        shape: RoundedRectangleBorder(borderRadius: defaultRadius),
+      child: DefaultMovieInfoCard(
         child: Container(
           padding: EdgeInsets.symmetric(vertical: context.height * .02),
           width: context.width * .25,

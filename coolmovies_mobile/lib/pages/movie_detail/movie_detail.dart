@@ -1,5 +1,6 @@
 export 'movie_detailI_info/movie_detailI_info.dart';
 export 'movie_detail_back_button.dart';
+export 'movie_detail_defaul_card.dart';
 export 'movie_detail_header.dart';
 export 'movie_detail_page.dart';
 export 'movie_detail_reviews/movie_detail_reviews.dart';
