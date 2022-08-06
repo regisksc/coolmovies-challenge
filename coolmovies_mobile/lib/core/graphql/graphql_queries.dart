@@ -123,7 +123,8 @@ class GQLQueries {
 
   static String getReviews({required String movieId}) {
     return """ 
-      allMovieReviews(
+      query {
+        allMovieReviews(
         filter: {movieId: {equalTo: \"$movieId\"}}
       ) {
         nodes {
@@ -135,6 +136,7 @@ class GQLQueries {
           }
         }
       }
+      }
     """;
   }
 
@@ -145,7 +147,8 @@ class GQLQueries {
     if (page == 1) offset = 0;
     if (page != 1) offset = 3 * page;
     return """
-      allUsers(first: 3, offset: $offset) {
+      query {
+        allUsers(first: 3, offset: $offset) {
           nodes {
           id
           name
@@ -164,6 +167,7 @@ class GQLQueries {
             hasPreviousPage
           }
         }
+      }
   """;
   }
 
@@ -171,9 +175,11 @@ class GQLQueries {
 
   static String get getCurrentUser {
     return """
-      currentUser {
+      query {
+        currentUser {
         id
         name
+      }
       }
   """;
   }
@@ -182,7 +188,8 @@ class GQLQueries {
 
   static String createComment({required JSON commentMap}) {
     return """"
-      createComment(input: {comment: $commentMap}) {
+      mutation {
+        createComment(input: {comment: $commentMap}) {
           comment {
             id
             title
@@ -200,6 +207,7 @@ class GQLQueries {
             }
           }
         }
+      }
   """;
   }
 
@@ -209,7 +217,8 @@ class GQLQueries {
     required JSON movieReviewMap,
   }) {
     return """"
-      createMovieReview(input: {
+      mutation {
+        createMovieReview(input: {
       movieReview: $movieReviewMap})
     {
       movieReview {
@@ -225,6 +234,7 @@ class GQLQueries {
         }
       }
     }
+      }
   """;
   }
 
@@ -234,11 +244,13 @@ class GQLQueries {
     required JSON userMap,
   }) {
     return """"
-      createUser(input: {user: $userMap}) {
+      mutation {
+        createUser(input: {user: $userMap}) {
         user {
           id
           name
         }
+      }
       }
   """;
   }
