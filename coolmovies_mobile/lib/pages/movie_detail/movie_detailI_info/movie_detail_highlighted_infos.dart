@@ -22,7 +22,7 @@ class HighlightedInfos extends StatelessWidget {
       },
       {
         "title": "rated",
-        "value": "⭐ ${movie.rating}",
+        "value": movie.ratingWStar,
       },
     ];
     return Row(

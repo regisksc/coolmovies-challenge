@@ -52,6 +52,8 @@ class MovieModel {
     return double.parse(averageRating.toStringAsFixed(1));
   }
 
+  String get ratingWStar => "⭐ $rating";
+
   String get formattedReleaseDate {
     if (releaseDate == null) return "";
     final dateSplit = releaseDate!.split("-").map((e) => int.parse(e)).toList();

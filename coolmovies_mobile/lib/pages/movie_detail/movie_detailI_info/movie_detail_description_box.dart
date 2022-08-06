@@ -20,7 +20,7 @@ class DescriptionBox extends StatelessWidget {
       ),
       child: SectionWidget(
         title: 'Description',
-        content: Flexible(
+        child: Flexible(
           child: Text(
             movie.description ?? "",
             overflow: TextOverflow.ellipsis,

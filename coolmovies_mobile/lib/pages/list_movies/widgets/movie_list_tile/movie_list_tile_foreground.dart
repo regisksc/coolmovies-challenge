@@ -67,7 +67,7 @@ class MovieListTileForeground extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 5),
                 child: () {
                   return Text(
-                    "⭐ ${movie.rating}",
+                    movie.ratingWStar,
                     style: textTheme.labelLarge!
                         .copyWith(fontSize: height * .015 * 1.8),
                   );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/core.dart';
+import '../../pages.dart';
 
 class MovieDetailReviews extends StatelessWidget {
   const MovieDetailReviews(
@@ -19,9 +20,13 @@ class MovieDetailReviews extends StatelessWidget {
           left: context.width * .02,
           top: context.height * .01,
         ),
-        child: Text(
-          'Reviews',
-          style: context.textTheme.headlineMedium,
+        child: SectionWidget(
+          title: 'Reviews',
+          child: Column(
+            children: movie.reviews
+                .map((review) => ReviewTile(review: review))
+                .toList(),
+          ),
         ),
       ),
     );

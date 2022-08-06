@@ -16,7 +16,7 @@ class MovieDetailPage extends StatelessWidget {
         shrinkWrap: true,
         slivers: [
           SliverAppBar(
-            expandedHeight: context.height * .6,
+            expandedHeight: context.height * .55,
             leading: const BackToListButton(),
             leadingWidth: context.width * .28,
             flexibleSpace: FlexibleSpaceBar(
@@ -29,14 +29,30 @@ class MovieDetailPage extends StatelessWidget {
           ),
           SliverList(
             delegate: SliverChildListDelegate(
-              [
-                MovieDetailInfo(movie),
-                MovieDetailReviews(movie),
-              ],
+              [_MovieDetailsPageBody(movie)],
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class _MovieDetailsPageBody extends StatelessWidget {
+  const _MovieDetailsPageBody(
+    this.movie, {
+    Key? key,
+  }) : super(key: key);
+
+  final MovieModel movie;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        MovieDetailInfo(movie),
+        MovieDetailReviews(movie),
+      ],
     );
   }
 }

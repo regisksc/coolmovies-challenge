@@ -24,7 +24,9 @@ class MyApp extends StatelessWidget {
         final textTheme = tt.copyWith(
           labelLarge: tt.bodyLarge!.copyWith(
             fontFamily: nunitoFF,
-            fontSize: tt.bodyLarge!.fontSize! * 1.2,
+            fontSize: tt.bodyLarge!.fontSize! *
+                MediaQuery.of(context).size.shortestSide *
+                .0025,
           ),
           labelMedium: tt.labelMedium!.copyWith(fontFamily: nunitoFF),
           labelSmall: tt.labelSmall!.copyWith(fontFamily: nunitoFF),

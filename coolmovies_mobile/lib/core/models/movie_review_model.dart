@@ -19,6 +19,8 @@ class MovieReviewModel {
     );
   }
 
+  String get ratingWStar => "⭐ $rating";
+
   final String title;
   final String body;
   final int rating;

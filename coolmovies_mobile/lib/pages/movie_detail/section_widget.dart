@@ -6,11 +6,11 @@ class SectionWidget extends StatelessWidget {
   const SectionWidget({
     Key? key,
     required this.title,
-    required this.content,
+    required this.child,
   }) : super(key: key);
 
   final String title;
-  final Widget content;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class SectionWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionTitle(title: title),
-        content,
+        child,
       ],
     );
   }
