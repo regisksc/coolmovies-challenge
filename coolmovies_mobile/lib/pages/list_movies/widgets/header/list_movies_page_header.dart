@@ -1,13 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/core.dart';
+import '../../../../providers/user_provider.dart';
 
-class ListMoviesPageHeader extends StatelessWidget {
-  const ListMoviesPageHeader({Key? key}) : super(key: key);
+class ListMoviesPageHeader extends StatefulWidget {
+  const ListMoviesPageHeader({Key? key, required UserProvider userProvider})
+      : _userProvider = userProvider,
+        super(key: key);
+
+  final UserProvider _userProvider;
+
+  @override
+  State<ListMoviesPageHeader> createState() => _ListMoviesPageHeaderState();
+}
+
+class _ListMoviesPageHeaderState extends State<ListMoviesPageHeader> {
+  @override
+  void initState() {
+    super.initState();
+    widget._userProvider.getCurrentUser();
+  }
 
   @override
   Widget build(BuildContext context) {
-    const userName = 'Friend';
     final greetingFont = context.textTheme.headlineMedium!.copyWith(
       fontSize: context.textTheme.headlineMedium!.fontSize! * .7,
       color: Colors.grey.shade400,
@@ -39,20 +55,25 @@ class ListMoviesPageHeader extends StatelessWidget {
                 horizontal: context.width * .05,
                 vertical: context.height * .03,
               ),
-              child: RichText(
-                text: TextSpan(
-                  text: 'Hello ',
-                  style: greetingFont,
-                  children: [
-                    TextSpan(
-                        text: userName.toString(),
-                        style: highlightedGreetingFont),
-                    TextSpan(
-                      text: " !",
+              child: Consumer<UserProvider?>(
+                builder: (_, userProvider, __) {
+                  return RichText(
+                    text: TextSpan(
+                      text: 'Hello ',
                       style: greetingFont,
+                      children: [
+                        TextSpan(
+                          text: userProvider?.user?.name ?? 'Friend',
+                          style: highlightedGreetingFont,
+                        ),
+                        TextSpan(
+                          text: " !",
+                          style: greetingFont,
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  );
+                },
               ),
             ),
             Row(

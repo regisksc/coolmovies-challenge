@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../pages/pages.dart';
+import '../providers/providers.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -12,7 +14,9 @@ class AppRoutes {
 
   static Map<String, Widget Function(BuildContext)> get routes {
     return {
-      AppRoutes.home: (context) => const ListMoviesPage(),
+      AppRoutes.home: (context) => ListMoviesPage(
+            userProvider: context.read<UserProvider>(),
+          ),
       AppRoutes.movie: (context) => const MovieDetailPage(),
     };
   }

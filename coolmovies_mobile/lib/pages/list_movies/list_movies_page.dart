@@ -3,12 +3,16 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../../core/core.dart';
+import '../../providers/providers.dart';
 import '../../repositories/repositories.dart';
 import 'list_movies.dart';
 
 class ListMoviesPage extends StatefulWidget {
-  const ListMoviesPage({Key? key}) : super(key: key);
+  const ListMoviesPage({Key? key, required UserProvider userProvider})
+      : _userProvider = userProvider,
+        super(key: key);
 
+  final UserProvider _userProvider;
   @override
   State<ListMoviesPage> createState() => _ListMoviesPageState();
 }
@@ -41,7 +45,7 @@ class _ListMoviesPageState extends State<ListMoviesPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: context.height * .03),
-            const ListMoviesPageHeader(),
+            ListMoviesPageHeader(userProvider: widget._userProvider),
             SizedBox(height: context.height * .03),
             MoviesList(movies: _movies),
           ],

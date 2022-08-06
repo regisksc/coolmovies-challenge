@@ -177,9 +177,20 @@ class GQLQueries {
     return """
       query {
         currentUser {
-        id
-        name
-      }
+    id
+    name
+		commentsByUserId {
+			nodes {
+				id
+          title
+          body
+          userByUserId {
+            id
+            name
+          }
+			}
+		}
+  }
       }
   """;
   }
