@@ -2,25 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/core.dart';
-import '../../../../providers/user_provider.dart';
+import '../../../../providers/providers.dart';
 
-class ListMoviesPageHeader extends StatefulWidget {
-  const ListMoviesPageHeader({Key? key, required UserProvider userProvider})
-      : _userProvider = userProvider,
-        super(key: key);
+class ListMoviesPageHeader extends StatelessWidget {
+  const ListMoviesPageHeader({
+    Key? key,
+    required this.userProvider,
+  }) : super(key: key);
 
-  final UserProvider _userProvider;
-
-  @override
-  State<ListMoviesPageHeader> createState() => _ListMoviesPageHeaderState();
-}
-
-class _ListMoviesPageHeaderState extends State<ListMoviesPageHeader> {
-  @override
-  void initState() {
-    super.initState();
-    widget._userProvider.getCurrentUser();
-  }
+  final UserProvider userProvider;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +53,7 @@ class _ListMoviesPageHeaderState extends State<ListMoviesPageHeader> {
                       style: greetingFont,
                       children: [
                         TextSpan(
-                          text: userProvider?.user?.name ?? 'Friend',
+                          text: userProvider?.user?.name ?? '',
                           style: highlightedGreetingFont,
                         ),
                         TextSpan(
