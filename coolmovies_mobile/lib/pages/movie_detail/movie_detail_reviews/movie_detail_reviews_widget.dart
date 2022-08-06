@@ -24,7 +24,10 @@ class MovieDetailReviews extends StatelessWidget {
           title: 'Reviews',
           child: Column(
             children: movie.reviews
-                .map((review) => ReviewTile(review: review))
+                .map((review) => Padding(
+                      padding: EdgeInsets.only(bottom: context.height * .03),
+                      child: ReviewTile(review: review),
+                    ))
                 .toList(),
           ),
         ),
