@@ -20,12 +20,17 @@ class DescriptionBox extends StatelessWidget {
       ),
       child: SectionWidget(
         title: 'Description',
-        child: Flexible(
-          child: Text(
-            movie.description ?? "",
-            overflow: TextOverflow.ellipsis,
-            maxLines: 4,
-            style: context.textTheme.bodyMedium,
+        child: DefaultMovieInfoCard(
+          child: Container(
+            padding: EdgeInsets.all(
+              MediaQuery.of(context).size.shortestSide * .02,
+            ),
+            child: Text(
+              movie.description ?? "",
+              overflow: TextOverflow.ellipsis,
+              maxLines: 5,
+              style: context.textTheme.bodyMedium,
+            ),
           ),
         ),
       ),
