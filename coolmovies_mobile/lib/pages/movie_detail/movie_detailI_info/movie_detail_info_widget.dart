@@ -14,7 +14,7 @@ class MovieDetailInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: context.height * .36,
+      height: context.height * .4,
       padding: EdgeInsets.symmetric(horizontal: context.width * .02),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

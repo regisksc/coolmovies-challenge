@@ -18,7 +18,7 @@ class HighlightedInfos extends StatelessWidget {
       },
       {
         "title": "director",
-        "value": movie.directorName,
+        "value": "${movie.directorName} ${movie.directorName}",
       },
       {
         "title": "rated",
@@ -53,23 +53,41 @@ class HighlightedInfoBlock extends StatelessWidget {
         letterSpacing: 1,
         color: Colors.blueGrey.shade600,
       ),
-      child: Container(
-        padding: EdgeInsets.only(top: context.height * .01),
-        height: context.width * .15,
-        width: context.width * .3,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(title),
-            Text(
-              value,
-              style: context.textTheme.bodySmall!.copyWith(
-                  color: Colors.blueGrey.shade800,
-                  fontWeight: FontWeight.bold,
-                  fontSize:
-                      context.textTheme.bodySmall!.fontSize! * fontMultiplier),
-            ),
-          ],
+      child: Card(
+        color: Colors.blueGrey[50],
+        elevation: 10,
+        shape: RoundedRectangleBorder(borderRadius: defaultRadius),
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: context.height * .02),
+          width: context.width * .25,
+          height: context.width * .25,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                flex: 20,
+                child: Center(child: Text(title)),
+              ),
+              const Spacer(flex: 15),
+              Expanded(
+                flex: 65,
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: context.width * .02),
+                  alignment: Alignment.center,
+                  child: Text(
+                    value,
+                    textAlign: TextAlign.center,
+                    style: context.textTheme.bodySmall!.copyWith(
+                        color: Colors.blueGrey.shade800,
+                        fontWeight: FontWeight.bold,
+                        fontSize: context.textTheme.bodySmall!.fontSize! *
+                            fontMultiplier),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

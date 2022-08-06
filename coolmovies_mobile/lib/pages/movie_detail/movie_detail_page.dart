@@ -16,7 +16,7 @@ class MovieDetailPage extends StatelessWidget {
         shrinkWrap: true,
         slivers: [
           SliverAppBar(
-            expandedHeight: context.height * .55,
+            expandedHeight: context.height * .50,
             leading: const BackToListButton(),
             leadingWidth: context.width * .28,
             flexibleSpace: FlexibleSpaceBar(
