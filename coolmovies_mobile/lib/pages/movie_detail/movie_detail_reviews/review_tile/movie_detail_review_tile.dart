@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/core.dart';
+import '../../../../providers/movie_provider.dart';
 import '../../movie_detail.dart';
 
 class ReviewTile extends StatelessWidget {
   const ReviewTile({
     Key? key,
     required this.review,
+    required this.provider,
   }) : super(key: key);
 
   final MovieReviewModel review;
+  final MoviesProvider provider;
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +25,17 @@ class ReviewTile extends StatelessWidget {
           children: [
             Expanded(
               flex: 12,
-              child: _ReviewerRow(reviewerUsername: review.createdBy.name),
+              child: _ReviewerRow(
+                provider,
+                review: review,
+              ),
             ),
             Expanded(
               flex: 88,
-              child: _ReviewContent(review: review),
+              child: _ReviewContent(
+                provider,
+                review: review,
+              ),
             ),
           ],
         ),
@@ -36,12 +45,14 @@ class ReviewTile extends StatelessWidget {
 }
 
 class _ReviewerRow extends StatelessWidget {
-  const _ReviewerRow({
+  const _ReviewerRow(
+    this.provider, {
     Key? key,
-    required this.reviewerUsername,
+    required this.review,
   }) : super(key: key);
 
-  final String reviewerUsername;
+  final MoviesProvider provider;
+  final MovieReviewModel review;
 
   @override
   Widget build(BuildContext context) {
@@ -49,26 +60,26 @@ class _ReviewerRow extends StatelessWidget {
       children: [
         Expanded(
           child: Text(
-            "$reviewerUsername's opinion:",
+            "${review.createdBy.name}'s opinion:",
             style: context.textTheme.bodyMedium!.copyWith(
               color: Colors.blueGrey.shade600,
             ),
           ),
         ),
-        Expanded(
-          child: ReviewEditButton(onTap: () {}),
-        ),
+        Expanded(child: ReviewEditButton(review)),
       ],
     );
   }
 }
 
 class _ReviewContent extends StatelessWidget {
-  const _ReviewContent({
+  const _ReviewContent(
+    this.provider, {
     Key? key,
     required this.review,
   }) : super(key: key);
 
+  final MoviesProvider provider;
   final MovieReviewModel review;
 
   @override

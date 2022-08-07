@@ -21,4 +21,9 @@ class ConcreteMovieRepository implements MovieRepository {
       serializer: MovieModel.fromJson,
     );
   }
+
+  @override
+  Future storeMovies() {
+    throw UnimplementedError();
+  }
 }

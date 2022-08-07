@@ -11,6 +11,33 @@ class MoviesProvider extends DefaultProvider {
 
   final MovieRepository _repository;
 
+  void startEditingReview(MovieReviewModel review) {
+    review.reviewBackup = review.copy;
+    if (!review.isInEditState) {
+      review.isInEditState = true;
+      notifyListeners();
+    }
+  }
+
+  void stopEditingReview(
+    MovieReviewModel review, {
+    bool save = false,
+  }) {
+    review.isInEditState = false;
+    if (save == false) {
+      final thisReviewsMovie = movies.firstWhere(
+        (movie) => movie.id == review.movieId,
+      );
+      final thisReviewsIndex = thisReviewsMovie.reviews.indexOf(review);
+      final reviewBackup = review.reviewBackup;
+      thisReviewsMovie.reviews.removeAt(thisReviewsIndex);
+      thisReviewsMovie.reviews.insert(thisReviewsIndex, reviewBackup!);
+    } else {}
+    // TODO: implement storage data update
+    review.reviewBackup = null;
+    notifyListeners();
+  }
+
   Future getMovies() async {
     lastRequestFailure = null;
     final moviesOrError = await _repository.getAllMovies();

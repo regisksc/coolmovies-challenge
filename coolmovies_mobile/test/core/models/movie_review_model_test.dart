@@ -31,17 +31,13 @@ void main() {
       // Arrange
       final model = mockMovieReviewModel;
       // Act
-      final newModel = model.copyWith(
-        body: 'newBody',
-        rating: faker.randomGenerator.integer(5, min: 1),
-        title: 'newTitle',
-      );
+      final newModel = model.copyWith(id: faker.guid.guid());
       // Assert
-      expect(model.id, equals(newModel.id));
+      expect(model.id, isNot(newModel.id));
       expect(model.createdBy, equals(newModel.createdBy));
-      expect(model.body, isNot(newModel.body));
-      expect(model.title, isNot(newModel.title));
-      expect(model.rating, isNot(newModel.rating));
+      expect(model.body, equals(newModel.body));
+      expect(model.title, equals(newModel.title));
+      expect(model.rating, equals(newModel.rating));
     },
   );
 }

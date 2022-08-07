@@ -29,30 +29,18 @@ class MovieDetailPage extends StatelessWidget {
           ),
           SliverList(
             delegate: SliverChildListDelegate(
-              [_MovieDetailsPageBody(movie)],
+              [
+                Column(
+                  children: [
+                    MovieDetailInfo(movie),
+                    MovieDetailReviews(movie),
+                  ],
+                )
+              ],
             ),
           ),
         ],
       ),
-    );
-  }
-}
-
-class _MovieDetailsPageBody extends StatelessWidget {
-  const _MovieDetailsPageBody(
-    this.movie, {
-    Key? key,
-  }) : super(key: key);
-
-  final MovieModel movie;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        MovieDetailInfo(movie),
-        MovieDetailReviews(movie),
-      ],
     );
   }
 }

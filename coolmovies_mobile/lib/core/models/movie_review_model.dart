@@ -1,12 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
 
 import '../core.dart';
 
 class MovieReviewModel extends Equatable {
   MovieReviewModel({
+    required this.movieId,
     required this.id,
     required this.title,
     required this.body,
@@ -23,20 +21,26 @@ class MovieReviewModel extends Equatable {
         json["userByUserReviewerId"] as JSON,
       ),
       id: json['id'] as String,
+      movieId: json['movieId'] as String,
     );
   }
 
   String get ratingWStar => "⭐ $rating";
 
   final String id;
-  final String title;
-  final String body;
-  final int rating;
-  final UserModel createdBy;
+  final String movieId;
+  String title;
+  String body;
+  int rating;
+  UserModel createdBy;
   bool isInEditState = false;
+
+  MovieReviewModel? reviewBackup;
 
   JSON get toJson {
     return {
+      "id": id,
+      "movieId": movieId,
       "body": body,
       "title": title,
       "rating": rating,
@@ -56,16 +60,26 @@ class MovieReviewModel extends Equatable {
   }
 
   MovieReviewModel copyWith({
-    String? title,
-    String? body,
-    int? rating,
+    String? id,
   }) {
     return MovieReviewModel(
-      id: id,
-      title: title ?? this.title,
-      body: body ?? this.body,
-      rating: rating ?? this.rating,
+      id: id ?? this.id,
+      title: title,
+      body: body,
+      rating: rating,
       createdBy: createdBy,
+      movieId: movieId,
+    );
+  }
+
+  MovieReviewModel get copy {
+    return MovieReviewModel(
+      id: id,
+      title: title,
+      body: body,
+      rating: rating,
+      createdBy: createdBy,
+      movieId: movieId,
     );
   }
 

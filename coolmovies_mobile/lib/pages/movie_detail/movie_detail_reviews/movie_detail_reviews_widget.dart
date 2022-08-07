@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/core.dart';
+import '../../../providers/movie_provider.dart';
 import '../../pages.dart';
 
 class MovieDetailReviews extends StatelessWidget {
@@ -26,7 +28,10 @@ class MovieDetailReviews extends StatelessWidget {
             children: movie.reviews
                 .map((review) => Padding(
                       padding: EdgeInsets.only(bottom: context.height * .03),
-                      child: ReviewTile(review: review),
+                      child: ReviewTile(
+                        review: review,
+                        provider: context.read<MoviesProvider>(),
+                      ),
                     ))
                 .toList(),
           ),
