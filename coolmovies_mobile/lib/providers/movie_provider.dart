@@ -25,17 +25,21 @@ class MoviesProvider extends DefaultProvider {
   }) {
     review.isInEditState = false;
     if (save == false) {
-      final thisReviewsMovie = movies.firstWhere(
-        (movie) => movie.id == review.movieId,
-      );
-      final thisReviewsIndex = thisReviewsMovie.reviews.indexOf(review);
-      final reviewBackup = review.reviewBackup;
-      thisReviewsMovie.reviews.removeAt(thisReviewsIndex);
-      thisReviewsMovie.reviews.insert(thisReviewsIndex, reviewBackup!);
+      _revertReviewChanges(review);
     } else {}
     // TODO: implement storage data update
     review.reviewBackup = null;
     notifyListeners();
+  }
+
+  void _revertReviewChanges(MovieReviewModel review) {
+    final thisReviewsMovie = movies.firstWhere(
+      (movie) => movie.id == review.movieId,
+    );
+    final thisReviewsIndex = thisReviewsMovie.reviews.indexOf(review);
+    final reviewBackup = review.reviewBackup;
+    thisReviewsMovie.reviews.removeAt(thisReviewsIndex);
+    thisReviewsMovie.reviews.insert(thisReviewsIndex, reviewBackup!);
   }
 
   Future getMovies() async {
