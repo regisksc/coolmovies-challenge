@@ -37,6 +37,7 @@ MovieReviewModel get mockMovieReviewModel => MovieReviewModel(
       body: faker.lorem.sentence(),
       rating: faker.randomGenerator.integer(5, min: 1),
       createdBy: mockUserModel,
+      id: faker.guid.guid(),
     );
 
 Failure get mockFailure => GQLRequestFailure(faker.lorem.sentence());
