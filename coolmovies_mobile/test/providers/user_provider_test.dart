@@ -35,4 +35,23 @@ void main() {
       verify(repository.getCurrentUser());
     },
   );
+
+  test(
+    "should update last failure when getCurrentUser fails",
+    () async {
+      // Arrange
+      final failure = mockFailure;
+      when(repository.getCurrentUser()).thenAnswer(
+        (_) async => Left(failure),
+      );
+      // Act
+      sut.addListener(() {
+        expect(sut.lastRequestFailure, isNotNull);
+        expect(sut.lastRequestFailure, equals(failure));
+      });
+      await sut.getCurrentUser();
+      // Assert
+      verify(repository.getCurrentUser());
+    },
+  );
 }

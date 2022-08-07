@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
-
 import '../core/core.dart';
 import '../repositories/repositories.dart';
+import 'providers.dart';
 
-class MoviesProvider extends ChangeNotifier {
+class MoviesProvider extends DefaultProvider {
   MoviesProvider(MovieRepository repository) : _repository = repository;
 
   final _movies = <MovieModel>[];
@@ -11,8 +10,6 @@ class MoviesProvider extends ChangeNotifier {
   List<MovieModel> get movies => _movies;
 
   final MovieRepository _repository;
-
-  Failure? lastRequestFailure;
 
   Future getMovies() async {
     lastRequestFailure = null;

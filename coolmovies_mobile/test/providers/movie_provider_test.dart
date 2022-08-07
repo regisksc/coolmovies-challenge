@@ -37,4 +37,23 @@ void main() {
       verify(repository.getAllMovies());
     },
   );
+
+  test(
+    "should update last failure when getAllMovies fails",
+    () async {
+      // Arrange
+      final failure = mockFailure;
+      when(repository.getAllMovies()).thenAnswer(
+        (_) async => Left(failure),
+      );
+      // Act
+      sut.addListener(() {
+        expect(sut.lastRequestFailure, isNotNull);
+        expect(sut.lastRequestFailure, equals(failure));
+      });
+      await sut.getMovies();
+      // Assert
+      verify(repository.getAllMovies());
+    },
+  );
 }

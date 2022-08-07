@@ -39,5 +39,7 @@ MovieReviewModel get mockMovieReviewModel => MovieReviewModel(
       createdBy: mockUserModel,
     );
 
+Failure get mockFailure => GQLRequestFailure(faker.lorem.sentence());
+
 String get mockDate =>
     "${faker.randomGenerator.integer(2022, min: 1900)}-${faker.randomGenerator.integer(12, min: 1)}-${faker.randomGenerator.integer(31, min: 1)}";
