@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:faker/faker.dart';
 import 'package:intl/intl.dart';
@@ -6,14 +9,14 @@ import '../core.dart';
 
 class MovieModel extends Equatable {
   const MovieModel({
-    required this.title,
     required this.id,
-    required this.createdBy,
+    required this.title,
     this.description,
-    this.reviews = const [],
-    this.directorName,
     this.imgUrl,
     this.releaseDate,
+    this.directorName,
+    this.reviews = const [],
+    required this.createdBy,
   });
 
   factory MovieModel.fromJson(JSON json) {
@@ -83,5 +86,25 @@ class MovieModel extends Equatable {
   }
 
   @override
-  List<Object?> get props => [id, title];
+  List<Object> get props {
+    return [id, title];
+  }
+
+  MovieModel copyWith({
+    List<MovieReviewModel>? reviews,
+  }) {
+    return MovieModel(
+      id: id,
+      title: title,
+      description: description,
+      imgUrl: imgUrl,
+      releaseDate: releaseDate,
+      directorName: directorName,
+      reviews: reviews ?? this.reviews,
+      createdBy: createdBy,
+    );
+  }
+
+  @override
+  bool get stringify => true;
 }

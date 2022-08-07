@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 
 import '../core.dart';
@@ -42,5 +45,30 @@ class MovieReviewModel extends Equatable {
   }
 
   @override
-  List<Object?> get props => [id, createdBy, title, body, rating];
+  List<Object> get props {
+    return [
+      id,
+      title,
+      body,
+      rating,
+      createdBy,
+    ];
+  }
+
+  MovieReviewModel copyWith({
+    String? title,
+    String? body,
+    int? rating,
+  }) {
+    return MovieReviewModel(
+      id: id,
+      title: title ?? this.title,
+      body: body ?? this.body,
+      rating: rating ?? this.rating,
+      createdBy: createdBy,
+    );
+  }
+
+  @override
+  bool get stringify => true;
 }
