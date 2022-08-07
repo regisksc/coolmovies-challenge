@@ -1,0 +1,38 @@
+import 'package:coolmovies/providers/providers.dart';
+import 'package:coolmovies/repositories/repositories.dart';
+import 'package:either_dart/either.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+
+import '../test_helpers/mock_objects.dart';
+import 'user_provider_test.mocks.dart';
+
+@GenerateMocks([UserRepository])
+void main() {
+  late UserProvider sut;
+  late MockUserRepository repository;
+
+  setUp(() {
+    repository = MockUserRepository();
+    sut = UserProvider(repository);
+  });
+
+  test(
+    "should update state when getUser ends in success",
+    () async {
+      // Arrange
+      final fromRepository = mockUserModel;
+      when(repository.getCurrentUser()).thenAnswer(
+        (_) async => Right(fromRepository),
+      );
+      // Act
+      sut.addListener(() {
+        expect(sut.user, equals(fromRepository));
+      });
+      await sut.getCurrentUser();
+      // Assert
+      verify(repository.getCurrentUser());
+    },
+  );
+}

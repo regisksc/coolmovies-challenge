@@ -19,6 +19,11 @@ MovieModel mockMovieModel({bool makeReleaseDateNull = false}) => MovieModel(
       reviews: List<MovieReviewModel>.generate(3, (_) => mockMovieReviewModel),
     );
 
+List<MovieModel> mockMovieList() => [
+      mockMovieModel(),
+      mockMovieModel(),
+    ];
+
 MovieReviewCommentModel get mockMovieReviewCommentModel =>
     MovieReviewCommentModel(
       movieReviewId: faker.guid.guid(),
