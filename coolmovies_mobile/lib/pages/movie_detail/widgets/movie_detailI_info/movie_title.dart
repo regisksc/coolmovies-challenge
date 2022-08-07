@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/core.dart';
+import '../../../../core/core.dart';
 
 class MovieTitle extends StatelessWidget {
   const MovieTitle(this.movie, {Key? key}) : super(key: key);

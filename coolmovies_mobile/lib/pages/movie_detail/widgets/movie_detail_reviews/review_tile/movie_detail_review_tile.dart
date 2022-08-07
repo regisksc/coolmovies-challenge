@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/core.dart';
-import '../../../../providers/movie_provider.dart';
-import '../../movie_detail.dart';
+import '../../../../../core/core.dart';
+import '../../../../../providers/movie_provider.dart';
+import '../../../movie_detail.dart';
 
 class ReviewTile extends StatelessWidget {
   const ReviewTile({

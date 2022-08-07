@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/core.dart';
-import '../movie_detail.dart';
+import '../../../../core/core.dart';
+import '../../movie_detail.dart';
 
 class DescriptionBox extends StatelessWidget {
   const DescriptionBox(

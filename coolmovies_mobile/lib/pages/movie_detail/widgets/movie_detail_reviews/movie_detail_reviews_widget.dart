@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/core.dart';
-import '../../../providers/movie_provider.dart';
-import '../../pages.dart';
+import '../../../../core/core.dart';
+import '../../../../providers/movie_provider.dart';
+import '../../../pages.dart';
 
 class MovieDetailReviews extends StatelessWidget {
   const MovieDetailReviews(
