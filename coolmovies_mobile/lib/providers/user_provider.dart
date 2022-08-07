@@ -17,8 +17,8 @@ class UserProvider extends ChangeNotifier {
 
   Future getCurrentUser() async {
     lastRequestFailure = null;
-    final user = await _repository.getCurrentUser();
-    user.fold(
+    final userOrError = await _repository.getCurrentUser();
+    userOrError.fold(
       (failure) => lastRequestFailure = failure,
       (user) => _user = user,
     );

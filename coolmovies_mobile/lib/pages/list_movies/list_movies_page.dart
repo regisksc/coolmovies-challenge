@@ -1,43 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../../core/core.dart';
 import '../../providers/providers.dart';
-import '../../repositories/repositories.dart';
 import 'list_movies.dart';
 
 class ListMoviesPage extends StatefulWidget {
-  const ListMoviesPage({Key? key, required UserProvider userProvider})
+  const ListMoviesPage(
+      {Key? key,
+      required UserProvider userProvider,
+      required MoviesProvider moviesProvider})
       : _userProvider = userProvider,
+        _moviesProvider = moviesProvider,
         super(key: key);
 
   final UserProvider _userProvider;
+  final MoviesProvider _moviesProvider;
   @override
   State<ListMoviesPage> createState() => _ListMoviesPageState();
 }
 
 class _ListMoviesPageState extends State<ListMoviesPage> {
-  final ValueNotifier<List<MovieModel>> _movies = ValueNotifier([]);
-
-  Future _fetchData() async {
-    debugPrint('Fetching data...');
-    final client = GraphQLProvider.of(context).value;
-    final repository = ConcreteMovieRepository(
-      client,
-      AdaptedFlutterSecureStorage(const FlutterSecureStorage()),
-    );
-    final result = await repository.getAllMovies();
-    result.fold(
-      (left) => null,
-      (movies) => _movies.value = [...movies, ...movies],
-    );
+  @override
+  void dispose() {
+    widget._moviesProvider.dispose();
+    widget._userProvider.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    _fetchData();
-
     return SafeArea(
       bottom: false,
       child: Scaffold(
@@ -47,7 +38,7 @@ class _ListMoviesPageState extends State<ListMoviesPage> {
             SizedBox(height: context.height * .03),
             ListMoviesPageHeader(userProvider: widget._userProvider),
             SizedBox(height: context.height * .03),
-            MoviesList(movies: _movies),
+            MoviesList(movies: widget._moviesProvider.movies),
           ],
         ),
       ),

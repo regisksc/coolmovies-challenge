@@ -39,6 +39,15 @@ class MyApp extends StatelessWidget {
             return UserProvider(repository)..getCurrentUser();
           },
         ),
+        ChangeNotifierProvider<MoviesProvider>(
+          create: (context) {
+            final repository = ConcreteMovieRepository(
+              graphql,
+              context.read<StorageAdapter>(),
+            );
+            return MoviesProvider(repository)..getMovies();
+          },
+        ),
       ],
       child: MaterialApp(
         title: MyApp.title,

@@ -16,6 +16,7 @@ class AppRoutes {
     return {
       AppRoutes.home: (context) => ListMoviesPage(
             userProvider: context.read<UserProvider>(),
+            moviesProvider: context.read<MoviesProvider>(),
           ),
       AppRoutes.movie: (context) => const MovieDetailPage(),
     };
