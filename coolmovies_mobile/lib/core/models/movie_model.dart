@@ -88,7 +88,7 @@ class MovieModel extends Equatable {
   }
 
   MovieModel copyWith({
-    List<MovieReviewModel>? reviews,
+    required List<MovieReviewModel> newReviews,
   }) {
     return MovieModel(
       id: id,
@@ -97,7 +97,20 @@ class MovieModel extends Equatable {
       imgUrl: imgUrl,
       releaseDate: releaseDate,
       directorName: directorName,
-      reviews: reviews ?? this.reviews,
+      reviews: newReviews,
+      createdBy: createdBy,
+    );
+  }
+
+  MovieModel get copy {
+    return MovieModel(
+      id: id,
+      title: title,
+      description: description,
+      imgUrl: imgUrl,
+      releaseDate: releaseDate,
+      directorName: directorName,
+      reviews: reviews,
       createdBy: createdBy,
     );
   }

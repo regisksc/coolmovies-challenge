@@ -12,18 +12,24 @@ class ConcreteMovieRepository implements MovieRepository {
   final GraphQLClient client;
   final StorageAdapter storage;
 
+  String get _storageKey => 'allMovies';
+
   @override
   Future<Either<Failure, List<MovieModel>>> getAllMovies() async {
     return client.performFetchListQuery(
       storage,
-      storageKey: 'allMovies',
+      storageKey: _storageKey,
       gqlQuery: GQLQueries.getAllMovies,
       serializer: MovieModel.fromJson,
     );
   }
 
   @override
-  Future storeMovies() {
-    throw UnimplementedError();
+  Future storeMovies(List<MovieModel> movies) async {
+    storage.write(_storageKey, {
+      _storageKey: {
+        'nodes': movies.map((e) => e.toJson).toList(),
+      }
+    });
   }
 }

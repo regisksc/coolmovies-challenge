@@ -91,7 +91,7 @@ void main() {
       final model = mockMovieModel();
       // Act
       final newReview = mockMovieReviewModel;
-      final newModel = model.copyWith(reviews: [
+      final newModel = model.copyWith(newReviews: [
         model.reviews[0],
         model.reviews[1],
         newReview, // !

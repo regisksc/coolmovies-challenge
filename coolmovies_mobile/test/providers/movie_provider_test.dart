@@ -56,4 +56,41 @@ void main() {
       verify(repository.getAllMovies());
     },
   );
+
+  test(
+    "should replace review on edit save action",
+    () async {
+      // Arrange
+      when(repository.storeMovies(any)).thenAnswer((_) => Future.value());
+      final movies = mockMovieList();
+      final reviewToBeEdited = movies[0].reviews[0];
+      final firstTitle = reviewToBeEdited.title;
+      // Act
+      sut.startEditingReview(reviewToBeEdited);
+      reviewToBeEdited.title = 'newTitle';
+      sut.stopEditingReview(reviewToBeEdited, save: true);
+      final newTitle = reviewToBeEdited.title;
+      // Assert
+      verify(repository.storeMovies(any));
+      expect(newTitle, isNot(firstTitle));
+    },
+  );
+
+  test(
+    "should not replace review on edit cancel action",
+    () async {
+      // Arrange
+      final movies = mockMovieList();
+      final reviewToBeEdited = movies[0].reviews[0];
+      final titleBefore = reviewToBeEdited.title;
+      // Act
+      sut.startEditingReview(reviewToBeEdited);
+      reviewToBeEdited.title = 'newTitle';
+      sut.stopEditingReview(reviewToBeEdited);
+      final titleAfter = reviewToBeEdited.title;
+      // Assert
+      verifyNever(repository.storeMovies(any));
+      expect(titleBefore, equals(titleAfter));
+    },
+  );
 }

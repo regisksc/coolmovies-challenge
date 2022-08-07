@@ -12,8 +12,8 @@ class MoviesProvider extends DefaultProvider {
   final MovieRepository _repository;
 
   void startEditingReview(MovieReviewModel review) {
-    review.reviewBackup = review.copy;
-    if (!review.isInEditState) {
+    review.backup();
+    if (review.isInEditState == false) {
       review.isInEditState = true;
       notifyListeners();
     }
@@ -24,22 +24,9 @@ class MoviesProvider extends DefaultProvider {
     bool save = false,
   }) {
     review.isInEditState = false;
-    if (save == false) {
-      _revertReviewChanges(review);
-    } else {}
-    // TODO: implement storage data update
+    save ? _repository.storeMovies(movies) : review.discardChanges();
     review.reviewBackup = null;
     notifyListeners();
-  }
-
-  void _revertReviewChanges(MovieReviewModel review) {
-    final thisReviewsMovie = movies.firstWhere(
-      (movie) => movie.id == review.movieId,
-    );
-    final thisReviewsIndex = thisReviewsMovie.reviews.indexOf(review);
-    final reviewBackup = review.reviewBackup;
-    thisReviewsMovie.reviews.removeAt(thisReviewsIndex);
-    thisReviewsMovie.reviews.insert(thisReviewsIndex, reviewBackup!);
   }
 
   Future getMovies() async {

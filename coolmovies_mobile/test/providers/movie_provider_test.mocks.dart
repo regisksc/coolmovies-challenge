@@ -42,4 +42,8 @@ class MockMovieRepository extends _i1.Mock implements _i3.MovieRepository {
                   _FakeEither_0<_i5.Failure, List<_i5.MovieModel>>(
                       this, Invocation.method(#getAllMovies, [])))) as _i4
           .Future<_i2.Either<_i5.Failure, List<_i5.MovieModel>>>);
+  @override
+  _i4.Future<dynamic> storeMovies(List<_i5.MovieModel>? movies) =>
+      (super.noSuchMethod(Invocation.method(#storeMovies, [movies]),
+          returnValue: _i4.Future<dynamic>.value()) as _i4.Future<dynamic>);
 }

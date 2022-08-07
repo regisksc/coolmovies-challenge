@@ -36,6 +36,15 @@ class MovieReviewModel extends Equatable {
   bool isInEditState = false;
 
   MovieReviewModel? reviewBackup;
+  void backup() => reviewBackup = copy;
+
+  void discardChanges() {
+    if (reviewBackup != null) {
+      title = reviewBackup!.title;
+      body = reviewBackup!.body;
+      rating = reviewBackup!.rating;
+    }
+  }
 
   JSON get toJson {
     return {
@@ -52,6 +61,7 @@ class MovieReviewModel extends Equatable {
   List<Object> get props {
     return [
       id,
+      movieId,
       title,
       body,
       rating,
@@ -59,9 +69,7 @@ class MovieReviewModel extends Equatable {
     ];
   }
 
-  MovieReviewModel copyWith({
-    String? id,
-  }) {
+  MovieReviewModel copyWith({String? id}) {
     return MovieReviewModel(
       id: id ?? this.id,
       title: title,

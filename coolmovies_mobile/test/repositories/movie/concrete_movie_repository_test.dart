@@ -5,6 +5,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import '../../test_helpers/mock_objects.dart';
 import '../../test_helpers/mock_success_for_fixture.dart';
 @GenerateMocks([GraphQLClient, AdaptedFlutterSecureStorage])
 import 'concrete_movie_repository_test.mocks.dart';
@@ -114,6 +115,20 @@ void main() {
       // Assert
       verify(storage.read(any));
       expect(extract.valuesFromStorage, isEmpty);
+    },
+  );
+
+  test(
+    "stores new movie list when storeMovies is called",
+    () async {
+      // Arrange
+      when(storage.write(any, any)).thenAnswer((_) => Future.value());
+      final movieList = mockMovieList();
+      // Act
+
+      // Assert
+      expect(sut.storeMovies(movieList), completes);
+      verify(storage.write(any, any));
     },
   );
 }

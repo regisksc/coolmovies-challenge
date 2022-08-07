@@ -4,5 +4,5 @@ import '../../core/core.dart';
 
 abstract class MovieRepository {
   Future<Either<Failure, List<MovieModel>>> getAllMovies();
-  Future storeMovies();
+  Future storeMovies(List<MovieModel> movies);
 }
