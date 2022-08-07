@@ -16,6 +16,8 @@ void main() {
         json,
         equals(
           {
+            "id": model.id,
+            "movieId": model.movieId,
             "body": model.body,
             "title": model.title,
             "rating": model.rating,
