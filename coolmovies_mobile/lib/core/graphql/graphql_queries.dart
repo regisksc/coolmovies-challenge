@@ -20,6 +20,7 @@ class GQLQueries {
 								movieReviewsByMovieId{
 									totalCount
 									nodes {
+										id
 										body
 										title
 										rating
