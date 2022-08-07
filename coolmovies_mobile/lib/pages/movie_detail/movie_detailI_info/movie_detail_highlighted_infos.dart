@@ -19,7 +19,7 @@ class HighlightedInfos extends StatelessWidget {
       },
       {
         "title": "director",
-        "value": "${movie.directorName} ${movie.directorName}",
+        "value": movie.directorName,
       },
       {
         "title": "rated",
