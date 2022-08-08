@@ -5,11 +5,11 @@ import '../../providers/providers.dart';
 import 'list_movies.dart';
 
 class ListMoviesPage extends StatefulWidget {
-  const ListMoviesPage(
-      {Key? key,
-      required UserProvider userProvider,
-      required MoviesProvider moviesProvider})
-      : _userProvider = userProvider,
+  const ListMoviesPage({
+    Key? key,
+    required UserProvider userProvider,
+    required MoviesProvider moviesProvider,
+  })  : _userProvider = userProvider,
         _moviesProvider = moviesProvider,
         super(key: key);
 

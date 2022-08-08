@@ -96,7 +96,7 @@ extension GraphQLClientExtensions on GraphQLClient {
     final hasException = result.hasException || result.data == null;
     return hasErrors || hasException
         ? result.handleFailureOnList<T>(storage, storageKey, serializer)
-        : result.handleFailureOnList<T>(storage, storageKey, serializer);
+        : result.handleSuccessOnList<T>(storage, storageKey, serializer);
   }
 
   Future<Either<Failure, T>> performFetchOneQuery<T>(

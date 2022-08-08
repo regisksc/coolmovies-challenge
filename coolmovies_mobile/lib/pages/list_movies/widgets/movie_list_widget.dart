@@ -1,3 +1,5 @@
+// ignore_for_file: leading_newlines_in_multiline_strings
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,24 +26,45 @@ class MoviesList extends StatelessWidget {
           final movies = provider.movies;
           return movies.isEmpty
               ? const Center(child: CircularProgressIndicator.adaptive())
-              : ListView.separated(
-                  itemCount: movies.length,
-                  scrollDirection: Axis.horizontal,
-                  separatorBuilder: (context, __) => SizedBox(width: spacing),
-                  itemBuilder: (BuildContext context, int index) {
-                    final movie = movies[index];
-                    return Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: context.height * .02,
+              : Column(
+                  children: [
+                    Expanded(
+                      flex: 95,
+                      child: ListView.separated(
+                        itemCount: movies.length,
+                        scrollDirection: Axis.horizontal,
+                        separatorBuilder: (context, __) =>
+                            SizedBox(width: spacing),
+                        itemBuilder: (BuildContext context, int index) {
+                          final movie = movies[index];
+                          return Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: context.height * .02,
+                            ),
+                            margin: EdgeInsets.only(
+                              bottom: context.height * .03,
+                              left: index == 0 ? spacing : 0,
+                              right: index >= movies.length - 1 ? spacing : 0,
+                            ),
+                            child: MovieListTile(movie),
+                          );
+                        },
                       ),
-                      margin: EdgeInsets.only(
-                        bottom: context.height * .03,
-                        left: index == 0 ? spacing : 0,
-                        right: index >= movies.length - 1 ? spacing : 0,
+                    ),
+                    Expanded(
+                      flex: 5,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: context.width * .2),
+                        child: Text(
+                          """a problem occured when fetching movies. you might be seeing results from storage.""",
+                          style: context.textTheme.labelSmall!.copyWith(
+                            color: Colors.redAccent.withOpacity(.4),
+                          ),
+                        ),
                       ),
-                      child: MovieListTile(movie),
-                    );
-                  },
+                    )
+                  ],
                 );
         },
       ),

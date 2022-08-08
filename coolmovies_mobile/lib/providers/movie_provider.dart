@@ -85,7 +85,13 @@ class MoviesProvider extends DefaultProvider {
     lastRequestFailure = null;
     final moviesOrError = await _repository.getAllMovies();
     moviesOrError.fold(
-      (failure) => lastRequestFailure = failure,
+      (failure) {
+        lastRequestFailure = failure;
+        if (lastRequestFailure is GQLRequestFailure) {
+          _movies.addAll((lastRequestFailure! as GQLRequestFailure)
+              .valuesFromStorage as List<MovieModel>);
+        }
+      },
       (movies) => _movies.addAll(movies),
     );
     notifyListeners();
