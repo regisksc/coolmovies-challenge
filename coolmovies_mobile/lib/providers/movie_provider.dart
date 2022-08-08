@@ -22,14 +22,27 @@ class MoviesProvider extends DefaultProvider {
   void update() => notifyListeners();
 
   void stopEditingReview(
+    UserModel user,
     MovieReviewModel review, {
     bool shouldSave = false,
   }) {
     review.isInEditState = false;
     final canSave = review.body.isNotEmpty && review.title.isNotEmpty;
-    canSave && shouldSave
-        ? _repository.storeMovies(movies)
-        : _deleteOrDiscard(canSave, review);
+    if (canSave && shouldSave) {
+      final remoteWork = review.reviewBackup != null
+          ? _repository.remoteEditReview
+          : _repository.remoteAddReview;
+      Future.wait([
+        remoteWork(
+          movieId: review.movieId,
+          userId: user.id,
+          review: review,
+        ),
+        _repository.storeMovies(movies),
+      ]);
+    } else {
+      _deleteOrDiscard(canSave, review);
+    }
 
     review.reviewBackup = null;
     notifyListeners();
@@ -43,6 +56,7 @@ class MoviesProvider extends DefaultProvider {
           .firstWhere((movie) => movie.reviews.contains(review))
           .removeReview(review);
     }
+    review.reviewBackup = null;
   }
 
   void resetEditState(MovieModel movie) {

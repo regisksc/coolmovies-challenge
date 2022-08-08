@@ -15,6 +15,7 @@ class ReviewEditButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<MoviesProvider>(
       builder: (_, provider, __) {
+        final user = context.read<UserProvider>().user!;
         return Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -23,7 +24,7 @@ class ReviewEditButton extends StatelessWidget {
               label: review.isInEditState ? 'save' : 'edit',
               onTap: () => !review.isInEditState
                   ? provider.startEditingReview(review)
-                  : provider.stopEditingReview(review, shouldSave: true),
+                  : provider.stopEditingReview(user, review, shouldSave: true),
               color: !review.isInEditState
                   ? Colors.black12
                   : Colors.greenAccent.withOpacity(.2),
@@ -32,7 +33,7 @@ class ReviewEditButton extends StatelessWidget {
               visible: review.isInEditState,
               child: _InteractiveButton(
                 label: 'cancel',
-                onTap: () => provider.stopEditingReview(review),
+                onTap: () => provider.stopEditingReview(user, review),
                 color: Colors.redAccent.withOpacity(.2),
               ),
             ),

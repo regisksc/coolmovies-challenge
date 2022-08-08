@@ -62,16 +62,34 @@ void main() {
     () async {
       // Arrange
       when(repository.storeMovies(any)).thenAnswer((_) => Future.value());
+      when(repository.remoteAddReview(
+        movieId: anyNamed('movieId'),
+        userId: anyNamed('userId'),
+        review: anyNamed('review'),
+      )).thenAnswer((_) => Future.value());
+      when(repository.remoteEditReview(
+        movieId: anyNamed('movieId'),
+        userId: anyNamed('userId'),
+        review: anyNamed('review'),
+      )).thenAnswer((_) => Future.value());
+      when(repository.storeMovies(any)).thenAnswer((_) => Future.value());
       final movies = mockMovieList();
+      final user = mockUserModel;
       final reviewToBeEdited = movies[0].reviews[0];
       final firstTitle = reviewToBeEdited.title;
       // Act
       sut.startEditingReview(reviewToBeEdited);
       reviewToBeEdited.title = 'newTitle';
-      sut.stopEditingReview(reviewToBeEdited, shouldSave: true);
+      reviewToBeEdited.title = 'body';
+      sut.stopEditingReview(user, reviewToBeEdited, shouldSave: true);
       final newTitle = reviewToBeEdited.title;
       // Assert
       verify(repository.storeMovies(any));
+      verify(repository.remoteEditReview(
+        movieId: anyNamed('movieId'),
+        userId: anyNamed('userId'),
+        review: anyNamed('review'),
+      ));
       expect(newTitle, isNot(firstTitle));
     },
   );
@@ -81,12 +99,13 @@ void main() {
     () async {
       // Arrange
       final movies = mockMovieList();
+      final user = mockUserModel;
       final reviewToBeEdited = movies[0].reviews[0];
       final titleBefore = reviewToBeEdited.title;
       // Act
       sut.startEditingReview(reviewToBeEdited);
       reviewToBeEdited.title = 'newTitle';
-      sut.stopEditingReview(reviewToBeEdited);
+      sut.stopEditingReview(user, reviewToBeEdited);
       final titleAfter = reviewToBeEdited.title;
       // Assert
       verifyNever(repository.storeMovies(any));

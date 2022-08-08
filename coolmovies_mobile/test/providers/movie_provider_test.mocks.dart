@@ -46,4 +46,18 @@ class MockMovieRepository extends _i1.Mock implements _i3.MovieRepository {
   _i4.Future<dynamic> storeMovies(List<_i5.MovieModel>? movies) =>
       (super.noSuchMethod(Invocation.method(#storeMovies, [movies]),
           returnValue: _i4.Future<dynamic>.value()) as _i4.Future<dynamic>);
+  @override
+  _i4.Future<dynamic> remoteAddReview(
+          {String? movieId, String? userId, _i5.MovieReviewModel? review}) =>
+      (super.noSuchMethod(
+          Invocation.method(#remoteAddReview, [],
+              {#movieId: movieId, #userId: userId, #review: review}),
+          returnValue: _i4.Future<dynamic>.value()) as _i4.Future<dynamic>);
+  @override
+  _i4.Future<dynamic> remoteEditReview(
+          {String? movieId, String? userId, _i5.MovieReviewModel? review}) =>
+      (super.noSuchMethod(
+          Invocation.method(#remoteEditReview, [],
+              {#movieId: movieId, #userId: userId, #review: review}),
+          returnValue: _i4.Future<dynamic>.value()) as _i4.Future<dynamic>);
 }
