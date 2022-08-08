@@ -11,4 +11,4 @@ Scenario: No internet
 Given user has no connection with the internet
 When requesting to get all movies 
 App should load the last captured list of movies ✅
-App should warn user of the connection and explicit results are from cache
+App should warn user of the connection and explicit results are from cache✅
