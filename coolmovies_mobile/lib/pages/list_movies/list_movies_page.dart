@@ -22,8 +22,6 @@ class ListMoviesPage extends StatefulWidget {
 class _ListMoviesPageState extends State<ListMoviesPage> {
   @override
   void dispose() {
-    widget._moviesProvider.dispose();
-    widget._userProvider.dispose();
     super.dispose();
   }
 
