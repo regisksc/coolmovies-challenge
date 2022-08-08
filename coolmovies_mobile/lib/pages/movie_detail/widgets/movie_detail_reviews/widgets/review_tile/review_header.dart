@@ -29,8 +29,10 @@ class ReviewHeader extends StatelessWidget {
                       maxLines: 10,
                       onChanged: (editValue) => review.title = editValue,
                       autofocus: true,
-                      decoration:
-                          const InputDecoration(border: InputBorder.none),
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'title',
+                      ),
                     )
                   : Text(
                       review.title,
@@ -58,7 +60,10 @@ class ReviewHeader extends StatelessWidget {
                           child: Text('${i + 1}   ⭐'),
                         ),
                       ),
-                      onChanged: (value) => review.rating = value!)
+                      onChanged: (value) {
+                        review.rating = value!;
+                        provider.update();
+                      })
                   : Text(
                       review.ratingWStar,
                       style: context.textTheme.labelLarge!.copyWith(

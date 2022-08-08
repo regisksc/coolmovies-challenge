@@ -24,17 +24,22 @@ class MovieDetailReviews extends StatelessWidget {
         ),
         child: SectionWidget(
           title: 'Reviews',
-          trailing: const AddReviewButton(),
-          child: Column(
-            children: movie.reviews
-                .map((review) => Padding(
-                      padding: EdgeInsets.only(bottom: context.height * .03),
-                      child: ReviewTile(
-                        review: review,
-                        provider: context.read<MoviesProvider>(),
-                      ),
-                    ))
-                .toList(),
+          trailing: AddReviewButton(movie: movie),
+          child: Consumer<MoviesProvider>(
+            builder: (_, provider, __) {
+              return Column(
+                children: movie.reviews
+                    .map((review) => Padding(
+                          padding:
+                              EdgeInsets.only(bottom: context.height * .03),
+                          child: ReviewTile(
+                            review: review,
+                            provider: context.read<MoviesProvider>(),
+                          ),
+                        ))
+                    .toList(),
+              );
+            },
           ),
         ),
       ),

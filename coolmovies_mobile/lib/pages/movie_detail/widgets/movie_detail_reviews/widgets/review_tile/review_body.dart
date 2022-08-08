@@ -29,8 +29,10 @@ class ReviewBody extends StatelessWidget {
                           maxLines: 10,
                           onChanged: (editValue) => review.body = editValue,
                           autofocus: true,
-                          decoration:
-                              const InputDecoration(border: InputBorder.none),
+                          decoration: const InputDecoration(
+                            hintText: 'tell your opinion',
+                            border: InputBorder.none,
+                          ),
                         )
                       : Text(
                           review.body,

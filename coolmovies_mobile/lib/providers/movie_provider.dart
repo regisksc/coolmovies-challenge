@@ -19,6 +19,8 @@ class MoviesProvider extends DefaultProvider {
     }
   }
 
+  void update() => notifyListeners();
+
   void stopEditingReview(
     MovieReviewModel review, {
     bool save = false,
@@ -26,6 +28,23 @@ class MoviesProvider extends DefaultProvider {
     review.isInEditState = false;
     save ? _repository.storeMovies(movies) : review.discardChanges();
     review.reviewBackup = null;
+    notifyListeners();
+  }
+
+  void addReview({
+    required MovieModel movie,
+    required UserModel user,
+  }) {
+    final newReview = MovieReviewModel(
+      movieId: movie.id,
+      id: "",
+      title: "",
+      body: "",
+      rating: 5,
+      createdBy: user,
+    );
+    newReview.isInEditState = true;
+    movie.reviews.insert(0, newReview);
     notifyListeners();
   }
 
