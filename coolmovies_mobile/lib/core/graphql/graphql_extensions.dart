@@ -123,7 +123,7 @@ extension GraphQLClientExtensions on GraphQLClient {
     final hasException = result.hasException || result.data == null;
     if (hasErrors || hasException) {
       debugPrint("Exception occured : \n${result.exception.toString()}");
-      jsonLogger(result.data!);
+      if (result.data != null) jsonLogger(result.data!);
       final error = result.data?['errors'][0];
       final message = error?['message'].toString();
       return GQLRequestFailure(
