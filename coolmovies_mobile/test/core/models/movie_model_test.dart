@@ -20,8 +20,10 @@ void main() {
             "title": model.title,
             "releaseDate": model.releaseDate,
             "movieDirectorByMovieDirectorId": {"name": model.directorName},
-            "movieReviewsByMovieId": {"nodes": model.reviews},
-            "userByUserCreatorId": model.createdBy,
+            "movieReviewsByMovieId": {
+              "nodes": model.reviews.map((e) => e.toJson).toList()
+            },
+            "userByUserCreatorId": model.createdBy.toJson,
             "description": model.description,
           },
         ),
