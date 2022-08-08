@@ -42,7 +42,8 @@ void main() {
     "should update last failure when getAllMovies fails",
     () async {
       // Arrange
-      final failure = mockFailure;
+      final fromStorage = mockMovieList();
+      final failure = mockFailureWith(fromStorage);
       when(repository.getAllMovies()).thenAnswer(
         (_) async => Left(failure),
       );

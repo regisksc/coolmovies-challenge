@@ -88,8 +88,10 @@ class MoviesProvider extends DefaultProvider {
       (failure) {
         lastRequestFailure = failure;
         if (lastRequestFailure is GQLRequestFailure) {
-          _movies.addAll((lastRequestFailure! as GQLRequestFailure)
-              .valuesFromStorage as List<MovieModel>);
+          _movies.addAll(
+            (lastRequestFailure! as GQLRequestFailure).valuesFromStorage
+                as List<MovieModel>,
+          );
         }
       },
       (movies) => _movies.addAll(movies),

@@ -42,6 +42,8 @@ MovieReviewModel get mockMovieReviewModel => MovieReviewModel(
     );
 
 Failure get mockFailure => GQLRequestFailure(faker.lorem.sentence());
+Failure mockFailureWith(dynamic fromStorage) =>
+    GQLRequestFailure(faker.lorem.sentence(), valuesFromStorage: fromStorage);
 
 String get mockDate =>
     "${faker.randomGenerator.integer(2022, min: 1900)}-${faker.randomGenerator.integer(12, min: 1)}-${faker.randomGenerator.integer(31, min: 1)}";
