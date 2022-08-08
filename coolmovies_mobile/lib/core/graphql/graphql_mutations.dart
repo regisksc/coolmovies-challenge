@@ -1,12 +1,11 @@
 // ignore_for_file: leading_newlines_in_multiline_strings
-
 import '../core.dart';
 
 class GQLMutations {
   GQLMutations._();
 
   static String createComment({required JSON commentMap}) {
-    return r"""
+    return """
       mutation {
         createComment(input: {comment: $commentMap}) {
           comment {
@@ -35,7 +34,7 @@ class GQLMutations {
   static String createMovieReview({
     required JSON movieReviewMap,
   }) {
-    return r"""
+    return """
       
 mutation {
   createMovieReview(input: { 
@@ -63,7 +62,7 @@ mutation {
   static String updateMovieReview({
     required JSON movieReviewMap,
   }) {
-    return r"""
+    return """
       
 mutation {
 	updateMovieReviewById (input: $movieReviewMap) {
@@ -86,7 +85,7 @@ mutation {
   static String createUser({
     required JSON userMap,
   }) {
-    return r""""
+    return """"
       mutation {
         createUser(input: {user: $userMap}) {
         user {
