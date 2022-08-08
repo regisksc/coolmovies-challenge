@@ -52,7 +52,12 @@ extension GQLRequestResultExtensions on QueryResult<Object?> {
     final json = this.data!;
     final list = json[storageKey]["nodes"] as List;
     // save storage
-    await storage.write(storageKey, {storageKey: list});
+    await storage.write(
+      storageKey,
+      {
+        storageKey: {'nodes': list}
+      },
+    );
     // map result
     final models = list.map<T>((map) => serializer(map as JSON) as T).toList();
     return Right(models);
@@ -70,7 +75,7 @@ extension GQLRequestResultExtensions on QueryResult<Object?> {
     final cachedModels = <T>[];
 
     if (storedValues.isNotEmpty) {
-      final modelsMapList = storedValues[storageKey] as List;
+      final modelsMapList = storedValues[storageKey]['nodes'] as List;
       cachedModels
         ..addAll(modelsMapList.map((e) => serializer(e as JSON) as T).toList());
     }
