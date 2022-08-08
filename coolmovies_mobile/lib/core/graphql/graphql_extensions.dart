@@ -1,5 +1,4 @@
 // ignore_for_file: unnecessary_this
-import 'dart:convert';
 
 import 'package:either_dart/either.dart';
 import 'package:flutter/foundation.dart';
@@ -16,7 +15,7 @@ extension GQLRequestResultExtensions on QueryResult<Object?> {
     final json = this.data!;
     final individual = json[storageKey];
     // save storage
-    await storage.write(storageKey, jsonEncode({storageKey: individual}));
+    await storage.write(storageKey, {storageKey: individual});
     // map result
     final model = serializer(individual as JSON) as T;
     return Right(model);
@@ -53,7 +52,7 @@ extension GQLRequestResultExtensions on QueryResult<Object?> {
     final json = this.data!;
     final list = json[storageKey]["nodes"] as List;
     // save storage
-    await storage.write(storageKey, jsonEncode({storageKey: list}));
+    await storage.write(storageKey, {storageKey: list});
     // map result
     final models = list.map<T>((map) => serializer(map as JSON) as T).toList();
     return Right(models);
@@ -65,13 +64,13 @@ extension GQLRequestResultExtensions on QueryResult<Object?> {
     Object Function(JSON) serializer,
   ) async {
     debugPrint("Exception occured : \n${this.exception.toString()}");
-    final error = this.data?['errors'][0];
+    final error = this.data?['errors']?[0];
     final message = error?['message'].toString();
     final storedValues = await storage.read(storageKey);
     final cachedModels = <T>[];
 
     if (storedValues.isNotEmpty) {
-      final modelsMapList = storedValues[storageKey]["nodes"] as List;
+      final modelsMapList = storedValues[storageKey] as List;
       cachedModels
         ..addAll(modelsMapList.map((e) => serializer(e as JSON) as T).toList());
     }
@@ -97,7 +96,7 @@ extension GraphQLClientExtensions on GraphQLClient {
     final hasException = result.hasException || result.data == null;
     return hasErrors || hasException
         ? result.handleFailureOnList<T>(storage, storageKey, serializer)
-        : result.handleSuccessOnList<T>(storage, storageKey, serializer);
+        : result.handleFailureOnList<T>(storage, storageKey, serializer);
   }
 
   Future<Either<Failure, T>> performFetchOneQuery<T>(
