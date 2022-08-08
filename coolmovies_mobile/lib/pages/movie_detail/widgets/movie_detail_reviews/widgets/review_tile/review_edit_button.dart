@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../core/core.dart';
-import '../../../../../providers/providers.dart';
+import '../../../../../../core/core.dart';
+import '../../../../../../providers/providers.dart';
 
 class ReviewEditButton extends StatelessWidget {
   const ReviewEditButton(

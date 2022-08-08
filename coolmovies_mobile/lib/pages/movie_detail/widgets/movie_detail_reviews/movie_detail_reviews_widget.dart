@@ -24,6 +24,7 @@ class MovieDetailReviews extends StatelessWidget {
         ),
         child: SectionWidget(
           title: 'Reviews',
+          trailing: const AddReviewButton(),
           child: Column(
             children: movie.reviews
                 .map((review) => Padding(

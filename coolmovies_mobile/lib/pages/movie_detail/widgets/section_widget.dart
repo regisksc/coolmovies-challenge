@@ -7,17 +7,19 @@ class SectionWidget extends StatelessWidget {
     Key? key,
     required this.title,
     required this.child,
+    this.trailing,
   }) : super(key: key);
 
   final String title;
   final Widget child;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SectionTitle(title: title),
+        SectionTitle(title: title, trailing: trailing),
         child,
       ],
     );
@@ -28,8 +30,10 @@ class SectionTitle extends StatelessWidget {
   const SectionTitle({
     Key? key,
     required this.title,
+    this.trailing,
   }) : super(key: key);
 
+  final Widget? trailing;
   final String title;
   @override
   Widget build(BuildContext context) {
@@ -37,7 +41,14 @@ class SectionTitle extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 5),
-        Text(title, style: context.textTheme.headlineMedium),
+        Row(
+          children: [
+            Text(title, style: context.textTheme.headlineMedium),
+            const Spacer(flex: 20),
+            trailing ?? const SizedBox(),
+            const Spacer(),
+          ],
+        ),
         const SizedBox(height: 20),
       ],
     );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../core/core.dart';
-import '../../../../../providers/movie_provider.dart';
+import '../../../../../../core/core.dart';
+import '../../../../../../providers/movie_provider.dart';
 
 class ReviewBody extends StatelessWidget {
   const ReviewBody(
