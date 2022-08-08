@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/core.dart';
+import '../../../providers/movie_provider.dart';
 
 class BackToListButton extends StatelessWidget {
   const BackToListButton({
     Key? key,
+    this.movie,
   }) : super(key: key);
+
+  final MovieModel? movie;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,10 @@ class BackToListButton extends StatelessWidget {
         textColor: Colors.white,
         elevation: 1,
         highlightElevation: 0,
-        onPressed: () => context.pop,
+        onPressed: () {
+          context.read<MoviesProvider>().resetEditState(movie!);
+          context.pop;
+        },
         color: Colors.blueGrey.withOpacity(.3),
         child: Row(
           children: [

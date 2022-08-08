@@ -31,6 +31,11 @@ class MoviesProvider extends DefaultProvider {
     notifyListeners();
   }
 
+  void resetEditState(MovieModel movie) {
+    if (!movie.reviews.any((review) => review.isInEditState)) return;
+    movie.reviews..forEach((review) => review.isInEditState = false);
+  }
+
   void addReview({
     required MovieModel movie,
     required UserModel user,
