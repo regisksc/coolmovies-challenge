@@ -58,6 +58,30 @@ mutation {
   }
 
   // ##
+// ##
+
+  static String updateMovieReview({
+    required JSON movieReviewMap,
+  }) {
+    return r"""
+      
+mutation {
+	updateMovieReviewById (input: $movieReviewMap) {
+
+		movieReview {
+			id
+			movieId
+			title
+			body
+			rating
+			userReviewerId
+		}
+	}
+}
+  """;
+  }
+
+  // ##
 
   static String createUser({
     required JSON userMap,

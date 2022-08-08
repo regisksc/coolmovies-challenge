@@ -166,6 +166,38 @@ void main() {
       expect(failureOrNull, isNull);
     },
   );
+  test(
+    "should edit a movie review in remote",
+    () async {
+      // Arrange
+      when(client.mutate(any)).thenAnswer(
+        (_) async => QueryResult(
+          options: MutationOptions(
+            document: gql(
+              GQLMutations.createMovieReview(movieReviewMap: {}),
+            ),
+          ),
+          source: QueryResultSource.network,
+          data: {},
+        ),
+      );
+      final movieId = faker.guid.guid();
+      final userId = faker.guid.guid();
+      final review = mockMovieReviewModel;
+
+      // Act
+      final failureOrNull = await sut.remoteEditReview(
+        movieId: movieId,
+        userId: userId,
+        review: review,
+      );
+
+      // Assert
+      verifyNever(storage.read(any));
+      verifyNever(storage.write(any, any));
+      expect(failureOrNull, isNull);
+    },
+  );
 }
 
 void arrangeCommonExecutions(MockGraphQLClient client,

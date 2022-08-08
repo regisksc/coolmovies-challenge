@@ -10,4 +10,9 @@ abstract class MovieRepository {
     required String userId,
     required MovieReviewModel review,
   });
+  Future remoteEditReview({
+    required String movieId,
+    required String userId,
+    required MovieReviewModel review,
+  });
 }

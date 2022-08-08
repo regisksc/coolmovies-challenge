@@ -52,4 +52,23 @@ class ConcreteMovieRepository implements MovieRepository {
       ),
     );
   }
+
+  @override
+  Future remoteEditReview({
+    required String movieId,
+    required String userId,
+    required MovieReviewModel review,
+  }) {
+    return client.performMutation(
+      gqlQuery: GQLMutations.updateMovieReview(
+        movieReviewMap: {
+          "title": review.title,
+          "body": review.body,
+          "rating": review.rating,
+          "movieId": movieId,
+          "userReviewerId": userId,
+        },
+      ),
+    );
+  }
 }
