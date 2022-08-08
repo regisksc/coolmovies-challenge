@@ -8,8 +8,7 @@ void main() {
     'createUser query should contain input value',
     () async {
       final input = {"name": "Heather"};
-      expect(
-          GQLMutations.createUser(userMap: input), contains(input.toString()));
+      expect(GQLMutations.createUser(userMap: input), contains("\$userMap"));
     },
   );
 
@@ -25,7 +24,7 @@ void main() {
       };
       expect(
         GQLMutations.createMovieReview(movieReviewMap: input),
-        contains(input.toString()),
+        contains('\$movieReviewMap'),
       );
     },
   );
@@ -41,7 +40,7 @@ void main() {
       };
       expect(
         GQLMutations.createMovieReview(movieReviewMap: input),
-        contains(input.toString()),
+        contains('\$movieReviewMap'),
       );
     },
   );
