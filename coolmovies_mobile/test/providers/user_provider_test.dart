@@ -2,13 +2,12 @@ import 'package:coolmovies/providers/providers.dart';
 import 'package:coolmovies/repositories/repositories.dart';
 import 'package:either_dart/either.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../test_helpers/mock_objects.dart';
-import 'user_provider_test.mocks.dart';
 
-@GenerateMocks([UserRepository])
+class MockUserRepository extends Mock implements UserRepository {}
+
 void main() {
   late UserProvider sut;
   late MockUserRepository repository;
@@ -23,7 +22,7 @@ void main() {
     () async {
       // Arrange
       final fromRepository = mockUserModel;
-      when(repository.getCurrentUser()).thenAnswer(
+      when(() => repository.getCurrentUser()).thenAnswer(
         (_) async => Right(fromRepository),
       );
       // Act
@@ -32,7 +31,7 @@ void main() {
       });
       await sut.getCurrentUser();
       // Assert
-      verify(repository.getCurrentUser());
+      verify(() => repository.getCurrentUser());
     },
   );
 
@@ -41,7 +40,7 @@ void main() {
     () async {
       // Arrange
       final failure = mockFailure;
-      when(repository.getCurrentUser()).thenAnswer(
+      when(() => repository.getCurrentUser()).thenAnswer(
         (_) async => Left(failure),
       );
       // Act
@@ -51,7 +50,7 @@ void main() {
       });
       await sut.getCurrentUser();
       // Assert
-      verify(repository.getCurrentUser());
+      verify(() => repository.getCurrentUser());
     },
   );
 }

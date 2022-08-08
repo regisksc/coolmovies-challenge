@@ -2,7 +2,7 @@
   "files.exclude": {
     "**/*.freezed.dart": true,
     "**/*.g.dart": true,
-    "**/*.mocks.dart": true,
+    // "**/*.mocks.dart": true,
     "**/.git": true,
     "**/.svn": true,
     "**/.hg": true,

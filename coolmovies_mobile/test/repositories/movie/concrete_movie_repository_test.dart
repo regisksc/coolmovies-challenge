@@ -4,13 +4,13 @@ import 'package:coolmovies/repositories/repositories.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../../test_helpers/mock_objects.dart';
 import '../../test_helpers/mock_success_for_fixture.dart';
-@GenerateMocks([GraphQLClient, AdaptedFlutterSecureStorage])
-import 'concrete_movie_repository_test.mocks.dart';
+import '../user/concrete_user_repository_test.dart';
+
+class MockGraphQLClient extends Mock implements GraphQLClient {}
 
 void main() {
   late MovieRepository sut;
@@ -37,14 +37,14 @@ void main() {
         client,
         resultData: mockSuccessForFixture('all_movies.json'),
       );
-      when(storage.write(any, any)).thenAnswer(
+      when(() => storage.write(any(), any)).thenAnswer(
         (_) async => Future.value(),
       );
       // Act
       final result = await sut.getAllMovies();
       final extract = result.fold((failure) => failure, (success) => success);
       // Assert
-      verify(client.query(any));
+      verify(() => client.query(any()));
       expect(extract, isA<List<MovieModel>>());
       expect(extract, isNotEmpty);
     },
@@ -58,13 +58,13 @@ void main() {
         client,
         resultData: mockSuccessForFixture('all_movies.json'),
       );
-      when(storage.write(any, any)).thenAnswer(
+      when(() => storage.write(any(), any)).thenAnswer(
         (_) async => Future.value(),
       );
       // Act
       await sut.getAllMovies();
       // Assert
-      verify(storage.write(any, any));
+      verify(() => storage.write(any(), any));
     },
   );
 
@@ -73,14 +73,14 @@ void main() {
     () async {
       // Arrange
       arrangeCommonExecutions(client, resultData: mockGraphQLRequestFailure());
-      when(storage.read(any)).thenAnswer(
+      when(() => storage.read(any())).thenAnswer(
         (_) async => {},
       );
       // Act
       final result = await sut.getAllMovies();
       final extract = result.fold((failure) => failure, (success) => success);
       // Assert
-      verify(client.query(any));
+      verify(() => client.query(any()));
       expect(extract, isA<GQLRequestFailure>());
     },
   );
@@ -89,7 +89,7 @@ void main() {
     () async {
       // Arrange
       arrangeCommonExecutions(client, resultData: mockGraphQLRequestFailure());
-      when(storage.read(any)).thenAnswer(
+      when(() => storage.read(any())).thenAnswer(
         (_) async => mockSuccessForFixture('all_movies.json'),
       );
       // Act
@@ -97,7 +97,7 @@ void main() {
       final extract = result.fold((failure) => failure, (success) => success);
       extract as GQLRequestFailure;
       // Assert
-      verify(storage.read(any));
+      verify(() => storage.read(any()));
       expect(extract.valuesFromStorage, isNotEmpty);
     },
   );
@@ -107,7 +107,7 @@ void main() {
     () async {
       // Arrange
       arrangeCommonExecutions(client, resultData: mockGraphQLRequestFailure());
-      when(storage.read(any)).thenAnswer(
+      when(() => storage.read(any())).thenAnswer(
         (_) async => {},
       );
       // Act
@@ -115,7 +115,7 @@ void main() {
       final extract = result.fold((failure) => failure, (success) => success);
       extract as GQLRequestFailure;
       // Assert
-      verify(storage.read(any));
+      verify(() => storage.read(any()));
       expect(extract.valuesFromStorage, isEmpty);
     },
   );
@@ -124,19 +124,19 @@ void main() {
     "stores new movie list when storeMovies is called",
     () async {
       // Arrange
-      when(storage.write(any, any)).thenAnswer((_) => Future.value());
+      when(() => storage.write(any(), any)).thenAnswer((_) => Future.value());
       final movieList = mockMovieList();
       // Act
 
       // Assert
       expect(sut.storeMovies(movieList), completes);
-      verify(storage.write(any, any));
+      verify(() => storage.write(any(), any));
     },
   );
 
   test("should add a movie review to the remote", () async {
     // Arrange
-    when(client.mutate(any)).thenAnswer(
+    when(() => client.mutate(any())).thenAnswer(
       (_) async => QueryResult(
         options: MutationOptions(
           document: gql(
@@ -159,13 +159,13 @@ void main() {
     );
 
     // Assert
-    verifyNever(storage.read(any));
-    verifyNever(storage.write(any, any));
+    verifyNever(() => storage.read(any()));
+    verifyNever(() => storage.write(any(), any));
     expect(failureOrNull, isNull);
   }, skip: true);
   test("should edit a movie review in remote", () async {
     // Arrange
-    when(client.mutate(any)).thenAnswer(
+    when(() => client.mutate(any())).thenAnswer(
       (_) async => QueryResult(
         options: MutationOptions(
           document: gql(
@@ -188,8 +188,8 @@ void main() {
     );
 
     // Assert
-    verifyNever(storage.read(any));
-    verifyNever(storage.write(any, any));
+    verifyNever(() => storage.read(any()));
+    verifyNever(() => storage.write(any(), any));
     expect(failureOrNull, isNull);
   }, skip: true);
 }
@@ -198,7 +198,7 @@ void arrangeCommonExecutions(MockGraphQLClient client,
     {required JSON resultData}) {
   final gqlDocNode = gql(GQLQueries.getAllMovieReviews);
   final queryOptions = QueryOptions(document: gqlDocNode);
-  when(client.query(any)).thenAnswer(
+  when(() => client.query(any())).thenAnswer(
     (_) async => QueryResult(
       options: queryOptions,
       source: QueryResultSource.network,

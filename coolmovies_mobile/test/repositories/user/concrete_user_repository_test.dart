@@ -2,12 +2,13 @@ import 'package:coolmovies/core/core.dart';
 import 'package:coolmovies/repositories/user/user.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../../test_helpers/mock_success_for_fixture.dart';
-@GenerateMocks([GraphQLClient, AdaptedFlutterSecureStorage])
-import 'concrete_user_repository_test.mocks.dart';
+import '../movie/concrete_movie_repository_test.dart';
+
+class MockAdaptedFlutterSecureStorage extends Mock
+    implements AdaptedFlutterSecureStorage {}
 
 void main() {
   late UserRepository sut;
@@ -34,14 +35,14 @@ void main() {
         client,
         resultData: mockSuccessForFixture('current_user.json'),
       );
-      when(storage.write(any, any)).thenAnswer(
+      when(() => storage.write(any(), any)).thenAnswer(
         (_) async => Future.value(),
       );
       // Act
       final result = await sut.getCurrentUser();
       final extract = result.fold((failure) => failure, (success) => success);
       // Assert
-      verify(client.query(any));
+      verify(() => client.query(any()));
       expect(extract, isA<UserModel>());
     },
   );
@@ -54,13 +55,13 @@ void main() {
         client,
         resultData: mockSuccessForFixture('current_user.json'),
       );
-      when(storage.write(any, any)).thenAnswer(
+      when(() => storage.write(any(), any)).thenAnswer(
         (_) async => Future.value(),
       );
       // Act
       await sut.getCurrentUser();
       // Assert
-      verify(storage.write(any, any));
+      verify(() => storage.write(any(), any));
     },
   );
 
@@ -69,14 +70,14 @@ void main() {
     () async {
       // Arrange
       arrangeCommonExecutions(client, resultData: mockGraphQLRequestFailure());
-      when(storage.read(any)).thenAnswer(
+      when(() => storage.read(any())).thenAnswer(
         (_) async => {},
       );
       // Act
       final result = await sut.getCurrentUser();
       final extract = result.fold((failure) => failure, (success) => success);
       // Assert
-      verify(client.query(any));
+      verify(() => client.query(any()));
       expect(extract, isA<GQLRequestFailure>());
     },
   );
@@ -85,7 +86,7 @@ void main() {
     () async {
       // Arrange
       arrangeCommonExecutions(client, resultData: mockGraphQLRequestFailure());
-      when(storage.read(any)).thenAnswer(
+      when(() => storage.read(any())).thenAnswer(
         (_) async => mockSuccessForFixture('current_user.json'),
       );
       // Act
@@ -93,7 +94,7 @@ void main() {
       final extract = result.fold((failure) => failure, (success) => success);
       extract as GQLRequestFailure;
       // Assert
-      verify(storage.read(any));
+      verify(() => storage.read(any()));
     },
   );
 
@@ -102,7 +103,7 @@ void main() {
     () async {
       // Arrange
       arrangeCommonExecutions(client, resultData: mockGraphQLRequestFailure());
-      when(storage.read(any)).thenAnswer(
+      when(() => storage.read(any())).thenAnswer(
         (_) async => {},
       );
       // Act
@@ -110,7 +111,7 @@ void main() {
       final extract = result.fold((failure) => failure, (success) => success);
       extract as GQLRequestFailure;
       // Assert
-      verify(storage.read(any));
+      verify(() => storage.read(any()));
       expect(extract.valuesFromStorage, isNull);
     },
   );
@@ -120,7 +121,7 @@ void arrangeCommonExecutions(MockGraphQLClient client,
     {required JSON resultData}) {
   final gqlDocNode = gql(GQLQueries.getAllMovieReviews);
   final queryOptions = QueryOptions(document: gqlDocNode);
-  when(client.query(any)).thenAnswer(
+  when(() => client.query(any())).thenAnswer(
     (_) async => QueryResult(
       options: queryOptions,
       source: QueryResultSource.network,

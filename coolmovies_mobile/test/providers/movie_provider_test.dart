@@ -2,13 +2,12 @@ import 'package:coolmovies/providers/movie_provider.dart';
 import 'package:coolmovies/repositories/repositories.dart';
 import 'package:either_dart/either.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../test_helpers/mock_objects.dart';
-import 'movie_provider_test.mocks.dart';
 
-@GenerateMocks([MovieRepository])
+class MockMovieRepository extends Mock implements MovieRepository {}
+
 void main() {
   late MoviesProvider sut;
   late MockMovieRepository repository;
@@ -23,7 +22,7 @@ void main() {
     () async {
       // Arrange
       final fromRepository = mockMovieList();
-      when(repository.getAllMovies()).thenAnswer(
+      when(() => repository.getAllMovies()).thenAnswer(
         (_) async => Right(fromRepository),
       );
       // Act
@@ -34,7 +33,7 @@ void main() {
       });
       await sut.getMovies();
       // Assert
-      verify(repository.getAllMovies());
+      verify(() => repository.getAllMovies());
     },
   );
 
@@ -44,7 +43,7 @@ void main() {
       // Arrange
       final fromStorage = mockMovieList();
       final failure = mockFailureWith(fromStorage);
-      when(repository.getAllMovies()).thenAnswer(
+      when(() => repository.getAllMovies()).thenAnswer(
         (_) async => Left(failure),
       );
       // Act
@@ -54,7 +53,7 @@ void main() {
       });
       await sut.getMovies();
       // Assert
-      verify(repository.getAllMovies());
+      verify(() => repository.getAllMovies());
     },
   );
 
@@ -62,18 +61,20 @@ void main() {
     "should replace review on edit save action",
     () async {
       // Arrange
-      when(repository.storeMovies(any)).thenAnswer((_) => Future.value());
-      when(repository.remoteAddReview(
-        movieId: anyNamed('movieId'),
-        userId: anyNamed('userId'),
-        review: anyNamed('review'),
-      )).thenAnswer((_) => Future.value());
-      when(repository.remoteEditReview(
-        movieId: anyNamed('movieId'),
-        userId: anyNamed('userId'),
-        review: anyNamed('review'),
-      )).thenAnswer((_) => Future.value());
-      when(repository.storeMovies(any)).thenAnswer((_) => Future.value());
+      when(() => repository.storeMovies(any()))
+          .thenAnswer((_) => Future.value());
+      when(() => repository.remoteAddReview(
+            movieId: any(named: 'movieId'),
+            userId: any(named: 'userId'),
+            review: any(named: 'review'),
+          )).thenAnswer((_) => Future.value());
+      when(() => repository.remoteEditReview(
+            movieId: any(named: 'movieId'),
+            userId: any(named: 'userId'),
+            review: any(named: 'review'),
+          )).thenAnswer((_) => Future.value());
+      when(() => repository.storeMovies(any()))
+          .thenAnswer((_) => Future.value());
       final movies = mockMovieList();
       final user = mockUserModel;
       final reviewToBeEdited = movies[0].reviews[0];
@@ -85,12 +86,12 @@ void main() {
       sut.stopEditingReview(user, reviewToBeEdited, shouldSave: true);
       final newTitle = reviewToBeEdited.title;
       // Assert
-      verify(repository.storeMovies(any));
-      verify(repository.remoteEditReview(
-        movieId: anyNamed('movieId'),
-        userId: anyNamed('userId'),
-        review: anyNamed('review'),
-      ));
+      verify(() => repository.storeMovies(any()));
+      verify(() => repository.remoteEditReview(
+            movieId: any(named: 'movieId'),
+            userId: any(named: 'userId'),
+            review: any(named: 'review'),
+          ));
       expect(newTitle, isNot(firstTitle));
     },
   );
@@ -109,7 +110,7 @@ void main() {
       sut.stopEditingReview(user, reviewToBeEdited);
       final titleAfter = reviewToBeEdited.title;
       // Assert
-      verifyNever(repository.storeMovies(any));
+      verifyNever(() => repository.storeMovies(any()));
       expect(titleBefore, equals(titleAfter));
     },
   );
