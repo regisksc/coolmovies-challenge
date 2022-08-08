@@ -68,7 +68,7 @@ void main() {
       // Act
       sut.startEditingReview(reviewToBeEdited);
       reviewToBeEdited.title = 'newTitle';
-      sut.stopEditingReview(reviewToBeEdited, save: true);
+      sut.stopEditingReview(reviewToBeEdited, shouldSave: true);
       final newTitle = reviewToBeEdited.title;
       // Assert
       verify(repository.storeMovies(any));

@@ -69,6 +69,8 @@ class MovieModel extends Equatable {
 
   String get releaseYear => releaseDate?.split("-").first ?? "";
 
+  void removeReview(MovieReviewModel review) => reviews.remove(review);
+
   JSON get toJson {
     return {
       "id": id,

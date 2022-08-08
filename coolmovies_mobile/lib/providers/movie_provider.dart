@@ -23,12 +23,26 @@ class MoviesProvider extends DefaultProvider {
 
   void stopEditingReview(
     MovieReviewModel review, {
-    bool save = false,
+    bool shouldSave = false,
   }) {
     review.isInEditState = false;
-    save ? _repository.storeMovies(movies) : review.discardChanges();
+    final canSave = review.body.isNotEmpty && review.title.isNotEmpty;
+    canSave && shouldSave
+        ? _repository.storeMovies(movies)
+        : _deleteOrDiscard(canSave, review);
+
     review.reviewBackup = null;
     notifyListeners();
+  }
+
+  void _deleteOrDiscard(bool canSave, MovieReviewModel review) {
+    if (canSave || review.reviewBackup != null) {
+      review.discardChanges();
+    } else {
+      movies
+          .firstWhere((movie) => movie.reviews.contains(review))
+          .removeReview(review);
+    }
   }
 
   void resetEditState(MovieModel movie) {

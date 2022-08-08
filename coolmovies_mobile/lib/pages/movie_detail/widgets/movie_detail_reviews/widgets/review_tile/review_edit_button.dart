@@ -23,7 +23,7 @@ class ReviewEditButton extends StatelessWidget {
               label: review.isInEditState ? 'save' : 'edit',
               onTap: () => !review.isInEditState
                   ? provider.startEditingReview(review)
-                  : provider.stopEditingReview(review, save: true),
+                  : provider.stopEditingReview(review, shouldSave: true),
               color: !review.isInEditState
                   ? Colors.black12
                   : Colors.greenAccent.withOpacity(.2),
