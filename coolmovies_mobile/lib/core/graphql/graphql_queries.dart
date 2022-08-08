@@ -1,7 +1,5 @@
 // ignore_for_file: unnecessary_string_escapes, leading_newlines_in_multiline_strings
 
-import '../core.dart';
-
 class GQLQueries {
   GQLQueries._();
 
@@ -193,77 +191,6 @@ class GQLQueries {
 			}
 		}
   }
-      }
-  """;
-  }
-
-  // ##
-
-  static String createComment({required JSON commentMap}) {
-    return """"
-      mutation {
-        createComment(input: {comment: $commentMap}) {
-          comment {
-            id
-            title
-            body
-            userByUserId {
-              id
-              name
-            }
-            movieReviewByMovieReviewId {
-              id
-              title
-              movieByMovieId {
-                title
-              }
-            }
-          }
-        }
-      }
-  """;
-  }
-
-  // ##
-
-  static String createMovieReview({
-    required JSON movieReviewMap,
-  }) {
-    return """"
-      mutation {
-        createMovieReview(input: {
-      movieReview: $movieReviewMap})
-    {
-      movieReview {
-        id
-        title
-        body
-        rating
-        movieByMovieId {
-          title
-        }
-        userByUserReviewerId {
-          name
-        }
-      }
-    }
-      }
-  """;
-  }
-
-  // ##
-
-  static String createUser({
-    required JSON userMap,
-  }) {
-    return """"
-      mutation {
-        createUser(input: {user: $userMap}) {
-        user {
-          id
-          name
-        }
-      }
       }
   """;
   }

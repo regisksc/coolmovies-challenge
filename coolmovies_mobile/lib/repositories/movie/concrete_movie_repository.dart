@@ -2,6 +2,7 @@ import 'package:either_dart/either.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../../core/core.dart';
+import '../../core/graphql/graphql_mutations.dart';
 import '../repositories.dart';
 
 class ConcreteMovieRepository implements MovieRepository {
@@ -31,5 +32,24 @@ class ConcreteMovieRepository implements MovieRepository {
         'nodes': movies.map((e) => e.toJson).toList(),
       }
     });
+  }
+
+  @override
+  Future remoteAddReview({
+    required String movieId,
+    required String userId,
+    required MovieReviewModel review,
+  }) {
+    return client.performMutation(
+      gqlQuery: GQLMutations.createMovieReview(
+        movieReviewMap: {
+          "title": review.title,
+          "body": review.body,
+          "rating": review.rating,
+          "movieId": movieId,
+          "userReviewerId": userId,
+        },
+      ),
+    );
   }
 }

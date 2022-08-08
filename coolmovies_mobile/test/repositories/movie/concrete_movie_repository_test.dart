@@ -1,5 +1,7 @@
 import 'package:coolmovies/core/core.dart';
+import 'package:coolmovies/core/graphql/graphql_mutations.dart';
 import 'package:coolmovies/repositories/repositories.dart';
+import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/annotations.dart';
@@ -129,6 +131,39 @@ void main() {
       // Assert
       expect(sut.storeMovies(movieList), completes);
       verify(storage.write(any, any));
+    },
+  );
+
+  test(
+    "should add a movie review to the remote",
+    () async {
+      // Arrange
+      when(client.mutate(any)).thenAnswer(
+        (_) async => QueryResult(
+          options: MutationOptions(
+            document: gql(
+              GQLMutations.createMovieReview(movieReviewMap: {}),
+            ),
+          ),
+          source: QueryResultSource.network,
+          data: {},
+        ),
+      );
+      final movieId = faker.guid.guid();
+      final userId = faker.guid.guid();
+      final review = mockMovieReviewModel;
+
+      // Act
+      final failureOrNull = await sut.remoteAddReview(
+        movieId: movieId,
+        userId: userId,
+        review: review,
+      );
+
+      // Assert
+      verifyNever(storage.read(any));
+      verifyNever(storage.write(any, any));
+      expect(failureOrNull, isNull);
     },
   );
 }

@@ -39,7 +39,7 @@ extension GQLRequestResultExtensions on QueryResult<Object?> {
     }
     return Left(
       GQLRequestFailure(
-        message ?? resultDataNullStringFor(query: storageKey),
+        message ?? resultDataNullStringFor(request: storageKey),
         valuesFromStorage: model,
       ),
     );
@@ -77,7 +77,7 @@ extension GQLRequestResultExtensions on QueryResult<Object?> {
     }
     return Left(
       GQLRequestFailure(
-        message ?? resultDataNullStringFor(query: storageKey),
+        message ?? resultDataNullStringFor(request: storageKey),
         valuesFromStorage: cachedModels,
       ),
     );
@@ -115,14 +115,36 @@ extension GraphQLClientExtensions on GraphQLClient {
         : result.handleSuccessOnOne<T>(storage, storageKey, serializer);
   }
 
+  Future<Failure?> performMutation<T>({
+    required String gqlQuery,
+  }) async {
+    final result = await _performMutation(gqlQuery);
+    final hasErrors = result.data?.containsKey('errors') ?? true;
+    final hasException = result.hasException || result.data == null;
+    if (hasErrors || hasException) {
+      debugPrint("Exception occured : \n${result.exception.toString()}");
+      jsonLogger(result.data!);
+      final error = result.data?['errors'][0];
+      final message = error?['message'].toString();
+      return GQLRequestFailure(
+        message ?? resultDataNullStringFor(request: 'mutation'),
+      );
+    }
+    return null;
+  }
+
   Future<QueryResult<Object?>> _performQuery(
       String storageKey, String gqlQuery) async {
     debugPrint('Query $storageKey ...');
 
     final gqlDocNode = gql(gqlQuery);
-    final result = await this.query(
-      QueryOptions(document: gqlDocNode),
-    );
+    final result = await this.query(QueryOptions(document: gqlDocNode));
+    return result;
+  }
+
+  Future<QueryResult<Object?>> _performMutation(String gqlMutation) async {
+    final gqlDocNode = gql(gqlMutation);
+    final result = await this.mutate(MutationOptions(document: gqlDocNode));
     return result;
   }
 }
