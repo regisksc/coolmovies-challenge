@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/core.dart';
+import '../../../../providers/providers.dart';
 import '../../movie_detail.dart';
 
 class HighlightedInfos extends StatelessWidget {
@@ -73,14 +75,18 @@ class HighlightedInfoBlock extends StatelessWidget {
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: context.width * .02),
                   alignment: Alignment.center,
-                  child: Text(
-                    value,
-                    textAlign: TextAlign.center,
-                    style: context.textTheme.bodySmall!.copyWith(
-                        color: Colors.blueGrey.shade800,
-                        fontWeight: FontWeight.bold,
-                        fontSize: context.textTheme.bodySmall!.fontSize! *
-                            fontMultiplier),
+                  child: Consumer<MoviesProvider>(
+                    builder: (_, provider, __) {
+                      return Text(
+                        value,
+                        textAlign: TextAlign.center,
+                        style: context.textTheme.bodySmall!.copyWith(
+                            color: Colors.blueGrey.shade800,
+                            fontWeight: FontWeight.bold,
+                            fontSize: context.textTheme.bodySmall!.fontSize! *
+                                fontMultiplier),
+                      );
+                    },
                   ),
                 ),
               ),

@@ -76,8 +76,10 @@ class MovieModel extends Equatable {
       "title": title,
       "releaseDate": releaseDate,
       "movieDirectorByMovieDirectorId": {"name": directorName},
-      "movieReviewsByMovieId": {"nodes": reviews},
-      "userByUserCreatorId": createdBy,
+      "movieReviewsByMovieId": {
+        "nodes": reviews.map((review) => review.toJson).toList()
+      },
+      "userByUserCreatorId": createdBy.toJson,
       "description": description,
     };
   }

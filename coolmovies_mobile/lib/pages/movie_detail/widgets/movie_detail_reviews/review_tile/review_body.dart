@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../core/core.dart';
+import '../../../../../providers/movie_provider.dart';
 
 class ReviewBody extends StatelessWidget {
-  const ReviewBody(this.review, {Key? key}) : super(key: key);
+  const ReviewBody(
+    this.review, {
+    Key? key,
+  }) : super(key: key);
 
   final MovieReviewModel review;
 
@@ -16,11 +21,24 @@ class ReviewBody extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: context.width * .05),
             child: Align(
               alignment: Alignment.topLeft,
-              child: Text(
-                review.body,
-                style: context.textTheme.bodyMedium!.copyWith(
-                  color: Colors.blueGrey.shade600,
-                ),
+              child: Consumer<MoviesProvider>(
+                builder: (_, provider, __) {
+                  return review.isInEditState
+                      ? TextFormField(
+                          initialValue: review.body,
+                          maxLines: 10,
+                          onChanged: (editValue) => review.body = editValue,
+                          autofocus: true,
+                          decoration:
+                              const InputDecoration(border: InputBorder.none),
+                        )
+                      : Text(
+                          review.body,
+                          style: context.textTheme.bodyMedium!.copyWith(
+                            color: Colors.blueGrey.shade600,
+                          ),
+                        );
+                },
               ),
             ),
           ),

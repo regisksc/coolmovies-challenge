@@ -10,7 +10,6 @@ class MovieDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final movie = ModalRoute.of(context)!.settings.arguments! as MovieModel;
-    debugPrint(movie.title);
     return Scaffold(
       backgroundColor: Colors.blueGrey.shade100,
       body: CustomScrollView(

@@ -28,7 +28,9 @@ class UserModel extends Equatable {
     return {
       "id": id,
       "name": name,
-      "commentsByUserId": {"nodes": comments}
+      "commentsByUserId": {
+        "nodes": comments.map((comment) => comment.toJson).toList(),
+      }
     };
   }
 

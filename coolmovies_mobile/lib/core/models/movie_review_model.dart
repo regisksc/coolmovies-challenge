@@ -53,7 +53,7 @@ class MovieReviewModel extends Equatable {
       "body": body,
       "title": title,
       "rating": rating,
-      "userByUserReviewerId": createdBy,
+      "userByUserReviewerId": createdBy.toJson,
     };
   }
 
