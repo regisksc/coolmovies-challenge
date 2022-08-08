@@ -12,7 +12,6 @@ class MovieDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final movie = ModalRoute.of(context)!.settings.arguments! as MovieModel;
-    final provider = context.read<MoviesProvider>();
     return WillPopScope(
       onWillPop: () async {
         context.read<MoviesProvider>().resetEditState(movie);
