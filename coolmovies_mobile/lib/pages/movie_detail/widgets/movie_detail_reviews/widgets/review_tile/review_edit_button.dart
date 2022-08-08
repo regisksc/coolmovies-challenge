@@ -16,28 +16,32 @@ class ReviewEditButton extends StatelessWidget {
     return Consumer<MoviesProvider>(
       builder: (_, provider, __) {
         final user = context.read<UserProvider>().user!;
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            const Spacer(),
-            _InteractiveButton(
-              label: review.isInEditState ? 'save' : 'edit',
-              onTap: () => !review.isInEditState
-                  ? provider.startEditingReview(review)
-                  : provider.stopEditingReview(user, review, shouldSave: true),
-              color: !review.isInEditState
-                  ? Colors.black12
-                  : Colors.greenAccent.withOpacity(.2),
-            ),
-            Visibility(
-              visible: review.isInEditState,
-              child: _InteractiveButton(
-                label: 'cancel',
-                onTap: () => provider.stopEditingReview(user, review),
-                color: Colors.redAccent.withOpacity(.2),
+        return Visibility(
+          visible: user.id == review.createdBy.id,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              const Spacer(),
+              _InteractiveButton(
+                label: review.isInEditState ? 'save' : 'edit',
+                onTap: () => !review.isInEditState
+                    ? provider.startEditingReview(review)
+                    : provider.stopEditingReview(user, review,
+                        shouldSave: true),
+                color: !review.isInEditState
+                    ? Colors.black12
+                    : Colors.greenAccent.withOpacity(.2),
               ),
-            ),
-          ],
+              Visibility(
+                visible: review.isInEditState,
+                child: _InteractiveButton(
+                  label: 'cancel',
+                  onTap: () => provider.stopEditingReview(user, review),
+                  color: Colors.redAccent.withOpacity(.2),
+                ),
+              ),
+            ],
+          ),
         );
       },
     );
