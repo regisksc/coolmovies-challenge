@@ -33,6 +33,8 @@ dev_dependencies:
   remove_from_coverage: ^2.0.0
   integration_test:
     sdk: flutter
+  mocktail_image_network: ^0.3.1
+  mockingjay: ^0.3.0
 
 flutter:
   uses-material-design: true

@@ -38,6 +38,7 @@ class MoviesList extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) {
                           final movie = movies[index];
                           return Container(
+                            key: const Key('movieTile'),
                             padding: EdgeInsets.symmetric(
                               vertical: context.height * .02,
                             ),

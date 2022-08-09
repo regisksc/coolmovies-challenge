@@ -12,6 +12,9 @@ runs:
         flutter test --coverage
         flutter test --machine > test-results.json
         ./scripts/runTests.sh
+        flutter drive \
+        --driver=test_driver/integration_test.dart \
+        --target=integration_tests/init_test.dart
 
     - name: upload metrics html
       uses: actions/upload-artifact@v3
