@@ -5,33 +5,6 @@ import '../core.dart';
 class GQLMutations {
   GQLMutations._();
 
-  static String createComment({required JSON commentMap}) {
-    return """
-      mutation {
-        createComment(input: {comment: $commentMap}) {
-          comment {
-            id
-            title
-            body
-            userByUserId {
-              id
-              name
-            }
-            movieReviewByMovieReviewId {
-              id
-              title
-              movieByMovieId {
-                title
-              }
-            }
-          }
-        }
-      }
-  """;
-  }
-
-  // ##
-
   static String createMovieReview({
     required JSON movieReviewMap,
   }) {
@@ -96,11 +69,11 @@ mutation {
   // ##
 
   static String createUser({
-    required JSON userMap,
+    required String userName,
   }) {
     return """
       mutation {
-        createUser(input: {user: $userMap}) {
+        createUser(input: {user: {name: $userName}}) {
         user {
           id
           name

@@ -21,7 +21,7 @@ void main() {
 
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
-    final gqlQueryDocNode = gql(GQLQueries.getAllMovieReviews);
+    final gqlQueryDocNode = gql(GQLQueries.getAllMovies);
     final gqlMutationDocNode = gql(
       GQLMutations.createMovieReview(movieReviewMap: {}),
     );
