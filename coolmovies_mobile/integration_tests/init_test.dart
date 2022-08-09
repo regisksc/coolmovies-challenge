@@ -1,15 +1,12 @@
-import 'package:coolmovies/core/core.dart';
 import 'package:coolmovies/main.dart' as app;
 import 'package:coolmovies/pages/pages.dart';
 import 'package:coolmovies/providers/providers.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:provider/provider.dart';
 
-import '../test/core/adapters/adapted_flutter_secure_storage_test.dart';
 import '../test/test_helpers/mock_classes.dart';
 import '../test/test_helpers/setup_methods.dart';
 
@@ -45,7 +42,7 @@ void main() {
         when(() => navigator.push(any())).thenAnswer((_) async => null);
         setupListMovieScreenProviders(userProvider, moviesProvider);
 
-        await _pumpInit(tester, userProvider, moviesProvider, navigator);
+        await pumpInit(tester, userProvider, moviesProvider, navigator);
         await tester.pumpAndSettle();
 
         final multiProvider = find.byType(MultiProvider);
@@ -61,39 +58,5 @@ void main() {
         expect(moviesList, findsOneWidget);
       });
     },
-  );
-}
-
-Future<void> _pumpInit(
-  WidgetTester tester,
-  UserProvider userProvider,
-  MoviesProvider moviesProvider,
-  MockNavigator navigator,
-) async {
-  await tester.pumpWidget(
-    MultiProvider(
-      providers: [
-        Provider<StorageAdapter>(
-          create: (context) => AdaptedFlutterSecureStorage(
-            MockFlutterSecureStorage(),
-          ),
-        ),
-        ChangeNotifierProvider<UserProvider>(
-          create: (context) => userProvider..getCurrentUser(),
-        ),
-        ChangeNotifierProvider<MoviesProvider>(
-          create: (context) => moviesProvider..getMovies(),
-        ),
-      ],
-      child: MaterialApp(
-        home: MockNavigatorProvider(
-          navigator: navigator,
-          child: ListMoviesPage(
-            userProvider: userProvider,
-            moviesProvider: moviesProvider,
-          ),
-        ),
-      ),
-    ),
   );
 }
