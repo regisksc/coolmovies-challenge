@@ -12,9 +12,6 @@ runs:
         flutter test --coverage
         flutter test --machine > test-results.json
         ./scripts/runTests.sh
-        flutter drive \
-        --driver=test_driver/integration_test.dart \
-        --target=integration_tests/init_test.dart
 
     - name: upload metrics html
       uses: actions/upload-artifact@v3
@@ -24,12 +21,14 @@ runs:
           **/coverage
 
     - uses: dorny/test-reporter@v1.4.2
+      if: always()
       with:
         name: test-results
         path: coolmovies_mobile/test-results.json
         reporter: flutter-json
 
     - uses: VeryGoodOpenSource/very_good_coverage@v1.1.1
+      if: always()
       with:
         path: coolmovies_mobile/coverage/lcov.info
         exclude: "**/*.*.dart lib/main.dart"
