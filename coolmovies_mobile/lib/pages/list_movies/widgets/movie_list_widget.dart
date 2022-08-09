@@ -51,7 +51,7 @@ class MoviesList extends StatelessWidget {
                     ),
             ),
             Visibility(
-              visible: provider.lastRequestFailure == null,
+              visible: provider.lastRequestFailure != null,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: context.width * .2),
                 child: AutoSizeText(
