@@ -26,8 +26,7 @@ void main() {
         allOf([
           contains('"${input['title']}"'),
           contains('"${input['body']}"'),
-          contains('"${input['rating']}"'),
-          contains('"${input['movieId']}"'),
+          contains('${input['movieId']}'),
           contains('"${input['userReviewerId']}"'),
         ]),
       );
@@ -49,7 +48,7 @@ void main() {
         allOf([
           contains('"${input['title']}"'),
           contains('"${input['body']}"'),
-          contains('"${input['rating']}"'),
+          contains('${input['movieId']}'),
           contains('"${input['movieId']}"'),
           contains('"${input['userReviewerId']}"'),
         ]),

@@ -17,7 +17,7 @@ mutation {
       movieReview: {
         title: \"${movieReviewMap['title']}\",
         body: \"${movieReviewMap['body']}\",
-        rating: \"${movieReviewMap['rating']}\",
+        rating: ${movieReviewMap['rating']},
         movieId: \"${movieReviewMap['movieId']}\",
         userReviewerId: \"${movieReviewMap['userReviewerId']}\"
       }}) {
@@ -47,7 +47,7 @@ mutation {
 	updateMovieReviewById (input: {
 	id: \"${movieReviewMap['id']}\",movieReviewPatch: {title: \"${movieReviewMap['title']}\",
       body: \"${movieReviewMap['body']}\",
-      rating: \"${movieReviewMap['rating']}\",
+      rating: ${movieReviewMap['rating']},
       movieId: \"${movieReviewMap['movieId']}\",
       userReviewerId: \"${movieReviewMap['userReviewerId']}\"
       
