@@ -12,6 +12,10 @@ void main() {
   late MoviesProvider sut;
   late MockMovieRepository repository;
 
+  setUpAll(() {
+    registerFallbackValue(mockMovieReviewModel);
+  });
+
   setUp(() {
     repository = MockMovieRepository();
     sut = MoviesProvider(repository);

@@ -14,9 +14,13 @@ void main() {
   late UserRepository sut;
   late MockGraphQLClient client;
   late MockAdaptedFlutterSecureStorage storage;
+  late QueryOptions queryOptions;
 
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
+    final gqlDocNode = gql(GQLQueries.getAllMovieReviews);
+    queryOptions = QueryOptions(document: gqlDocNode);
+    registerFallbackValue(queryOptions);
   });
 
   setUp(
@@ -27,6 +31,17 @@ void main() {
     },
   );
 
+  void arrangeCommonExecutions(MockGraphQLClient client,
+      {required JSON resultData}) {
+    when(() => client.query(any())).thenAnswer(
+      (_) async => QueryResult(
+        options: queryOptions,
+        source: QueryResultSource.network,
+        data: resultData,
+      ),
+    );
+  }
+
   test(
     "getCurrentUser should return a UserModel on success",
     () async {
@@ -35,7 +50,7 @@ void main() {
         client,
         resultData: mockSuccessForFixture('current_user.json'),
       );
-      when(() => storage.write(any(), any)).thenAnswer(
+      when(() => storage.write(any(), any())).thenAnswer(
         (_) async => Future.value(),
       );
       // Act
@@ -55,13 +70,13 @@ void main() {
         client,
         resultData: mockSuccessForFixture('current_user.json'),
       );
-      when(() => storage.write(any(), any)).thenAnswer(
+      when(() => storage.write(any(), any())).thenAnswer(
         (_) async => Future.value(),
       );
       // Act
       await sut.getCurrentUser();
       // Assert
-      verify(() => storage.write(any(), any));
+      verify(() => storage.write(any(), any()));
     },
   );
 
@@ -114,18 +129,5 @@ void main() {
       verify(() => storage.read(any()));
       expect(extract.valuesFromStorage, isNull);
     },
-  );
-}
-
-void arrangeCommonExecutions(MockGraphQLClient client,
-    {required JSON resultData}) {
-  final gqlDocNode = gql(GQLQueries.getAllMovieReviews);
-  final queryOptions = QueryOptions(document: gqlDocNode);
-  when(() => client.query(any())).thenAnswer(
-    (_) async => QueryResult(
-      options: queryOptions,
-      source: QueryResultSource.network,
-      data: resultData,
-    ),
   );
 }

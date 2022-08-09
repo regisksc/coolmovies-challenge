@@ -52,12 +52,9 @@ extension GQLRequestResultExtensions on QueryResult<Object?> {
     final json = this.data!;
     final list = json[storageKey]["nodes"] as List;
     // save storage
-    await storage.write(
-      storageKey,
-      {
-        storageKey: {'nodes': list}
-      },
-    );
+    await storage.write(storageKey, {
+      storageKey: {'nodes': list}
+    });
     // map result
     final models = list.map<T>((map) => serializer(map as JSON) as T).toList();
     return Right(models);

@@ -33,12 +33,12 @@ MovieReviewCommentModel get mockMovieReviewCommentModel =>
     );
 
 MovieReviewModel get mockMovieReviewModel => MovieReviewModel(
-      title: faker.lorem.words(3).join(" "),
-      body: faker.lorem.sentence(),
+      title: 'a review title',
+      body: 'a review body',
       rating: faker.randomGenerator.integer(5, min: 1),
       createdBy: mockUserModel,
-      id: faker.guid.guid(),
-      movieId: faker.guid.guid(),
+      id: 'idHere',
+      movieId: 'movieIdHere',
     );
 
 Failure get mockFailure => GQLRequestFailure(faker.lorem.sentence());
