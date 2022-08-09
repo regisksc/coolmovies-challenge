@@ -19,62 +19,55 @@ class MoviesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final spacing = context.width * .1;
-    return SizedBox(
-      width: context.width,
-      height: context.height * .65,
-      child: Consumer<MoviesProvider>(
-        builder: (_, provider, __) {
-          final movies = provider.movies;
-          return movies.isEmpty
-              ? const Center(child: CircularProgressIndicator.adaptive())
-              : Column(
-                  children: [
-                    Expanded(
-                      flex: 9,
-                      child: ListView.separated(
-                        itemCount: movies.length,
-                        scrollDirection: Axis.horizontal,
-                        separatorBuilder: (context, __) =>
-                            SizedBox(width: spacing),
-                        itemBuilder: (BuildContext context, int index) {
-                          final movie = movies[index];
-                          return Container(
-                            key: const Key('movieTile'),
-                            padding: EdgeInsets.symmetric(
-                              vertical: context.height * .02,
-                            ),
-                            margin: EdgeInsets.only(
-                              bottom: context.height * .03,
-                              left: index == 0 ? spacing : 0,
-                              right: index >= movies.length - 1 ? spacing : 0,
-                            ),
-                            child: MovieListTile(movie),
-                          );
-                        },
-                      ),
-                    ),
-                    if (provider.lastRequestFailure == null)
-                      const Offstage()
-                    else
-                      Expanded(
-                        child: Container(
+    return Consumer<MoviesProvider>(
+      builder: (_, provider, __) {
+        return Column(
+          children: [
+            SizedBox(
+              width: context.width,
+              height: context.height * .65,
+              child: movies.isEmpty
+                  ? const Center(child: CircularProgressIndicator.adaptive())
+                  : ListView.separated(
+                      itemCount: movies.length,
+                      scrollDirection: Axis.horizontal,
+                      separatorBuilder: (context, __) =>
+                          SizedBox(width: spacing),
+                      itemBuilder: (BuildContext context, int index) {
+                        final movie = movies[index];
+                        return Container(
+                          key: const Key('movieTile'),
                           padding: EdgeInsets.symmetric(
-                              horizontal: context.width * .2),
-                          child: AutoSizeText(
-                            """a problem occured when fetching movies. you might be seeing results from storage.""",
-                            minFontSize: 8,
-                            maxFontSize: 14,
-                            style: context.textTheme.labelSmall!.copyWith(
-                              fontSize: context.width * .03,
-                              color: Colors.redAccent.withOpacity(.4),
-                            ),
+                            vertical: context.height * .02,
                           ),
-                        ),
-                      )
-                  ],
-                );
-        },
-      ),
+                          margin: EdgeInsets.only(
+                            bottom: context.height * .03,
+                            left: index == 0 ? spacing : 0,
+                            right: index >= movies.length - 1 ? spacing : 0,
+                          ),
+                          child: MovieListTile(movie),
+                        );
+                      },
+                    ),
+            ),
+            Visibility(
+              visible: provider.lastRequestFailure == null,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: context.width * .2),
+                child: AutoSizeText(
+                  """a problem occured when fetching movies. you might be seeing results from storage.""",
+                  minFontSize: 8,
+                  maxFontSize: 14,
+                  style: context.textTheme.labelSmall!.copyWith(
+                    fontSize: context.width * .03,
+                    color: Colors.redAccent.withOpacity(.4),
+                  ),
+                ),
+              ),
+            )
+          ],
+        );
+      },
     );
   }
 }
