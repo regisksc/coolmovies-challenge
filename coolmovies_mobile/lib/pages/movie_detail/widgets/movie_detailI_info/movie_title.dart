@@ -17,6 +17,8 @@ class MovieTitle extends StatelessWidget {
           movie.title,
           textAlign: TextAlign.center,
           style: context.textTheme.headlineLarge!.copyWith(
+            fontSize: context.textTheme.headlineLarge!.fontSize! *
+                (context.screenIsSmall ? 0.75 : 1),
             color: Colors.blueGrey.shade800,
           ),
         ),

@@ -51,6 +51,7 @@ class HighlightedInfoBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fontMultiplier = value.contains("⭐") ? 1.5 : 1;
+    final sizeMultiplier = context.screenIsSmall ? .29 : .25;
     return DefaultTextStyle.merge(
       style: context.textTheme.bodySmall!.copyWith(
         letterSpacing: 1,
@@ -59,8 +60,8 @@ class HighlightedInfoBlock extends StatelessWidget {
       child: DefaultMovieInfoCard(
         child: Container(
           padding: EdgeInsets.symmetric(vertical: context.height * .02),
-          width: context.width * .25,
-          height: context.width * .25,
+          width: context.width * sizeMultiplier,
+          height: context.width * sizeMultiplier,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
