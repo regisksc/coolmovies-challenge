@@ -53,7 +53,7 @@ class MoviesList extends StatelessWidget {
                         },
                       ),
                     ),
-                    if (provider.lastRequestFailure != null)
+                    if (provider.lastRequestFailure == null)
                       const Offstage()
                     else
                       Expanded(
