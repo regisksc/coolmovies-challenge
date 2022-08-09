@@ -26,11 +26,11 @@ Anything else is up to you (animations, assets, 3rd party dependencies, etc). We
 Roadmap:
 
 - improve integration test ✅
-- add golden tests
 - fix responsiveness in small screens
 - add Matrix4 animations in movie list
 - add change user ability
 - add review list slide in animation when creating a reiew
 - add movie info animations when page loads
+- add golden tests
 
 Good luck!

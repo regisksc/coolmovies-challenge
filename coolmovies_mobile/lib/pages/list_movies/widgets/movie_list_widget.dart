@@ -1,5 +1,6 @@
 // ignore_for_file: leading_newlines_in_multiline_strings
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +21,7 @@ class MoviesList extends StatelessWidget {
     final spacing = context.width * .1;
     return SizedBox(
       width: context.width,
-      height: context.height * .6,
+      height: context.height * .65,
       child: Consumer<MoviesProvider>(
         builder: (_, provider, __) {
           final movies = provider.movies;
@@ -29,7 +30,7 @@ class MoviesList extends StatelessWidget {
               : Column(
                   children: [
                     Expanded(
-                      flex: 95,
+                      flex: 9,
                       child: ListView.separated(
                         itemCount: movies.length,
                         scrollDirection: Axis.horizontal,
@@ -52,19 +53,24 @@ class MoviesList extends StatelessWidget {
                         },
                       ),
                     ),
-                    Expanded(
-                      flex: 5,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: context.width * .2),
-                        child: Text(
-                          """a problem occured when fetching movies. you might be seeing results from storage.""",
-                          style: context.textTheme.labelSmall!.copyWith(
-                            color: Colors.redAccent.withOpacity(.4),
+                    if (provider.lastRequestFailure != null)
+                      const Offstage()
+                    else
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: context.width * .2),
+                          child: AutoSizeText(
+                            """a problem occured when fetching movies. you might be seeing results from storage.""",
+                            minFontSize: 8,
+                            maxFontSize: 14,
+                            style: context.textTheme.labelSmall!.copyWith(
+                              fontSize: context.width * .03,
+                              color: Colors.redAccent.withOpacity(.4),
+                            ),
                           ),
                         ),
-                      ),
-                    )
+                      )
                   ],
                 );
         },
