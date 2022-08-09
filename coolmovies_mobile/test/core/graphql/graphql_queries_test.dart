@@ -25,7 +25,13 @@ void main() {
       };
       expect(
         GQLMutations.createMovieReview(movieReviewMap: input),
-        contains(input.toString()),
+        allOf([
+          contains('"${input['title']}"'),
+          contains('"${input['body']}"'),
+          contains('"${input['rating']}"'),
+          contains('"${input['movieId']}"'),
+          contains('"${input['userReviewerId']}"'),
+        ]),
       );
     },
   );
@@ -33,6 +39,7 @@ void main() {
     'createComment query should contain input value',
     () async {
       final input = {
+        "id": "id",
         "title": "Test",
         "body": "Lorem Ipsum Text",
         "rating": 4,
@@ -41,7 +48,13 @@ void main() {
       };
       expect(
         GQLMutations.createMovieReview(movieReviewMap: input),
-        contains(input.toString()),
+        allOf([
+          contains('"${input['title']}"'),
+          contains('"${input['body']}"'),
+          contains('"${input['rating']}"'),
+          contains('"${input['movieId']}"'),
+          contains('"${input['userReviewerId']}"'),
+        ]),
       );
     },
   );

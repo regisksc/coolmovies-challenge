@@ -1,4 +1,5 @@
-// ignore_for_file: leading_newlines_in_multiline_strings
+// ignore_for_file: unnecessary_string_escapes
+
 import '../core.dart';
 
 class GQLMutations {
@@ -36,12 +37,17 @@ class GQLMutations {
   }) {
     return """
       
+
 mutation {
-  createMovieReview(input: { 
-		movieReview: {
-      movieReview: $movieReviewMap
-	}
-}) {
+  createMovieReview(
+    input: { 
+      movieReview: {
+        title: \"${movieReviewMap['title']}\",
+        body: \"${movieReviewMap['body']}\",
+        rating: \"${movieReviewMap['rating']}\",
+        movieId: \"${movieReviewMap['movieId']}\",
+        userReviewerId: \"${movieReviewMap['userReviewerId']}\"
+      }}) {
     movieReview {
       id
       movieByMovieId {
@@ -65,7 +71,14 @@ mutation {
     return """
       
 mutation {
-	updateMovieReviewById (input: $movieReviewMap) {
+	updateMovieReviewById (input: {
+	id: \"${movieReviewMap['id']}\",movieReviewPatch: {title: \"${movieReviewMap['title']}\",
+      body: \"${movieReviewMap['body']}\",
+      rating: \"${movieReviewMap['rating']}\",
+      movieId: \"${movieReviewMap['movieId']}\",
+      userReviewerId: \"${movieReviewMap['userReviewerId']}\"
+      
+    }}) {
 
 		movieReview {
 			id
@@ -85,7 +98,7 @@ mutation {
   static String createUser({
     required JSON userMap,
   }) {
-    return """"
+    return """
       mutation {
         createUser(input: {user: $userMap}) {
         user {

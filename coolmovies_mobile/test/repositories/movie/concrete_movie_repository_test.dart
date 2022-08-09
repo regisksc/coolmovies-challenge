@@ -22,8 +22,9 @@ void main() {
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
     final gqlQueryDocNode = gql(GQLQueries.getAllMovieReviews);
-    final gqlMutationDocNode =
-        gql(GQLMutations.createMovieReview(movieReviewMap: {}));
+    final gqlMutationDocNode = gql(
+      GQLMutations.createMovieReview(movieReviewMap: {}),
+    );
     queryOptions = QueryOptions(document: gqlQueryDocNode);
     mutationOptions = MutationOptions(document: gqlMutationDocNode);
     registerFallbackValue(queryOptions);
@@ -161,6 +162,15 @@ void main() {
 
   test("should add a movie review to the remote", () async {
     // Arrange
+    final review = mockMovieReviewModel;
+    mutationOptions = MutationOptions(
+        document: gql(GQLMutations.createMovieReview(movieReviewMap: {
+      "title": review.title,
+      "body": review.body,
+      "rating": review.rating,
+      "movieId": review.movieId,
+      "userReviewerId": review.createdBy.id,
+    })));
     when(() => client.mutate(any())).thenAnswer(
       (_) async => QueryResult(
         options: mutationOptions,
@@ -170,7 +180,6 @@ void main() {
     );
     final movieId = faker.guid.guid();
     final userId = faker.guid.guid();
-    final review = mockMovieReviewModel;
 
     // Act
     final failureOrNull = await sut.remoteAddReview(
@@ -183,7 +192,7 @@ void main() {
     verifyNever(() => storage.read(any()));
     verifyNever(() => storage.write(any(), any()));
     expect(failureOrNull, isNull);
-  }, skip: true);
+  });
 
   test("should edit a movie review in remote", () async {
     // Arrange
@@ -213,5 +222,5 @@ void main() {
     verifyNever(() => storage.read(any()));
     verifyNever(() => storage.write(any(), any()));
     expect(failureOrNull, isNull);
-  }, skip: true);
+  });
 }

@@ -43,6 +43,7 @@ class ConcreteMovieRepository implements MovieRepository {
     return client.performMutation(
       gqlQuery: GQLMutations.createMovieReview(
         movieReviewMap: {
+          "id": review.id,
           "title": review.title,
           "body": review.body,
           "rating": review.rating,
