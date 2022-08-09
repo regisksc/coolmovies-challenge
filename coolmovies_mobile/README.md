@@ -26,9 +26,10 @@ Anything else is up to you (animations, assets, 3rd party dependencies, etc). We
 Roadmap:
 
 - improve integration test ✅
-- fix responsiveness in small screens
-- add Matrix4 animations in movie list
+- fix responsiveness in small screens ✅
+- add pagination in movies list
 - add change user ability
+- add Matrix4 animations in movie list
 - add review list slide in animation when creating a reiew
 - add movie info animations when page loads
 - add golden tests

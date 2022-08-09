@@ -98,4 +98,24 @@ class MoviesProvider extends DefaultProvider {
     );
     notifyListeners();
   }
+
+  final _reviews = <String, List<MovieReviewModel>>{};
+  Map<String, List<MovieReviewModel>> get reviews => _reviews;
+  bool isLoadingMoreReviews = false;
+
+  Future getReviewsForMovieId(String id, {int page = 1}) async {
+    isLoadingMoreReviews = true;
+    notifyListeners();
+    final reviewsOrError = await _repository.getMovieReviewsFor(id, page: page);
+    reviewsOrError.fold(
+      (failure) => null,
+      (reviews) {
+        _reviews.containsKey(id)
+            ? _reviews.addAll({id: _reviews[id]!..addAll(reviews)})
+            : _reviews.addAll({id: reviews});
+      },
+    );
+    isLoadingMoreReviews = false;
+    notifyListeners();
+  }
 }

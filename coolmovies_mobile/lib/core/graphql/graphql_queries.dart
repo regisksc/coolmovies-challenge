@@ -58,6 +58,40 @@ class GQLQueries {
 
   // ##
 
+  static String getReviewsForMovieId(
+    String movieId, {
+    required int page,
+  }) {
+    return """ {
+  allMovieReviews(
+		first: 3, offset: $page
+    filter: { movieId: {equalTo: "$movieId"}}
+  ) {
+    nodes {
+				title
+				body
+				id
+				rating
+				title
+        movieId
+				userByUserReviewerId {
+					name
+					id
+					commentsByUserId {
+										nodes {
+											movieReviewId
+											id
+											title
+											body
+											
+										}
+									}
+    	}
+    }
+  }
+} """;
+  }
+
   static String get getCurrentUser {
     return """
       query {
