@@ -101,18 +101,17 @@ class MoviesProvider extends DefaultProvider {
 
   final _reviews = <String, List<MovieReviewModel>>{};
   Map<String, List<MovieReviewModel>> get reviews => _reviews;
+  Set<String> moviesWithAllReviewsLoaded = {};
   bool isLoadingMoreReviews = false;
-  bool hasLoadedAllReviews = false;
 
   void resetFetchingReviewState() {
     isLoadingMoreReviews = false;
-    hasLoadedAllReviews = false;
   }
 
   int lastFetchedPage = 0;
 
   Future getReviewsForMovieId(String id) async {
-    if (hasLoadedAllReviews || isLoadingMoreReviews) return;
+    if (moviesWithAllReviewsLoaded.contains(id) || isLoadingMoreReviews) return;
     await Future.delayed(const Duration(milliseconds: 10));
     isLoadingMoreReviews = true;
     notifyListeners();
@@ -124,13 +123,13 @@ class MoviesProvider extends DefaultProvider {
       );
       reviewsOrError.fold(
         (failure) => null,
-        (reviews) {
+        (reviewsFromApi) {
+          if (reviewsFromApi.length < reviewsPerPage)
+            moviesWithAllReviewsLoaded.addAll({id});
           if (_reviews.containsKey(id)) {
-            if (reviews.length < reviewsPerPage) hasLoadedAllReviews = true;
-            _reviews.addAll({id: _reviews[id]!..addAll(reviews)});
-          } else {
-            _reviews.addAll({id: reviews});
+            _reviews.addAll({id: _reviews[id]!..addAll(reviewsFromApi)});
           }
+          if (!_reviews.containsKey(id)) _reviews.addAll({id: reviewsFromApi});
         },
       );
       isLoadingMoreReviews = false;
