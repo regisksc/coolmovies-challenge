@@ -38,7 +38,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           widget.provider.getReviewsForMovieId(movie.id);
         }
         if (scrollController.position.pixels >=
-            (context.height * (context.screenIsSmall ? 1 : .5))) {
+            (context.height * (context.screenIsSmall ? .8 : .45))) {
           userPassedReviews = true;
         } else {
           userPassedReviews = false;
