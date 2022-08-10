@@ -233,7 +233,7 @@ void main() {
     () async {
       // Arrange
       final movieId = faker.guid.guid();
-      final doc = gql(GQLQueries.getReviewsForMovieId(movieId, page: 1));
+      final doc = gql(GQLQueries.getReviewsForMovieId(movieId, pageNum: 1));
       queryOptions = QueryOptions(document: doc);
       arrangeCommonExecutions(
         client,

@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_string_escapes, leading_newlines_in_multiline_strings
 
+import '../core.dart';
+
 class GQLQueries {
   GQLQueries._();
 
@@ -60,11 +62,16 @@ class GQLQueries {
 
   static String getReviewsForMovieId(
     String movieId, {
-    required int page,
+    required int pageNum,
   }) {
+    late final int offset;
+    if (pageNum == 1) offset = 0;
+    if (pageNum != 1) {
+      offset = reviewsPerPage * pageNum;
+    }
     return """ {
   allMovieReviews(
-		first: 3, offset: $page
+		first: $reviewsPerPage, offset: $offset
     filter: { movieId: {equalTo: "$movieId"}}
   ) {
     nodes {

@@ -32,7 +32,7 @@ class ConcreteMovieRepository implements MovieRepository {
   }) async {
     return client.performFetchListQuery(
       mapKey: 'allMovieReviews',
-      gqlQuery: GQLQueries.getReviewsForMovieId(movieId, page: page),
+      gqlQuery: GQLQueries.getReviewsForMovieId(movieId, pageNum: page),
       serializer: MovieReviewModel.fromJson,
     );
   }
