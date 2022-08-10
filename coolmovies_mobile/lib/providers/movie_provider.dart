@@ -128,11 +128,9 @@ class MoviesProvider extends DefaultProvider {
   }
 
   void resetEditState() {
-    if (!_reviews[currentMovieId]!.any((review) => review.isInEditState)) {
-      return;
-    } else {
-      _reviews[currentMovieId]!
-        ..forEach((review) => review.isInEditState = false);
-    }
+    final reviews = _reviews[currentMovieId]!;
+    reviews..forEach((review) => review.isInEditState = false);
+    reviews
+        .removeWhere((review) => review.title.isEmpty || review.body.isEmpty);
   }
 }
