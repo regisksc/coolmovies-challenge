@@ -16,7 +16,10 @@ class ReviewTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultMovieInfoCard(
+    return Card(
+      color: Colors.blueGrey[50],
+      elevation: 10,
+      shape: RoundedRectangleBorder(borderRadius: defaultRadius),
       child: Container(
         padding: const EdgeInsets.all(5),
         height: context.height * .3,
