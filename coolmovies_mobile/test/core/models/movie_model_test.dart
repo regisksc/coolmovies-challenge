@@ -42,12 +42,12 @@ void main() {
       // Assert
       expect(date, contains(year));
       expect(date, contains(day));
-      if (day != '1' || day != '2' || day != '3') {
+      if (day.endsWith('1') || day.endsWith('1') || day.endsWith('1')) {
         expect(date.contains('th'), isTrue);
       }
-      if (day == '1') expect(date.contains('st'), isTrue);
-      if (day == '2') expect(date.contains('nd'), isTrue);
-      if (day == '3') expect(date.contains('rd'), isTrue);
+      if (day.endsWith('1')) expect(date.contains('st'), isTrue);
+      if (day.endsWith('1')) expect(date.contains('nd'), isTrue);
+      if (day.endsWith('1')) expect(date.contains('rd'), isTrue);
     },
   );
 
