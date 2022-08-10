@@ -32,7 +32,7 @@ Roadmap:
 - add pagination in movies list ✅
 - add change user ability
 - add Matrix4 animations in movie list
-- add review list slide in animation when creating a reiew
+- add review list slide in animation when creating a review
 - add movie info animations when page loads
 - add golden tests
 - raise test coverage
