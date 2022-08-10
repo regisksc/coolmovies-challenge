@@ -31,6 +31,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     super.didChangeDependencies();
     movie = ModalRoute.of(context)!.settings.arguments! as MovieModel;
     widget.provider.getReviewsForMovieId(movie.id);
+    widget.provider.currentMovieId = movie.id;
     scrollController.addListener(() {
       setState(() {
         final pos = scrollController.position;
@@ -52,7 +53,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     return WillPopScope(
       onWillPop: () async {
         final provider = context.read<MoviesProvider>();
-        provider.resetEditState(movie);
+        provider.resetEditState();
         provider.resetFetchingReviewState();
         provider.lastFetchedPage = 0;
         return true;

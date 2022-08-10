@@ -8,6 +8,7 @@ class MoviesProvider extends DefaultProvider {
 
   final _movies = <MovieModel>[];
   List<MovieModel> get movies => _movies;
+  String currentMovieId = '';
   Future getMovies() async {
     lastRequestFailure = null;
     final moviesOrError = await _repository.getAllMovies();
@@ -63,12 +64,9 @@ class MoviesProvider extends DefaultProvider {
     });
   }
 
-  void addReview({
-    required MovieModel movie,
-    required UserModel user,
-  }) {
+  void addReview({required UserModel user}) {
     final newReview = MovieReviewModel(
-      movieId: movie.id,
+      movieId: currentMovieId,
       id: "",
       title: "",
       body: "",
@@ -76,7 +74,7 @@ class MoviesProvider extends DefaultProvider {
       createdBy: user,
     );
     newReview.isInEditState = true;
-    movie.reviews.insert(0, newReview);
+    _reviews[currentMovieId]!.insert(0, newReview);
     notifyListeners();
   }
 
@@ -117,19 +115,24 @@ class MoviesProvider extends DefaultProvider {
     notifyListeners();
   }
 
-  void _deleteOrDiscard(bool canSave, MovieReviewModel review) {
-    if (canSave || review.reviewBackup != null) {
+  void _deleteOrDiscard(
+    bool canSave,
+    MovieReviewModel review,
+  ) {
+    if (canSave || review.hasReviewBackup) {
       review.discardChanges();
     } else {
-      movies
-          .firstWhere((movie) => movie.reviews.contains(review))
-          .removeReview(review);
+      _reviews[currentMovieId]!.remove(review);
     }
     review.reviewBackup = null;
   }
 
-  void resetEditState(MovieModel movie) {
-    if (!movie.reviews.any((review) => review.isInEditState)) return;
-    movie.reviews..forEach((review) => review.isInEditState = false);
+  void resetEditState() {
+    if (!_reviews[currentMovieId]!.any((review) => review.isInEditState)) {
+      return;
+    } else {
+      _reviews[currentMovieId]!
+        ..forEach((review) => review.isInEditState = false);
+    }
   }
 }
