@@ -72,9 +72,9 @@ class MovieModel extends Equatable {
     final year = lastDateSplit[2];
     day = day.substring(0, 2);
     day = '${day}th,';
-    if (day.endsWith("1")) day = '${day}st,';
-    if (day.endsWith("2")) day = '${day}nd,';
-    if (day.endsWith("3")) day = '${day}rd,';
+    if (lastDateSplit[1].endsWith("1")) day = '${day}st,';
+    if (lastDateSplit[1].endsWith("2")) day = '${day}nd,';
+    if (lastDateSplit[1].endsWith("3")) day = '${day}rd,';
     return '$month $day $year';
   }
 
