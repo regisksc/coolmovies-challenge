@@ -15,17 +15,14 @@ class MovieDetailReviews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: context.width * .02),
       alignment: Alignment.bottomLeft,
-      child: Container(
-        padding: EdgeInsets.only(
-          left: context.width * .02,
-          top: context.height * .01,
-        ),
-        child: SectionWidget(
-          title: 'Reviews',
-          trailing: AddReviewButton(movie: movie),
-          child: Consumer<MoviesProvider>(
+      child: Column(
+        children: [
+          SectionTitle(
+            title: 'Reviews',
+            trailing: AddReviewButton(movie: movie),
+          ),
+          Consumer<MoviesProvider>(
             builder: (_, provider, __) {
               final reviews = provider.reviews[movie.id] ?? [];
               return Column(
@@ -51,8 +48,8 @@ class MovieDetailReviews extends StatelessWidget {
                 ],
               );
             },
-          ),
-        ),
+          )
+        ],
       ),
     );
   }
