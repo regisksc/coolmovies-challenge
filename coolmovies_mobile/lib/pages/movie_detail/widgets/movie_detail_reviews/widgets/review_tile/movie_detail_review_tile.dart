@@ -63,7 +63,7 @@ class _ReviewerRow extends StatelessWidget {
       children: [
         Expanded(
           child: Text(
-            "${review.createdBy.name}'s opinion:",
+            "${review.createdBy.name}'${review.createdBy.name.endsWith('s') ? '' : 's'} opinion:",
             style: context.textTheme.bodyMedium!.copyWith(
               color: Colors.blueGrey.shade600,
             ),
