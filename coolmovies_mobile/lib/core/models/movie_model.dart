@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:faker/faker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 
 import '../core.dart';
@@ -68,14 +69,21 @@ class MovieModel extends Equatable {
     );
     final lastDateSplit = date.split(' ');
     final month = lastDateSplit[0];
-    String day = lastDateSplit[1];
     final year = lastDateSplit[2];
-    day = day.substring(0, 2);
-    day = '${day}th,';
-    if (lastDateSplit[1].endsWith("1")) day = '${day}st,';
-    if (lastDateSplit[1].endsWith("2")) day = '${day}nd,';
-    if (lastDateSplit[1].endsWith("3")) day = '${day}rd,';
-    return '$month $day $year';
+
+    String day = firstDateSplit[2].toString();
+    final isSt = day == "1" || day == "21";
+    final isNd = day == "2" || day == "22";
+    final isRd = day == "3" || day == "23";
+    final isTh = !isSt && !isNd && !isRd;
+
+    if (isTh) day = '${day}th,';
+    if (isSt) day = '${day}st,';
+    if (isNd) day = '${day}nd,';
+    if (isRd) day = '${day}rd,';
+
+    final result = '$month $day $year';
+    return result;
   }
 
   String get releaseYear => releaseDate?.split("-").first ?? "";

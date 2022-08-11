@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../test_helpers/mock_objects.dart';
@@ -37,17 +38,22 @@ void main() {
       final model = mockMovieModel();
       final year = model.releaseDate!.split("-")[0];
       final day = model.releaseDate!.split("-")[2];
+
+      final isSt = day == "1" || day == "21";
+      final isNd = day == "2" || day == "22";
+      final isRd = day == "3" || day == "23";
+      final isTh = !isSt && !isNd && !isRd;
       // Act
       final date = model.formattedReleaseDate;
+      debugPrint(day);
+      debugPrint(date);
       // Assert
       expect(date, contains(year));
       expect(date, contains(day));
-      if (day.endsWith('1') || day.endsWith('2') || day.endsWith('3')) {
-        expect(date.contains('th'), isTrue);
-      }
-      if (day.endsWith('1')) expect(date.contains('st'), isTrue);
-      if (day.endsWith('2')) expect(date.contains('nd'), isTrue);
-      if (day.endsWith('3')) expect(date.contains('rd'), isTrue);
+      if (isTh) expect(date.contains('th'), isTrue);
+      if (isSt) expect(date.contains('st'), isTrue);
+      if (isNd) expect(date.contains('nd'), isTrue);
+      if (isRd) expect(date.contains('rd'), isTrue);
     },
   );
 
