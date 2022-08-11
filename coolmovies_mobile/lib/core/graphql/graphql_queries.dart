@@ -6,7 +6,7 @@ class GQLQueries {
   GQLQueries._();
 
   static String get getAllMovies => """
-          query AllMovies {
+           query AllMovies {
             allMovies {
               nodes {
                 id
@@ -18,23 +18,11 @@ class GQLQueries {
 									name
 								}
 								movieReviewsByMovieId{
-									totalCount
 									nodes {
 										id
-                    movieId
-										body
-										title
-										rating
-										userByUserReviewerId {
-											id
-											name
-										}
-									}
+										rating 
+									} 
 								}
-                userByUserCreatorId {
-                  id
-                  name
-                }
               }
 						}
 }

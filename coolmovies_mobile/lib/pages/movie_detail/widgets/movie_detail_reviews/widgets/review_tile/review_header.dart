@@ -37,7 +37,7 @@ class ReviewHeader extends StatelessWidget {
                       ),
                     )
                   : Text(
-                      review.title,
+                      review.title!,
                       maxLines: 2,
                       style: context.textTheme.labelLarge!.copyWith(
                         fontSize: context.textTheme.labelLarge!.fontSize! * 1.1,

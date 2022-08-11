@@ -12,7 +12,6 @@ MovieModel mockMovieModel({bool makeReleaseDateNull = false}) => MovieModel(
       imgUrl:
           "https://upload.wikimedia.org/wikipedia/en/d/d4/Rogue_One%2C_A_Star_Wars_Story_poster.png",
       releaseDate: makeReleaseDateNull ? null : mockDate,
-      createdBy: mockUserModel,
       directorName: faker.person.name(),
       reviews: List<MovieReviewModel>.generate(3, (_) => mockMovieReviewModel),
     );

@@ -17,7 +17,7 @@ class ReviewEditButton extends StatelessWidget {
       builder: (_, provider, __) {
         final user = context.read<UserProvider>().user!;
         return Visibility(
-          visible: user.id == review.createdBy.id,
+          visible: user.id == review.createdBy!.id,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

@@ -94,14 +94,14 @@ class MoviesProvider extends DefaultProvider {
     bool shouldSave = false,
   }) {
     review.isInEditState = false;
-    final canSave = review.body.isNotEmpty && review.title.isNotEmpty;
+    final canSave = review.body!.isNotEmpty && review.title!.isNotEmpty;
     if (canSave && shouldSave) {
       final remoteWork = review.reviewBackup != null
           ? _repository.remoteEditReview
           : _repository.remoteAddReview;
       Future.wait([
         remoteWork(
-          movieId: review.movieId,
+          movieId: review.movieId!,
           userId: user.id,
           review: review,
         ),
@@ -131,6 +131,6 @@ class MoviesProvider extends DefaultProvider {
     final reviews = _reviews[currentMovieId]!;
     reviews..forEach((review) => review.isInEditState = false);
     reviews
-        .removeWhere((review) => review.title.isEmpty || review.body.isEmpty);
+        .removeWhere((review) => review.title!.isEmpty || review.body!.isEmpty);
   }
 }

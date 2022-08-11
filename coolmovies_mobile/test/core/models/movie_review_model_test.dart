@@ -21,7 +21,7 @@ void main() {
             "body": model.body,
             "title": model.title,
             "rating": model.rating,
-            "userByUserReviewerId": model.createdBy.toJson,
+            "userByUserReviewerId": model.createdBy!.toJson,
           },
         ),
       );

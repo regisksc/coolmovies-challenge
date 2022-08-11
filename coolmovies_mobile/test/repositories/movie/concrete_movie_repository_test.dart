@@ -158,7 +158,7 @@ void main() {
         "body": review.body,
         "rating": review.rating,
         "movieId": review.movieId,
-        "userReviewerId": review.createdBy.id,
+        "userReviewerId": review.createdBy!.id,
       })));
       when(() => client.mutate(any())).thenAnswer(
         (_) async => QueryResult(

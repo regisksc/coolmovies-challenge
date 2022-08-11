@@ -14,25 +14,25 @@ class MovieReviewModel extends Equatable {
 
   factory MovieReviewModel.fromJson(JSON json) {
     return MovieReviewModel(
-      title: json['title'] as String,
-      body: json['body'] as String,
+      title: json['title'] as String?,
+      body: json['body'] as String?,
       rating: json['rating'] as int,
-      createdBy: UserModel.fromJson(
-        json["userByUserReviewerId"] as JSON,
-      ),
+      createdBy: json["userByUserReviewerId"] == null
+          ? null
+          : UserModel.fromJson(json["userByUserReviewerId"] as JSON),
       id: json['id'] as String,
-      movieId: json['movieId'] as String,
+      movieId: json['movieId'] as String?,
     );
   }
 
   String get ratingWStar => "⭐ $rating";
 
   final String id;
-  final String movieId;
-  String title;
-  String body;
+  final String? movieId;
   int rating;
-  UserModel createdBy;
+  String? title;
+  String? body;
+  final UserModel? createdBy;
   bool isInEditState = false;
 
   MovieReviewModel? reviewBackup;
@@ -54,20 +54,13 @@ class MovieReviewModel extends Equatable {
       "body": body,
       "title": title,
       "rating": rating,
-      "userByUserReviewerId": createdBy.toJson,
+      "userByUserReviewerId": createdBy?.toJson,
     };
   }
 
   @override
   List<Object> get props {
-    return [
-      id,
-      movieId,
-      title,
-      body,
-      rating,
-      createdBy,
-    ];
+    return [id, rating];
   }
 
   MovieReviewModel copyWith({String? id}) {

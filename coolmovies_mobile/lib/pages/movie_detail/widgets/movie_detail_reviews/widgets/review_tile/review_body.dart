@@ -35,7 +35,7 @@ class ReviewBody extends StatelessWidget {
                           ),
                         )
                       : Text(
-                          review.body,
+                          review.body!,
                           style: context.textTheme.bodyMedium!.copyWith(
                             color: Colors.blueGrey.shade600,
                           ),

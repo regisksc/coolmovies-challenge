@@ -24,7 +24,6 @@ void main() {
             "movieReviewsByMovieId": {
               "nodes": model.reviews.map((e) => e.toJson).toList()
             },
-            "userByUserCreatorId": model.createdBy.toJson,
             "description": model.description,
           },
         ),
@@ -95,33 +94,6 @@ void main() {
       final year = model.releaseYear;
       // Assert
       expect(year, equals(""));
-    },
-  );
-
-  test(
-    "copyWith should generate an instance with new data",
-    () async {
-      // Arrange
-      final model = mockMovieModel();
-      // Act
-      final newReview = mockMovieReviewModel;
-      final newModel = model.copyWith(newReviews: [
-        model.reviews[0],
-        model.reviews[1],
-        newReview, // !
-      ]);
-      // Assert
-      expect(model.createdBy, equals(newModel.createdBy));
-      expect(model.description, equals(newModel.description));
-      expect(model.directorName, equals(newModel.directorName));
-      expect(model.title, equals(newModel.title));
-      expect(model.description, equals(newModel.description));
-      expect(model.id, equals(newModel.id));
-      expect(model.imgUrl, equals(newModel.imgUrl));
-      expect(model.releaseDate, equals(newModel.releaseDate));
-      expect(model.reviews[0], equals(newModel.reviews[0]));
-      expect(model.reviews[1], equals(newModel.reviews[1]));
-      expect(model.reviews[2], isNot(newModel.reviews[2]));
     },
   );
 }

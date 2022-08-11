@@ -13,16 +13,12 @@ class MovieModel extends Equatable {
     this.releaseDate,
     this.directorName,
     this.reviews = const [],
-    required this.createdBy,
   });
 
   factory MovieModel.fromJson(JSON json) {
     return MovieModel(
       title: json['title'] as String,
       id: json['id'] as String,
-      createdBy: UserModel.fromJson(
-        json['userByUserCreatorId'] as JSON,
-      ),
       directorName: json['movieDirectorByMovieDirectorId']['name'] as String?,
       imgUrl: json['imgUrl'] as String?,
       releaseDate: json['releaseDate'] as String?,
@@ -41,7 +37,6 @@ class MovieModel extends Equatable {
   final String? releaseDate;
   final String? directorName;
   final List<MovieReviewModel> reviews;
-  final UserModel createdBy;
 
   int get reviewCount => reviews.length;
 
@@ -87,8 +82,6 @@ class MovieModel extends Equatable {
 
   String get releaseYear => releaseDate?.split("-").first ?? "";
 
-  void removeReview(MovieReviewModel review) => reviews.remove(review);
-
   JSON get toJson {
     return {
       "id": id,
@@ -99,7 +92,6 @@ class MovieModel extends Equatable {
       "movieReviewsByMovieId": {
         "nodes": reviews.map((review) => review.toJson).toList()
       },
-      "userByUserCreatorId": createdBy.toJson,
       "description": description,
     };
   }
@@ -107,34 +99,6 @@ class MovieModel extends Equatable {
   @override
   List<Object> get props {
     return [id, title];
-  }
-
-  MovieModel copyWith({
-    required List<MovieReviewModel> newReviews,
-  }) {
-    return MovieModel(
-      id: id,
-      title: title,
-      description: description,
-      imgUrl: imgUrl,
-      releaseDate: releaseDate,
-      directorName: directorName,
-      reviews: newReviews,
-      createdBy: createdBy,
-    );
-  }
-
-  MovieModel get copy {
-    return MovieModel(
-      id: id,
-      title: title,
-      description: description,
-      imgUrl: imgUrl,
-      releaseDate: releaseDate,
-      directorName: directorName,
-      reviews: reviews,
-      createdBy: createdBy,
-    );
   }
 
   @override
