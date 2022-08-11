@@ -1,5 +1,47 @@
 # Coolmovies mobile challenge
 
+## Hightlights:
+
+- Unit tests
+- Integration tests
+- Simple state management with provider and setState
+- Metrics
+- Continuous Integration
+- Small conventional commits
+- Integration tests
+- Implicit animations
+- Matrix4 animations
+
+This folder has some executable scripts which generate code metrics
+
+check them out at ./scripts
+
+to run integration tests run
+
+```
+./scripts/runIntegrationTests
+```
+
+```
+
+## Roadmap:
+
+- improve integration test ✅
+- fix responsiveness in small screens ✅
+- add pagination in movies list ✅
+- add Matrix4 animations in movie list ✅
+- add slide in animation when creating/rendering a review ✅
+- add movie info animations when page loads ✅
+- add change user ability
+- add golden tests
+- raise test coverage
+
+## Original challenge description:
+
+.
+
+```
+
 You have to add the cool movies review feature to the existing `coolmovies-mobile`.
 
 This folder contains a basic Flutter application with some example callbacks.
@@ -25,14 +67,6 @@ Anything else is up to you (animations, assets, 3rd party dependencies, etc). We
 
 Good luck!
 
-Roadmap:
+```
 
-- improve integration test ✅
-- fix responsiveness in small screens ✅
-- add pagination in movies list ✅
-- add change user ability
-- add Matrix4 animations in movie list
-- add slide in animation when creating/rendering a review ✅
-- add movie info animations when page loads ✅
-- add golden tests
-- raise test coverage
+```
