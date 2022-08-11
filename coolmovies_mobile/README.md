@@ -4,6 +4,8 @@
 
 - Unit tests
 - Integration tests
+- GraphQL integration
+- Offline persistency
 - Simple state management with provider and setState
 - Metrics
 - Continuous Integration
