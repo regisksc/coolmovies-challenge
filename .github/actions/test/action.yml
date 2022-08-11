@@ -32,4 +32,4 @@ runs:
       with:
         path: coolmovies_mobile/coverage/lcov.info
         exclude: "**/*.*.dart lib/main.dart"
-        min_coverage: 60
+        min_coverage: 70
