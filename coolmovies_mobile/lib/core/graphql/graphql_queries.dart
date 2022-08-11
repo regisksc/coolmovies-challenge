@@ -28,30 +28,12 @@ class GQLQueries {
 										userByUserReviewerId {
 											id
 											name
-											commentsByUserId {
-												totalCount
-												nodes {
-													id
-													userId
-													body
-													title
-												}
-											}
 										}
 									}
 								}
                 userByUserCreatorId {
                   id
                   name
-									commentsByUserId {
-										nodes {
-											movieReviewId
-											id
-											title
-											body
-											
-										}
-									}
                 }
               }
 						}
@@ -84,15 +66,6 @@ class GQLQueries {
 				userByUserReviewerId {
 					name
 					id
-					commentsByUserId {
-										nodes {
-											movieReviewId
-											id
-											title
-											body
-											
-										}
-									}
     	}
     }
   }
@@ -105,17 +78,6 @@ class GQLQueries {
         currentUser {
     id
     name
-		commentsByUserId {
-			nodes {
-				id
-          title
-          body
-          userByUserId {
-            id
-            name
-          }
-			}
-		}
   }
       }
   """;

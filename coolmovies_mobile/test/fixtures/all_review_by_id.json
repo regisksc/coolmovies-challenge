@@ -10,10 +10,7 @@
           "movieId": "b8d93229-e02a-4060-9370-3e073ada86c3",
           "userByUserReviewerId": {
             "name": "Chrono",
-            "id": "5f1e6707-7c3a-4acd-b11f-fd96096abd5a",
-            "commentsByUserId": {
-              "nodes": []
-            }
+            "id": "5f1e6707-7c3a-4acd-b11f-fd96096abd5a"
           }
         }
       ]

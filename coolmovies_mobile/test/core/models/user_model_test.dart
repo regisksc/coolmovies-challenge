@@ -17,9 +17,6 @@ void main() {
           {
             "id": model.id,
             "name": model.name,
-            "commentsByUserId": {
-              "nodes": model.comments.map((e) => e.toJson).toList(),
-            }
           },
         ),
       );

@@ -4,8 +4,6 @@ import 'package:faker/faker.dart';
 UserModel get mockUserModel => UserModel(
       id: faker.guid.guid(),
       name: faker.person.name(),
-      comments: List<MovieReviewCommentModel>.generate(
-          3, (_) => mockMovieReviewCommentModel),
     );
 
 MovieModel mockMovieModel({bool makeReleaseDateNull = false}) => MovieModel(
@@ -23,14 +21,6 @@ List<MovieModel> mockMovieList() => [
       mockMovieModel(),
       mockMovieModel(),
     ];
-
-MovieReviewCommentModel get mockMovieReviewCommentModel =>
-    MovieReviewCommentModel(
-      movieReviewId: faker.guid.guid(),
-      id: faker.guid.guid(),
-      title: faker.lorem.words(3).join(" "),
-      body: faker.lorem.sentence(),
-    );
 
 MovieReviewModel get mockMovieReviewModel => MovieReviewModel(
       title: 'a review title',
