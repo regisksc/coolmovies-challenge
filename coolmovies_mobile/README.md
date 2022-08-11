@@ -37,12 +37,9 @@ to run integration tests run
 - add change user ability
 - add golden tests
 - raise test coverage
+```
 
 ## Original challenge description:
-
-.
-
-```
 
 You have to add the cool movies review feature to the existing `coolmovies-mobile`.
 
@@ -68,7 +65,3 @@ For your solution to be accepted it is required that your application is able to
 Anything else is up to you (animations, assets, 3rd party dependencies, etc). We will consider all your additions so don't stick to the minimum!
 
 Good luck!
-
-```
-
-```
