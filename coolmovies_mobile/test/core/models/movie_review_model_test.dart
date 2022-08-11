@@ -33,13 +33,15 @@ void main() {
       // Arrange
       final model = mockMovieReviewModel;
       // Act
-      final newModel = model.copyWith(id: faker.guid.guid());
+      final newModelWithId = model.copyWith(id: faker.guid.guid());
+      final newModelWithNoId = model.copyWith();
       // Assert
-      expect(model.id, isNot(newModel.id));
-      expect(model.createdBy, equals(newModel.createdBy));
-      expect(model.body, equals(newModel.body));
-      expect(model.title, equals(newModel.title));
-      expect(model.rating, equals(newModel.rating));
+      expect(model.id, isNot(newModelWithId.id));
+      expect(model.id, equals(newModelWithNoId.id));
+      expect(model.createdBy, equals(newModelWithId.createdBy));
+      expect(model.body, equals(newModelWithId.body));
+      expect(model.title, equals(newModelWithId.title));
+      expect(model.rating, equals(newModelWithId.rating));
     },
   );
 }
